@@ -22,6 +22,8 @@ ChartJS.register(
   Legend
 );
 
+const useESP = () => {}
+
 const App: React.FC = () => {
   const [speed, setSpeed] = useState('');
   const [duration, setDuration] = useState('');
