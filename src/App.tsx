@@ -62,7 +62,7 @@ const App: React.FC = () => {
   const dataQueue = useRef<any[]>([]);
 
   useEffect(() => {
-    const ws = new WebSocket('ws://192.168.0.150:8080');
+    const ws = new WebSocket('ws://172.20.10.2:8080');
     setSocket(ws);
 
     return () => {
