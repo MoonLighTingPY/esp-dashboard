@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { Button, Container, TextField, Box, Grid } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+import { Button, Container, TextField, Box, Grid, Typography } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -48,6 +48,16 @@ const timePresets = [
 
 const App = () => {
   const chartRef = useRef(null);
+  const [stats, setStats] = useState({
+    thrustMax: 0,
+    thrustMin: Infinity,
+    torqueMax: 0,
+    torqueMin: Infinity,
+    voltageMax: 0,
+    voltageMin: Infinity,
+    currentMax: 0,
+    currentMin: Infinity,
+  });
 
   const {
     duration,
@@ -92,6 +102,18 @@ const App = () => {
       }
 
       dataQueue.current.push(parsed.data);
+
+      // Update the stats for max and min values
+      setStats((prevStats) => ({
+        thrustMax: Math.max(prevStats.thrustMax, parsed.data.thrust),
+        thrustMin: Math.min(prevStats.thrustMin, parsed.data.thrust),
+        torqueMax: Math.max(prevStats.torqueMax, parsed.data.torque),
+        torqueMin: Math.min(prevStats.torqueMin, parsed.data.torque),
+        voltageMax: Math.max(prevStats.voltageMax, parsed.data.voltage),
+        voltageMin: Math.min(prevStats.voltageMin, parsed.data.voltage),
+        currentMax: Math.max(prevStats.currentMax, parsed.data.current),
+        currentMin: Math.min(prevStats.currentMin, parsed.data.current),
+      }));
     };
   }, [socket]);
 
@@ -117,8 +139,6 @@ const App = () => {
       });
       return acc;
     }, {});
-
-    console.log(averages);
 
     Object.keys(averages).forEach((key) => {
       averages[key] =
@@ -159,12 +179,30 @@ const App = () => {
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+
+    // Add text for all-time stats
+    const statsText = `Thrust Max: ${stats.thrustMax} Min: ${stats.thrustMin}
+    Torque Max: ${stats.torqueMax} Min: ${stats.torqueMin}
+    Voltage Max: ${stats.voltageMax} Min: ${stats.voltageMin}
+    Current Max: ${stats.currentMax} Min: ${stats.currentMin}`;
+
+    pdf.text(statsText, 10, pdfHeight + 20);
+
     pdf.save("chart.pdf");
   };
 
   return (
     <Container>
       <Box my={4}>
+        <Typography variant="h6" align="center" gutterBottom>
+          Statistics
+        </Typography>
+        <Typography variant="body1" align="center" gutterBottom>
+          Thrust Max: {stats.thrustMax} Min: {stats.thrustMin} |
+          Torque Max: {stats.torqueMax} Min: {stats.torqueMin} |
+          Voltage Max: {stats.voltageMax} Min: {stats.voltageMin} |
+          Current Max: {stats.currentMax} Min: {stats.currentMin}
+        </Typography>
         <div ref={chartRef}>
           <Line data={data} options={{ animation: false }} />
         </div>
