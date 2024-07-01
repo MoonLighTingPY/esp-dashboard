@@ -50,14 +50,17 @@ const App = () => {
   const chartRef = useRef(null);
   const [stats, setStats] = useState({
     thrustMax: 0,
-    thrustMin: Infinity,
+    thrustMin: 0,
     torqueMax: 0,
-    torqueMin: Infinity,
+    torqueMin: 0,
     voltageMax: 0,
-    voltageMin: Infinity,
+    voltageMin: 0,
     currentMax: 0,
-    currentMin: Infinity,
+    currentMin: 0,
   });
+  const [motorModel, setMotorModel] = useState("");
+  const [propellerModel, setPropellerModel] = useState("");
+  const [isValidInputs, setIsValidInputs] = useState(false);
 
   const {
     duration,
@@ -124,6 +127,10 @@ const App = () => {
     return () => clearInterval(intervalId);
   }, [startTime]);
 
+  useEffect(() => {
+    setIsValidInputs(!!speed && !!duration && !!motorModel && !!propellerModel);
+  }, [speed, duration, motorModel, propellerModel]);
+
   const refreshGraphData = () => {
     if (dataQueue.current.length <= 0) return;
 
@@ -155,16 +162,14 @@ const App = () => {
     const minutes = addZero(Math.floor(timeElapsedInSeconds / 60));
     const seconds = addZero(timeElapsedInSeconds % 60);
 
-    setData((prevData) => {
-      return {
-        ...prevData,
-        labels: [...prevData.labels, `${minutes}:${seconds}`],
-        datasets: prevData.datasets.map((dataset, index) => ({
-          ...dataset,
-          data: [...dataset.data, averages[Object.keys(averages)[index]]],
-        })),
-      };
-    });
+    setData((prevData) => ({
+      ...prevData,
+      labels: [...prevData.labels, `${minutes}:${seconds}`],
+      datasets: prevData.datasets.map((dataset, index) => ({
+        ...dataset,
+        data: [...dataset.data, averages[Object.keys(averages)[index]]],
+      })),
+    }));
   };
 
   const handleSaveAsPDF = async () => {
@@ -178,15 +183,24 @@ const App = () => {
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
+    // Add chart image to PDF
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
 
-    // Add text for all-time stats
-    const statsText = `Thrust Max: ${stats.thrustMax} Min: ${stats.thrustMin}
-    Torque Max: ${stats.torqueMax} Min: ${stats.torqueMin}
-    Voltage Max: ${stats.voltageMax} Min: ${stats.voltageMin}
-    Current Max: ${stats.currentMax} Min: ${stats.currentMin}`;
+    // Add stats to PDF
+    const statsText = `THRUST Max: ${stats.thrustMax} Min: ${stats.thrustMin}
+    TOQUE Max: ${stats.torqueMax} Min: ${stats.torqueMin}
+    VOLTAGE Max: ${stats.voltageMax} Min: ${stats.voltageMin}
+    CURRENT Max: ${stats.currentMax} Min: ${stats.currentMin}`;
 
-    pdf.text(statsText, 10, pdfHeight + 20);
+    pdf.text(statsText, 10, pdfHeight + 10);
+
+    // Add input values to PDF
+    const inputsText = `
+    Speed: ${speed}
+    Motor Model: ${motorModel}
+    Propeller Model: ${propellerModel}`;
+
+    pdf.text(inputsText, 10, pdfHeight + 30);
 
     pdf.save("chart.pdf");
   };
@@ -194,14 +208,11 @@ const App = () => {
   return (
     <Container>
       <Box my={4}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Statistics
-        </Typography>
-        <Typography variant="body1" align="center" gutterBottom>
-          Thrust Max: {stats.thrustMax} Min: {stats.thrustMin} |
-          Torque Max: {stats.torqueMax} Min: {stats.torqueMin} |
-          Voltage Max: {stats.voltageMax} Min: {stats.voltageMin} |
-          Current Max: {stats.currentMax} Min: {stats.currentMin}
+        <Typography variant="h6" align="center">
+          THRUST Max: {stats.thrustMax} Min: {stats.thrustMin} | 
+          TORQUE Max: {stats.torqueMax} Min: {stats.torqueMin} | 
+          VOLTAGE Max: {stats.voltageMax} Min: {stats.voltageMin} | 
+          CURRENT Max: {stats.currentMax} Min: {stats.currentMin}
         </Typography>
         <div ref={chartRef}>
           <Line data={data} options={{ animation: false }} />
@@ -209,7 +220,7 @@ const App = () => {
       </Box>
       <Box my={4}>
         <Grid container spacing={2} columns={12}>
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <TextField
               label="Speed"
               variant="outlined"
@@ -221,7 +232,7 @@ const App = () => {
               disabled={isTestRunning}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <TextField
               label="Duration (seconds)"
               variant="outlined"
@@ -235,7 +246,7 @@ const App = () => {
               disabled={isTestRunning}
             />
           </Grid>
-          <Grid item xs={4} spacing={1} container sx={{ pb: 3 }}>
+          <Grid item xs={3} spacing={2} container sx={{ pb: 3 }}>
             {timePresets.map((btn, index) => (
               <Button
                 variant="text"
@@ -243,7 +254,7 @@ const App = () => {
                 key={index}
                 onClick={() => setDuration((prev) => (prev += btn.value))}
                 sx={{
-                  mt: 2,
+                  mt: 3,
                   height: "100%",
                 }}
               >
@@ -251,14 +262,33 @@ const App = () => {
               </Button>
             ))}
           </Grid>
-        </Grid>
-        <Grid container spacing={2} columns={4}>
-          <Grid item xs={1}>
+          <Grid item xs={2.5}>
+            <TextField
+              label="Motor Model"
+              variant="outlined"
+              value={motorModel}
+              onChange={(e) => setMotorModel(e.target.value)}
+              fullWidth
+              margin="normal"
+            />
+          </Grid>
+          <Grid item xs={2.5}>
+            <TextField
+              label="Propeller Model"
+              variant="outlined"
+              value={propellerModel}
+              onChange={(e) => setPropellerModel(e.target.value)}
+              fullWidth
+              margin="normal"
+            />
+          </Grid>
+          
+          <Grid item xs={3}>
             <Button
               variant="contained"
               color="primary"
               onClick={handleStartReadings}
-              disabled={!speed || !duration || isTestRunning}
+              disabled={!isValidInputs || isTestRunning}
               fullWidth
               sx={{
                 mt: 2,
@@ -269,7 +299,7 @@ const App = () => {
               {isTestRunning ? "Test (Active)" : "Test"}
             </Button>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={3}>
             <Button
               variant="contained"
               color="secondary"
@@ -280,7 +310,7 @@ const App = () => {
               Stop
             </Button>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={3}>
             <Button
               variant="contained"
               color="warning"
@@ -291,10 +321,10 @@ const App = () => {
               Clear Graph
             </Button>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={3}>
             <Button
-              variant="contained"
-              color="success"
+              variant="outlined"
+              color="primary"
               onClick={handleSaveAsPDF}
               fullWidth
               sx={{ mt: 2 }}
