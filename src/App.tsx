@@ -64,7 +64,7 @@ const App = () => {
 
   // Connect to the WebSocket server
   useEffect(() => {
-    const ws = new WebSocket("ws://172.20.10.150:8080");
+    const ws = new WebSocket("ws://192.168.0.150:8080");
     setSocket(ws);
 
     return () => {
@@ -109,10 +109,11 @@ const App = () => {
         if (!acc[key]) {
           acc[key] = [];
         }
+        console.log(`${key}:`, acc[key]); // Add this line for debugging
         acc[key].push(curr[key]);
       });
       return acc;
-    });
+    }, {});
 
     console.log(averages);
 
