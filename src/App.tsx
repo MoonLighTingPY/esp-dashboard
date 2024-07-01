@@ -93,7 +93,7 @@ const App = () => {
 
   // Refresh the graph data every 100ms
   useEffect(() => {
-    const intervalId = setInterval(refreshGraphData, 100);
+    const intervalId = setInterval(refreshGraphData, 0);
 
     return () => clearInterval(intervalId);
   }, [startTime]);
@@ -147,7 +147,7 @@ const App = () => {
   return (
     <Container>
       <Box my={4}>
-        <Line data={data} />
+        <Line data={data} options={{ animation: false }} />
       </Box>
       <Box my={4}>
         <Grid container spacing={2} columns={12}>
