@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Button, Container, TextField, Box, Grid } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import {
@@ -11,6 +11,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 import { dataSchema, useESP } from "./useESP";
 
 ChartJS.register(
@@ -45,6 +47,8 @@ const timePresets = [
 ];
 
 const App = () => {
+  const chartRef = useRef(null);
+
   const {
     duration,
     socket,
@@ -93,7 +97,7 @@ const App = () => {
 
   // Refresh the graph data every 100ms
   useEffect(() => {
-    const intervalId = setInterval(refreshGraphData, 0);
+    const intervalId = setInterval(refreshGraphData, 100);
 
     return () => clearInterval(intervalId);
   }, [startTime]);
@@ -109,7 +113,6 @@ const App = () => {
         if (!acc[key]) {
           acc[key] = [];
         }
-        console.log(`${key}:`, acc[key]); // Add this line for debugging
         acc[key].push(curr[key]);
       });
       return acc;
@@ -144,10 +147,27 @@ const App = () => {
     });
   };
 
+  const handleSaveAsPDF = async () => {
+    const chartElement = chartRef.current;
+    if (!chartElement) return;
+
+    const canvas = await html2canvas(chartElement);
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF();
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("chart.pdf");
+  };
+
   return (
     <Container>
       <Box my={4}>
-        <Line data={data} options={{ animation: false }} />
+        <div ref={chartRef}>
+          <Line data={data} options={{ animation: false }} />
+        </div>
       </Box>
       <Box my={4}>
         <Grid container spacing={2} columns={12}>
@@ -194,7 +214,7 @@ const App = () => {
             ))}
           </Grid>
         </Grid>
-        <Grid container spacing={2} columns={3}>
+        <Grid container spacing={2} columns={4}>
           <Grid item xs={1}>
             <Button
               variant="contained"
@@ -232,7 +252,17 @@ const App = () => {
             >
               Clear Graph
             </Button>
-            '
+          </Grid>
+          <Grid item xs={1}>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={handleSaveAsPDF}
+              fullWidth
+              sx={{ mt: 2 }}
+            >
+              Save as PDF
+            </Button>
           </Grid>
         </Grid>
       </Box>
