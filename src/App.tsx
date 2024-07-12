@@ -28,27 +28,23 @@ ChartJS.register(
 const addZero = (num: number) => (num < 10 ? `0${num}` : num);
 
 const timePresets = [
-  {
-    label: "+5s",
-    value: 5,
-  },
-  {
-    label: "+15s",
-    value: 15,
-  },
-  {
-    label: "+30s",
-    value: 30,
-  },
-  {
-    label: "+1m",
-    value: 60,
-  },
+  { label: "+5s", value: 5 },
+  { label: "+15s", value: 15 },
+  { label: "+30s", value: 30 },
+  { label: "+1m", value: 60 },
+];
+
+const speedPresets = [
+  { label: "+50", value: 50 },
+  { label: "-50", value: -50 },
+  { label: "+100", value: 100 },
+  { label: "-100", value: -100 },
 ];
 
 const App = () => {
   const chartRef = useRef(null);
   const [stats, setStats] = useState({
+    
     thrustMax: 0,
     thrustMin: 0,
     torqueMax: 0,
@@ -79,9 +75,10 @@ const App = () => {
     data,
   } = useESP();
 
+
   // Connect to the WebSocket server
   useEffect(() => {
-    const ws = new WebSocket("ws://esp32-enginetester:8080");
+    const ws = new WebSocket("ws://esp32-motortester:8080");
     setSocket(ws);
 
     return () => {
@@ -149,8 +146,7 @@ const App = () => {
 
     Object.keys(averages).forEach((key) => {
       averages[key] =
-        averages[key].reduce((a: number, b: number) => a + b, 0) /
-        averages[key].length;
+        averages[key].reduce((a: any, b: any) => a + b, 0) / averages[key].length;
     });
 
     const currentTime = new Date().getTime();
@@ -188,7 +184,7 @@ const App = () => {
 
     // Add stats to PDF
     const statsText = `THRUST Max: ${stats.thrustMax} Min: ${stats.thrustMin}
-    TOQUE Max: ${stats.torqueMax} Min: ${stats.torqueMin}
+    TORQUE Max: ${stats.torqueMax} Min: ${stats.torqueMin}
     VOLTAGE Max: ${stats.voltageMax} Min: ${stats.voltageMin}
     CURRENT Max: ${stats.currentMax} Min: ${stats.currentMin}`;
 
@@ -205,133 +201,200 @@ const App = () => {
     pdf.save("chart.pdf");
   };
 
+  const handleConfigWifi = () => {
+    window.location.href = "http://esp32-motortester/config";
+  };
+
+  const timeRemaining = Math.max(0, duration - Math.floor((Date.now() - startTime!) / 1000));
+
   return (
-    <Container>
-      <Box my={4}>
-        <Typography variant="h6" align="center">
-          THRUST Max: {stats.thrustMax} Min: {stats.thrustMin} | 
-          TORQUE Max: {stats.torqueMax} Min: {stats.torqueMin} | 
-          VOLTAGE Max: {stats.voltageMax} Min: {stats.voltageMin} | 
-          CURRENT Max: {stats.currentMax} Min: {stats.currentMin}
-        </Typography>
-        <div ref={chartRef}>
-          <Line data={data} options={{ animation: false }} />
-        </div>
-      </Box>
-      <Box my={4}>
-        <Grid container spacing={2} columns={12}>
-          <Grid item xs={2}>
-            <TextField
-              label="Speed"
-              variant="outlined"
-              type="number"
-              value={speed}
-              onChange={(e) => setSpeed(+e.target.value)}
+    <Container sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+      <Box sx={{ display: "flex", flexDirection: "row", flexGrow: 1 }}>
+        {/* Chart */}
+        <Box sx={{ flex: 3 }}>
+          <div ref={chartRef} style={{ height: "100%" }}>
+            <Line data={data} options={{ animation: false }} />
+          </div>
+        </Box>
+        {/* Right side content: Statistics, buttons, and controls */}
+        <Box sx={{ flex: 1, ml: 2, display: "flex", flexDirection: "column" }}>
+          {/* Statistics */}
+          <Box sx={{ mb: 2, overflowY: "auto" }}>
+            <Typography variant="body1">
+              THRUST Max: {stats.thrustMax} Min: {stats.thrustMin}
+            </Typography>
+            <Typography variant="body1">
+              TORQUE Max: {stats.torqueMax} Min: {stats.torqueMin}
+            </Typography>
+            <Typography variant="body1">
+              VOLTAGE Max: {stats.voltageMax} Min: {stats.voltageMin}
+            </Typography>
+            <Typography variant="body1">
+              CURRENT Max: {stats.currentMax} Min: {stats.currentMin}
+            </Typography>
+            <Typography variant="body1">
+              Speed: {speed}
+            </Typography>
+            <Typography variant="body1">
+              Motor Model: {motorModel}
+            </Typography>
+            <Typography variant="body1">
+              Propeller Model: {propellerModel}
+            </Typography>
+          </Box>
+          {/* Save as PDF and Config Wi-Fi buttons */}
+          <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+            <Button
+              variant="contained"
+              color="info"
+              onClick={handleSaveAsPDF}
               fullWidth
-              margin="normal"
-              disabled={isTestRunning}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              label="Duration (seconds)"
-              variant="outlined"
-              type="number"
-              value={duration}
-              onChange={(e) =>
-                setDuration(+e.target.value >= 0 ? +e.target.value : 0)
-              }
+              size="small"
+            >
+              Save as PDF
+            </Button>
+            <Button
+              variant="contained"
+              color="info"
+              onClick={handleConfigWifi}
               fullWidth
-              margin="normal"
-              disabled={isTestRunning}
-            />
-          </Grid>
-          <Grid item xs={3} spacing={2} container sx={{ pb: 3 }}>
-            {timePresets.map((btn, index) => (
-              <Button
-                variant="text"
-                disabled={isTestRunning}
-                key={index}
-                onClick={() => setDuration((prev) => (prev += btn.value))}
-                sx={{
-                  mt: 3,
-                  height: "100%",
-                }}
-              >
-                {btn.label}
-              </Button>
-            ))}
-          </Grid>
-          <Grid item xs={2.5}>
-            <TextField
-              label="Motor Model"
-              variant="outlined"
-              value={motorModel}
-              onChange={(e) => setMotorModel(e.target.value)}
+              size="small"
+            >
+              Config Wi-Fi
+            </Button>
+          </Box>
+          {/* Clear Graph button and Duration Countdown */}
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Button
+              variant="contained"
+              color="warning"
+              onClick={handleClearGraph}
               fullWidth
-              margin="normal"
-            />
-          </Grid>
-          <Grid item xs={2.5}>
-            <TextField
-              label="Propeller Model"
-              variant="outlined"
-              value={propellerModel}
-              onChange={(e) => setPropellerModel(e.target.value)}
-              fullWidth
-              margin="normal"
-            />
-          </Grid>
-          
-          <Grid item xs={3}>
+              size="small"
+            >
+              Clear Graph
+            </Button>
+            <Typography variant="body1" sx={{ mt: 1 }}>
+              {`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(timeRemaining % 60)}`}
+            </Typography>
+          </Box>
+          {/* Test Button */}
+          <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
             <Button
               variant="contained"
               color="primary"
               onClick={handleStartReadings}
               disabled={!isValidInputs || isTestRunning}
               fullWidth
-              sx={{
-                mt: 2,
-                mr: 1,
-                bgcolor: isTestRunning ? "success.dark" : "primary.main",
-              }}
+              size="small"
             >
               {isTestRunning ? "Test (Active)" : "Test"}
             </Button>
-          </Grid>
-          <Grid item xs={3}>
+          
+          
+          {/* Stop Button */}
+          
             <Button
               variant="contained"
-              color="secondary"
+              color="error"
               onClick={handleStopReadings}
               fullWidth
-              sx={{ mt: 2, mr: 1 }}
+              size="small"
             >
               Stop
             </Button>
-          </Grid>
-          <Grid item xs={3}>
-            <Button
-              variant="contained"
-              color="warning"
-              onClick={handleClearGraph}
-              fullWidth
-              sx={{ mt: 2 }}
-            >
-              Clear Graph
-            </Button>
-          </Grid>
-          <Grid item xs={3}>
-            <Button
+          </Box>
+        </Box>
+      </Box>
+      
+      <Box sx={{ mt: 2 }}>
+        
+      <Grid container spacing={1} alignItems="center" sx={{ marginBottom: 2 }}>
+          {/* Motor Model Input */}
+          <Grid item xs={2}>
+            <TextField
+              label="Motor Model"
               variant="outlined"
-              color="primary"
-              onClick={handleSaveAsPDF}
+              value={motorModel}
+              onChange={(e) => setMotorModel(e.target.value)}
               fullWidth
-              sx={{ mt: 2 }}
-            >
-              Save as PDF
-            </Button>
+              size="small"
+              margin="none"
+              disabled={isTestRunning}
+            />
           </Grid>
+          {/* Speed Input and Presets */}
+          
+          <Grid item xs={1}>
+            <TextField
+              label="Speed"
+              variant="outlined"
+              value={speed}
+              onChange={(e) => setSpeed(Number(e.target.value))}
+              fullWidth
+              size="small"
+              margin="none"
+              disabled={isTestRunning}
+            />
+          </Grid>
+          <Grid item xs={2.75} container justifyContent="space-between" alignItems="center">
+            {speedPresets.map((btn, index) => (
+              <Button
+                key={index}
+                variant="outlined"
+                disabled={isTestRunning}
+                onClick={() => setSpeed((prev) => prev + btn.value)}
+                size="small"
+              >
+                {btn.label}
+              </Button>
+            ))}
+          </Grid>
+        </Grid>
+        <Grid container spacing={1} alignItems="center">
+          {/* Propeller Model Input */}
+          <Grid item xs={2}>
+            <TextField
+              label="Propeller Model"
+              variant="outlined"
+              value={propellerModel}
+              onChange={(e) => setPropellerModel(e.target.value)}
+              fullWidth
+              size="small"
+              margin="none"
+              disabled={isTestRunning}
+            />
+          </Grid>
+          
+          {/* Duration Input and Presets */}
+          <Grid item xs={1}>
+            <TextField
+              label="Duration"
+              variant="outlined"
+              value={duration}
+              onChange={(e) => setDuration(Number(e.target.value))}
+              fullWidth
+              size="small"
+              margin="none"
+              disabled={isTestRunning}
+            />
+          </Grid>
+          <Grid item xs={2.75} container justifyContent="space-between" alignItems="center">
+            {timePresets.map((btn, index) => (
+              <Button
+                key={index}
+                variant="outlined"
+                disabled={isTestRunning}
+                onClick={() => setDuration((prev) => prev + btn.value)}
+                size="small"
+              >
+                {btn.label}
+              </Button>
+            ))}
+          </Grid>
+          
+          
+          
         </Grid>
       </Box>
     </Container>
