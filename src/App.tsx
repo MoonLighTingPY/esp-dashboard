@@ -124,6 +124,7 @@ const App = () => {
     return () => clearInterval(intervalId);
   }, [startTime]);
 
+  
   useEffect(() => {
     setIsValidInputs(!!speed && !!duration && !!motorModel && !!propellerModel);
   }, [speed, duration, motorModel, propellerModel]);

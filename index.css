@@ -28,9 +28,8 @@ body {
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  min-width: 100vw; /* Ensure full viewport width */
+  min-width: 320px;
   min-height: 100vh; /* Ensure full viewport height */
-  overflow: hidden; /* Prevent scroll bars */
 }
 
 
