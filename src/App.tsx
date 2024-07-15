@@ -284,7 +284,7 @@ const App = () => {
           <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
             <Button
               variant="contained"
-              color="primary"
+              color="success"
               onClick={handleStartReadings}
               disabled={!isValidInputs || isTestRunning}
               fullWidth
@@ -339,7 +339,7 @@ const App = () => {
               disabled={isTestRunning}
             />
           </Grid>
-          <Grid item xs={2.75} container justifyContent="space-between" alignItems="center">
+          <Grid item xs={2.75} container alignItems="center">
             {speedPresets.map((btn, index) => (
               <Button
                 key={index}
@@ -381,7 +381,7 @@ const App = () => {
               disabled={isTestRunning}
             />
           </Grid>
-          <Grid item xs={2.75} container justifyContent="space-between" alignItems="center">
+          <Grid item xs={2.75} container  alignItems="center">
             {timePresets.map((btn, index) => (
               <Button
                 key={index}
