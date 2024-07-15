@@ -210,7 +210,7 @@ const App = () => {
   const timeRemaining = Math.max(0, duration - Math.floor((Date.now() - startTime!) / 1000));
 
   return (
-    <Container sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
       <Box sx={{ display: "flex", flexDirection: "row", flexGrow: 1 }}>
         {/* Chart */}
         <Box sx={{ flex: 3 }}>
@@ -399,7 +399,7 @@ const App = () => {
           
         </Grid>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
