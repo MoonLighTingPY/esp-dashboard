@@ -1,6 +1,6 @@
 import './index.css'
 import { useEffect, useRef, useState } from "react";
-import { Button, Container, TextField, Box, Grid, Typography } from "@mui/material";
+import { Button, TextField, Box, Grid, Typography } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -203,6 +203,7 @@ const App = () => {
     pdf.save("chart.pdf");
   };
 
+  
   const handleConfigWifi = () => {
     window.location.href = "http://esp32-motortester/config";
   };
@@ -212,11 +213,14 @@ const App = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
       <Box sx={{ display: "flex", flexDirection: "row", flexGrow: 1 }}>
+        
         {/* Chart */}
         <Box sx={{ flex: 3 }}>
-          <div ref={chartRef} style={{ height: "100%" }}>
-            <Line data={data} options={{ animation: false }} />
+          <div className="chart-container" ref={chartRef} style={{ height: "100%", width: "100%", position: "relative"}}>
+            <Line data={data} options={{ animation: false, 
+responsive: true, maintainAspectRatio: false, }} />
           </div>
+          
         </Box>
         {/* Right side content: Statistics, buttons, and controls */}
         <Box sx={{ flex: 1, ml: 2, display: "flex", flexDirection: "column" }}>
@@ -307,10 +311,8 @@ const App = () => {
             </Button>
           </Box>
         </Box>
-      </Box>
-      
-      <Box sx={{ mt: 2 }}>
         
+      </Box>
       <Grid container spacing={1} alignItems="center" sx={{ marginBottom: 2 }}>
           {/* Motor Model Input */}
           <Grid item xs={2}>
@@ -398,7 +400,7 @@ const App = () => {
           
           
         </Grid>
-      </Box>
+      
     </Box>
   );
 };

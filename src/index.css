@@ -13,7 +13,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.chart-container {
+  height: 100%;  /* Ensure the chart container takes full height of its parent */
+  width: 100%;   /* Ensure the chart container takes full width of its parent */
+  position: relative;  /* Ensure the chart container uses relative positioning */
+}
 
+/* Optional: Add styles for the chart canvas itself */
+.chart-container canvas {
+  width: 100% !important;  /* Ensure the canvas takes full width of its container */
+  height: auto !important; /* Allow the canvas to adjust height as needed */
+}
 a {
   font-weight: 500;
   color: #646cff;
