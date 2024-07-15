@@ -207,6 +207,9 @@ const App = () => {
   const handleConfigWifi = () => {
     window.location.href = "http://esp32-motortester/config";
   };
+  const handleUpgradeOta = () => {
+    window.location.href = "http://esp32-motortester/upgrade_ota";
+  };
 
   const timeRemaining = Math.max(0, duration - Math.floor((Date.now() - startTime!) / 1000));
 
@@ -254,7 +257,7 @@ const App = () => {
               Propeller Model: {propellerModel}
             </Typography>
           </Box>
-          {/* Save as PDF and Config Wi-Fi buttons */}
+          {/* Save as PDF, Config Wi-Fi and OTA buttons */}
           <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
             <Button
               variant="contained"
@@ -273,6 +276,15 @@ const App = () => {
               size="small"
             >
               Config Wi-Fi
+            </Button>
+            <Button
+              variant="contained"
+              color="info"
+              onClick={handleUpgradeOta}
+              fullWidth
+              size="small"
+            >
+              OTA upgrade
             </Button>
           </Box>
           {/* Clear Graph button and Duration Countdown */}

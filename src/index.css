@@ -20,6 +20,11 @@
   max-height: 100vh; /* Limit maximum height to 100% of viewport height */
   position: relative;
 }
+@media (max-width: 768px) {
+  .chart-container {
+    height: 300px;  /* Adjust height for smaller screens */
+  }
+}
 
 /* Optional: Add styles for the chart canvas itself */
 .chart-container canvas {
