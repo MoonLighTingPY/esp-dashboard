@@ -216,10 +216,16 @@ const App = () => {
         
         {/* Chart */}
         <Box sx={{ flex: 3 }}>
-          <div className="chart-container" ref={chartRef} style={{ height: "100%", width: "100%", position: "relative"}}>
-            <Line data={data} options={{ animation: false, 
-responsive: true, maintainAspectRatio: false, }} />
-          </div>
+        <div className="chart-container" ref={chartRef}>
+    <Line 
+      data={data} 
+      options={{ 
+        animation: false, 
+        responsive: true, 
+        maintainAspectRatio: false 
+      }} 
+    />
+  </div>
           
         </Box>
         {/* Right side content: Statistics, buttons, and controls */}

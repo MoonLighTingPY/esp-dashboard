@@ -14,9 +14,11 @@
 }
 
 .chart-container {
-  height: 100%;  /* Ensure the chart container takes full height of its parent */
-  width: 100%;   /* Ensure the chart container takes full width of its parent */
-  position: relative;  /* Ensure the chart container uses relative positioning */
+  height: 100%;
+  width: 100%;
+  max-width: 100%;   /* Limit maximum width to 100% of the parent container */
+  max-height: 100vh; /* Limit maximum height to 100% of viewport height */
+  position: relative;
 }
 
 /* Optional: Add styles for the chart canvas itself */
