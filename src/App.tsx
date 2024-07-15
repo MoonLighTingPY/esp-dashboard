@@ -1,3 +1,4 @@
+import './index.css'
 import { useEffect, useRef, useState } from "react";
 import { Button, Container, TextField, Box, Grid, Typography } from "@mui/material";
 import { Line } from "react-chartjs-2";
