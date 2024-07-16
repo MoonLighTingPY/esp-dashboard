@@ -185,21 +185,31 @@ const App = () => {
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
 
     // Add stats to PDF
-    const statsText = `THRUST Max: ${stats.thrustMax} Min: ${stats.thrustMin}
+    const statsText = 
+    `
+    Stats:
+
+    THRUST Max: ${stats.thrustMax} Min: ${stats.thrustMin}
     TORQUE Max: ${stats.torqueMax} Min: ${stats.torqueMin}
     VOLTAGE Max: ${stats.voltageMax} Min: ${stats.voltageMin}
-    CURRENT Max: ${stats.currentMax} Min: ${stats.currentMin}`;
+    CURRENT Max: ${stats.currentMax} Min: ${stats.currentMin}
+
+    `;
+    
     
 
-    pdf.text(statsText, 10, pdfHeight + 10);
+    pdf.text(statsText, 120, pdfHeight + 10);
 
     // Add input values to PDF
     const inputsText = `
+    Test info:
+
+    Duration: ${Math.floor(duration / 60)} minutes ${addZero(duration % 60)} seconds
     Speed: ${speed}
     Motor Model: ${motorModel}
     Propeller Model: ${propellerModel}`;
 
-    pdf.text(inputsText, 10, pdfHeight + 30);
+    pdf.text(inputsText, 10, pdfHeight + 10);
 
     pdf.save("chart.pdf");
   };
@@ -256,6 +266,9 @@ const App = () => {
     </Typography>
     <Typography variant="body1">
       <span style={{ fontWeight: "bold" }}>Propeller Model:</span> {propellerModel}
+    </Typography>
+    <Typography variant="body1">
+    <span style={{ fontWeight: "bold" }}>Duration:</span>{" "}<span style={{ fontWeight: "bold" }}>{duration} seconds</span> 
     </Typography>
   </Box>
           {/* Save as PDF, Config Wi-Fi and OTA buttons */}
