@@ -189,6 +189,7 @@ const App = () => {
     TORQUE Max: ${stats.torqueMax} Min: ${stats.torqueMin}
     VOLTAGE Max: ${stats.voltageMax} Min: ${stats.voltageMin}
     CURRENT Max: ${stats.currentMax} Min: ${stats.currentMin}`;
+    
 
     pdf.text(statsText, 10, pdfHeight + 10);
 
@@ -235,28 +236,28 @@ const App = () => {
         <Box sx={{ flex: 1, ml: 2, display: "flex", flexDirection: "column" }}>
           {/* Statistics */}
           <Box sx={{ mb: 2, overflowY: "auto" }}>
-            <Typography variant="body1">
-              THRUST Max: {stats.thrustMax} Min: {stats.thrustMin}
-            </Typography>
-            <Typography variant="body1">
-              TORQUE Max: {stats.torqueMax} Min: {stats.torqueMin}
-            </Typography>
-            <Typography variant="body1">
-              VOLTAGE Max: {stats.voltageMax} Min: {stats.voltageMin}
-            </Typography>
-            <Typography variant="body1">
-              CURRENT Max: {stats.currentMax} Min: {stats.currentMin}
-            </Typography>
-            <Typography variant="body1">
-              Speed: {speed}
-            </Typography>
-            <Typography variant="body1">
-              Motor Model: {motorModel}
-            </Typography>
-            <Typography variant="body1">
-              Propeller Model: {propellerModel}
-            </Typography>
-          </Box>
+    <Typography variant="body1">
+      <span style={{ fontWeight: "bold", fontSize: "2em" }}>THRUST</span> Max: <span style={{ fontWeight: "bold" }}>{stats.thrustMax}</span> Min: <span style={{ fontWeight: "bold" }}>{stats.thrustMin}</span>
+    </Typography>
+    <Typography variant="body1">
+      <span style={{ fontWeight: "bold", fontSize: "2em" }}>TORQUE</span> Max: <span style={{ fontWeight: "bold" }}>{stats.torqueMax}</span> Min: <span style={{ fontWeight: "bold" }}>{stats.torqueMin}</span>
+    </Typography>
+    <Typography variant="body1">
+      <span style={{ fontWeight: "bold", fontSize: "2em" }}>VOLTAGE</span> Max: <span style={{ fontWeight: "bold" }}>{stats.voltageMax}</span> Min: <span style={{ fontWeight: "bold" }}>{stats.voltageMin}</span>
+    </Typography>
+    <Typography variant="body1">
+      <span style={{ fontWeight: "bold", fontSize: "2em" }}>CURRENT</span> Max: <span style={{ fontWeight: "bold" }}>{stats.currentMax}</span> Min: <span style={{ fontWeight: "bold" }}>{stats.currentMin}</span>
+    </Typography>
+    <Typography variant="body1">
+      <span style={{ fontWeight: "bold" }}>Speed:</span> <span style={{ fontWeight: "bold" }}>{speed}</span>
+    </Typography>
+    <Typography variant="body1">
+      <span style={{ fontWeight: "bold" }}>Motor Model:</span> {motorModel}
+    </Typography>
+    <Typography variant="body1">
+      <span style={{ fontWeight: "bold" }}>Propeller Model:</span> {propellerModel}
+    </Typography>
+  </Box>
           {/* Save as PDF, Config Wi-Fi and OTA buttons */}
           <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
             <Button
