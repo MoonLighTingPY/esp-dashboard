@@ -42,7 +42,7 @@ const initData = {
 
 export const useESP = () => {
   const [speed, setSpeed] = useState(800);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(5);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [espStateData, updateESPData] = useState(initData);
   const [isTestRunning, setIsTestRunning] = useState(false);
