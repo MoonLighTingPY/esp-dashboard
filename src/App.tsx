@@ -79,7 +79,7 @@ const App = () => {
 
   // Connect to the WebSocket server
   useEffect(() => {
-    const ws = new WebSocket("ws://esp32-motortester:8080");
+    const ws = new WebSocket("ws://esp32-motortester.local:8080");
     setSocket(ws);
 
     return () => {
