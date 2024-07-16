@@ -20,11 +20,35 @@
   max-height: 100vh; /* Limit maximum height to 100% of viewport height */
   position: relative;
 }
-@media (max-width: 768px) {
+@media (max-width: 1024px ) {
+  #root {
+    padding: 10px;
+    scale: 0.5;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  button {
+    padding: 0.4em 0.8em;
+    font-size: 0.9em;
+  }
+
   .chart-container {
-    height: 300px;  /* Adjust height for smaller screens */
+    margin-top: 50px;
+    height: 100%; /* Adjust height for smaller screens */
+    width: 100%;
+  }
+
+  .chart-container canvas {
+    width: auto !important; /* Ensure the canvas takes full width of its container */
+    height: auto !important; /* Allow the canvas to adjust height as needed */
   }
 }
+
+
 
 /* Optional: Add styles for the chart canvas itself */
 .chart-container canvas {

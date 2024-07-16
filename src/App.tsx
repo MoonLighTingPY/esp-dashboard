@@ -216,10 +216,10 @@ const App = () => {
 
   
   const handleConfigWifi = () => {
-    window.location.href = "http://esp32-motortester/config";
+    window.location.href = "http://esp32-motortester.local/config";
   };
   const handleUpgradeOta = () => {
-    window.location.href = "http://esp32-motortester/upgrade_ota";
+    window.location.href = "http://esp32-motortester.local/upgrade_ota";
   };
 
   const timeRemaining = Math.max(0, duration - Math.floor((Date.now() - startTime!) / 1000));
