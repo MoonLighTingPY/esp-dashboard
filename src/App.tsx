@@ -282,24 +282,7 @@ const App = () => {
             >
               Save as PDF
             </Button>
-            <Button
-              variant="contained"
-              color="info"
-              onClick={handleConfigWifi}
-              fullWidth
-              size="small"
-            >
-              Config Wi-Fi
-            </Button>
-            <Button
-              variant="contained"
-              color="info"
-              onClick={handleUpgradeOta}
-              fullWidth
-              size="small"
-            >
-              OTA upgrade
-            </Button>
+          
           </Box>
           {/* Clear Graph button and Duration Countdown */}
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -342,6 +325,12 @@ const App = () => {
               Stop
             </Button>
           </Box>
+          <img
+  src="/images/gear.png"  // Replace with your actual image path
+  alt="Configure WiFi"
+  onClick={handleConfigWifi}
+  style={{ cursor: 'pointer', width: '15%', height: 'auto'}}  // Optional: Add styles as needed
+/>
         </Box>
         
       </Box>
