@@ -243,7 +243,7 @@ const App = () => {
           
         </Box>
         {/* Right side content: Statistics, buttons, and controls */}
-        <Box sx={{ flex: 1, ml: 2, display: "flex", flexDirection: "column" }}>
+        <Box sx={{flex: 1, ml: 2, display: "flex", flexDirection: "column" }}>
           {/* Statistics */}
           <Box sx={{ mb: 2, overflowY: "auto" }}>
     <Typography variant="body1">
@@ -258,17 +258,17 @@ const App = () => {
     <Typography variant="body1">
       <span style={{ fontWeight: "bold", fontSize: "2em" }}>CURRENT</span> Max: <span style={{ fontWeight: "bold" }}>{stats.currentMax}</span> Min: <span style={{ fontWeight: "bold" }}>{stats.currentMin}</span>
     </Typography>
-    <Typography variant="body1">
+    <Typography variant="body1" >
       <span style={{ fontWeight: "bold" }}>Speed:</span> <span style={{ fontWeight: "bold" }}>{speed}</span>
-    </Typography>
-    <Typography variant="body1">
-      <span style={{ fontWeight: "bold" }}>Motor Model:</span> {motorModel}
-    </Typography>
-    <Typography variant="body1">
-      <span style={{ fontWeight: "bold" }}>Propeller Model:</span> {propellerModel}
-    </Typography>
-    <Typography variant="body1">
-    <span style={{ fontWeight: "bold" }}>Duration:</span>{" "}<span style={{ fontWeight: "bold" }}>{duration} seconds</span> 
+      </Typography>
+      <Typography variant="body1" >
+      <span style={{ fontWeight: "bold" }}> Duration:</span>{" "}<span style={{ fontWeight: "bold" }}>{duration} seconds</span>
+      </Typography>
+      <Typography variant="body1" >
+      <span style={{ fontWeight: "bold" }}> Motor Model:</span> {motorModel}
+      </Typography>
+      <Typography variant="body1" >
+      <span style={{ fontWeight: "bold" }}> Propeller Model:</span> {propellerModel}
     </Typography>
   </Box>
           {/* Save as PDF, Config Wi-Fi and OTA buttons */}
@@ -295,48 +295,41 @@ const App = () => {
             >
               Clear Graph
             </Button>
-            <Typography variant="body1" sx={{ mt: 1 }}>
-              {`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(timeRemaining % 60)}`}
-            </Typography>
+            
           </Box>
           {/* Test Button */}
-          <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
-            <Button
-              variant="contained"
-              color="success"
-              onClick={handleStartReadings}
-              disabled={!isValidInputs || isTestRunning}
-              fullWidth
-              size="small"
-            >
-              {isTestRunning ? "Test (Active)" : "Test"}
-            </Button>
-          
-          
-          {/* Stop Button */}
-          
-            <Button
-              variant="contained"
-              color="error"
-              onClick={handleStopReadings}
-              fullWidth
-              size="small"
-            >
-              Stop
-            </Button>
-          </Box>
+          <Box sx={{ display: "flex",flexDirection: "row", alignItems: "center", mt: 2, ml: 2, mr: 1}}>
           <img
+  src="/images/play.ico"  // Replace with your actual image path for Test button
+  alt="Test"
+  onClick={handleStartReadings}
+  style={{ cursor: 'pointer', width: '15%', height: 'auto' }}
+/>
+
+<img
+  src="/images/stop.ico"  // Replace with your actual image path for Stop button
+  alt="Stop"
+  onClick={handleStopReadings}
+  style={{ cursor: 'pointer', width: '15%', height: 'auto'}}  // Example: Adding margin-top
+/>
+<img
   src="/images/gear.png"  // Replace with your actual image path
   alt="Configure WiFi"
   onClick={handleConfigWifi}
   style={{ cursor: 'pointer', width: '15%', height: 'auto'}}  // Optional: Add styles as needed
 />
+<Typography variant="body1" sx={{ ml: 2, fontWeight: 'bold', fontSize: '1.2em', color: '#333', textAlign: 'center' }}>
+  {`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(timeRemaining % 60)}`}
+</Typography>
+          </Box>
+         
         </Box>
         
       </Box>
-      <Grid container spacing={1} alignItems="center" sx={{ marginBottom: 2 }}>
+      <Grid container spacing={2} alignItems="center" sx={{ marginBottom: 2, ml:4 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4.75 }}>
           {/* Motor Model Input */}
-          <Grid item xs={2}>
+          <Grid item xs={12}>
             <TextField
               label="Motor Model"
               variant="outlined"
@@ -348,37 +341,8 @@ const App = () => {
               disabled={isTestRunning}
             />
           </Grid>
-          {/* Speed Input and Presets */}
-          
-          <Grid item xs={1}>
-            <TextField
-              label="Speed"
-              variant="outlined"
-              value={speed}
-              onChange={(e) => setSpeed(Number(e.target.value))}
-              fullWidth
-              size="small"
-              margin="none"
-              disabled={isTestRunning}
-            />
-          </Grid>
-          <Grid item xs={2.75} container alignItems="center">
-            {speedPresets.map((btn, index) => (
-              <Button
-                key={index}
-                variant="outlined"
-                disabled={isTestRunning}
-                onClick={() => setSpeed((prev) => prev + btn.value)}
-                size="small"
-              >
-                {btn.label}
-              </Button>
-            ))}
-          </Grid>
-        </Grid>
-        <Grid container spacing={1} alignItems="center">
           {/* Propeller Model Input */}
-          <Grid item xs={2}>
+          <Grid item xs={12}>
             <TextField
               label="Propeller Model"
               variant="outlined"
@@ -390,9 +354,36 @@ const App = () => {
               disabled={isTestRunning}
             />
           </Grid>
-          
-          {/* Duration Input and Presets */}
-          <Grid item xs={1}>
+          </Box>
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4.75, ml: 1 }}>
+          {/* Speed Input and Presets */}
+            <TextField
+              label="Speed"
+              variant="outlined"
+              value={speed}
+              onChange={(e) => setSpeed(Number(e.target.value))}
+              fullWidth
+              size="small"
+              margin="none"
+              disabled={isTestRunning}
+            />
+          <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>  
+            {speedPresets.map((btn, index) => (
+              <Button
+                key={index}
+                variant="outlined"
+                disabled={isTestRunning}
+                onClick={() => setSpeed((prev) => prev + btn.value)}
+                size="medium"
+              >
+                {btn.label}
+              </Button>
+            ))}
+          </Box>
+          </Box>
+
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4.75, ml: 1 }}>
+          {/* Duration Input and Presets */}       
             <TextField
               label="Duration"
               variant="outlined"
@@ -403,23 +394,21 @@ const App = () => {
               margin="none"
               disabled={isTestRunning}
             />
-          </Grid>
-          <Grid item xs={2.75} container  alignItems="center">
+          
+          <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
             {timePresets.map((btn, index) => (
               <Button
                 key={index}
                 variant="outlined"
                 disabled={isTestRunning}
                 onClick={() => setDuration((prev) => prev + btn.value)}
-                size="small"
+                size="medium"
               >
                 {btn.label}
               </Button>
             ))}
-          </Grid>
-          
-          
-          
+          </Box>
+          </Box>
         </Grid>
       
     </Box>
