@@ -274,48 +274,45 @@ const App = () => {
   </Box>
   </div>
           {/* Buttons */}
-          <div className="section-box">
-          <Box sx={{ display: "flex",flexDirection: "row", alignItems: "center"}}>
-          <img
-            src="/images/play.ico"
-            alt="Test"
-            onClick={handleStartReadings}
-            style={{ cursor: 'pointer', width: '15%', height: 'auto', marginLeft: "45px" }}
-          />
+<div className="section-box">
+  <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 3}}>
+    <img
+      src="/images/play.ico"
+      alt="Test"
+      onClick={handleStartReadings}
+      style={{ cursor: 'pointer', width: '15%', height: 'auto', marginLeft: "5"}}
+    />
 
-          <img
-            src="/images/stop.ico"  
-            alt="Stop"
-            onClick={handleStopReadings}
-            style={{ cursor: 'pointer', width: '15%', height: 'auto'}}  
-          />
-          <img
-            src="/images/gear.ico"  
-            alt="Configure WiFi"
-            onClick={handleConfigWifi}
-            style={{ cursor: 'pointer', width: '15%', height: 'auto'}}  
-          />
-          <img
-              src="/images/clear.ico"  
-              alt="Clear Graph"
-              onClick={handleClearGraph}
-              style={{ cursor: 'pointer', width: '15%', height: 'auto' }}
-          />
-          <img
-            src="/images/pdf.ico" 
-            alt="Save as PDF"
-            onClick={handleSaveAsPDF}
-            style={{ cursor: 'pointer', width: '17%', height: 'auto' }}
-          />
-
-          </Box>
-          <Typography variant="body1" sx={{ ml: 2, fontWeight: 'bold', fontSize: '1.2em', color: '#333', textAlign: 'center' }}>
-            {`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(timeRemaining % 60)}`}
-          </Typography>
-        </div>
-
-        </Box>
-        
+    <img
+      src="/images/stop.ico"
+      alt="Stop"
+      onClick={handleStopReadings}
+      style={{ cursor: 'pointer', width: '15%', height: 'auto' }}
+    />
+    <img
+      src="/images/clear.ico"
+      alt="Clear Graph"
+      onClick={handleClearGraph}
+      style={{ cursor: 'pointer', width: '15%', height: 'auto' }}
+    />
+    <img
+      src="/images/pdf.ico"
+      alt="Save as PDF"
+      onClick={handleSaveAsPDF}
+      style={{ cursor: 'pointer', width: '16%', height: 'auto' }}
+    />
+    <img
+      src="/images/gear.ico"
+      alt="Configure WiFi"
+      onClick={handleConfigWifi}
+      style={{ cursor: 'pointer', width: '15%', height: 'auto' }}
+    />
+  </Box>
+  <Typography variant="body1" sx={{ ml: 2, fontWeight: 'bold', fontSize: '1.2em', color: '#333', textAlign: 'center' }}>
+    {`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(timeRemaining % 60)}`}
+  </Typography>
+</div>
+        </Box>       
       </Box>
       
       <div className="section-box">
