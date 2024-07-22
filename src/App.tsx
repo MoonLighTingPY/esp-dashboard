@@ -16,6 +16,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { dataSchema, useESP } from "./useESP";
 
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -54,7 +55,6 @@ const App = () => {
   });
   const [motorModel, setMotorModel] = useState("");
   const [propellerModel, setPropellerModel] = useState("");
-  const [isValidInputs, setIsValidInputs] = useState(false);
 
   const {
     duration,
@@ -123,10 +123,6 @@ const App = () => {
   }, [startTime]);
 
   
-  useEffect(() => {
-    setIsValidInputs(!!speed && !!duration && !!motorModel && !!propellerModel);
-  }, [speed, duration, motorModel, propellerModel]);
-
   const refreshGraphData = () => {
     if (dataQueue.current.length <= 0) return;
 
@@ -214,9 +210,6 @@ const App = () => {
   
   const handleConfigWifi = () => {
     window.location.href = "http://esp32-motortester.local/config";
-  };
-  const handleUpgradeOta = () => {
-    window.location.href = "http://esp32-motortester.local/upgrade_ota";
   };
 
   const timeRemaining = Math.max(0, duration - Math.floor((Date.now() - startTime!) / 1000));
@@ -323,11 +316,13 @@ const App = () => {
         
       </Box>
       
+      <div className="section-box">
+
       <Grid container spacing={2} alignItems="center" sx={{ marginBottom: 2, ml:4 }}>
         
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4.75 }}>
+      <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", mt: 4.75}}>
           {/* Motor Model Input */}
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{ mr: 1 }}>
             <TextField
               label="Motor Model"
               variant="outlined"
@@ -353,7 +348,7 @@ const App = () => {
             />
           </Grid>
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4.75, ml: 1 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", mt: 4.75, ml: 5 }}>
           {/* Speed Input and Presets */}
             <TextField
               label="Speed"
@@ -372,7 +367,7 @@ const App = () => {
                 variant="outlined"
                 disabled={isTestRunning}
                 onClick={() => setSpeed((prev) => prev + btn.value)}
-                size="small"
+                size="medium"
               >
                 {btn.label}
               </Button>
@@ -383,7 +378,7 @@ const App = () => {
           <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", mt: 4.75, ml: 1 }}>
           {/* Duration Input and Presets */}       
             <TextField
-              label="Duration"
+              label="Duration(seconds)"
               variant="outlined"
               value={duration}
               onChange={(e) => setDuration(Number(e.target.value))}
@@ -408,6 +403,7 @@ const App = () => {
           </Box>
           </Box>
         </Grid>
+        </div>
       
     </Box>
     </div>
