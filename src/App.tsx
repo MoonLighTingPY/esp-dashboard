@@ -29,17 +29,14 @@ ChartJS.register(
 const addZero = (num: number) => (num < 10 ? `0${num}` : num);
 
 const timePresets = [
-  { label: "+5s", value: 5 },
-  { label: "+15s", value: 15 },
-  { label: "+30s", value: 30 },
-  { label: "+1m", value: 60 },
+  { label: "+", value: 5 },
+  { label: "-", value: -5 },
 ];
 
 const speedPresets = [
-  { label: "+50", value: 50 },
-  { label: "-50", value: -50 },
-  { label: "+100", value: 100 },
-  { label: "-100", value: -100 },
+  { label: "+", value: 50 },
+  { label: "-", value: -50 },
+
 ];
 
 const App = () => {
@@ -375,7 +372,7 @@ const App = () => {
                 variant="outlined"
                 disabled={isTestRunning}
                 onClick={() => setSpeed((prev) => prev + btn.value)}
-                size="medium"
+                size="small"
               >
                 {btn.label}
               </Button>
@@ -383,7 +380,7 @@ const App = () => {
           </Box>
           </Box>
 
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4.75, ml: 1 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", mt: 4.75, ml: 1 }}>
           {/* Duration Input and Presets */}       
             <TextField
               label="Duration"

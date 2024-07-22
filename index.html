@@ -26,7 +26,7 @@
       border-radius: 12px; /* Rounded corners for the container */
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
       max-width: 200ex; /* Maximum width for the container */
-      width: 100%;
+      width: 90%;
       overflow: auto; /* Ensure overflow is handled */
     }
 
@@ -84,6 +84,10 @@
       display: flex;
       flex-direction: column; 
     }
+    .presets {
+      width: 50%;
+
+    }
 
     .section-box {
       background-color: #fff;
@@ -103,23 +107,6 @@
 </head>
 <body>
   <div id="root">
-    <!-- Inputs Section -->
-    <div class="section inputs">
-      <h2>Inputs</h2>
-      <!-- Inputs content will be rendered here -->
-    </div>
-    
-    <!-- Statistics Section -->
-    <div class="section statistics">
-      <h2>Statistics</h2>
-      <!-- Statistics content will be rendered here -->
-    </div>
-    
-    <!-- Buttons Section -->
-    <div class="section buttons">
-      <h2>Actions</h2>
-      <!-- Buttons content will be rendered here -->
-    </div>
   </div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
