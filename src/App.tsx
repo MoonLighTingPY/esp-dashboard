@@ -163,6 +163,8 @@ const App = () => {
     }));
   };
 
+  
+
   const handleSaveAsPDF = async () => {
     const chartElement = chartRef.current;
     if (!chartElement) return;
@@ -354,11 +356,13 @@ const App = () => {
               label="Speed"
               variant="outlined"
               value={speed}
+              type="number"
               onChange={(e) => setSpeed(Number(e.target.value))}
               fullWidth
               size="small"
               margin="none"
               disabled={isTestRunning}
+              style={{ width: '18ex', minWidth: 'auto' }}
             />
           <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>  
             {speedPresets.map((btn, index) => (
@@ -367,7 +371,9 @@ const App = () => {
                 variant="outlined"
                 disabled={isTestRunning}
                 onClick={() => setSpeed((prev) => prev + btn.value)}
-                size="medium"
+                size="large"
+                style={{ width: '15px', minWidth: 'auto' }}
+
               >
                 {btn.label}
               </Button>
@@ -381,11 +387,14 @@ const App = () => {
               label="Duration(seconds)"
               variant="outlined"
               value={duration}
+              type="number"
               onChange={(e) => setDuration(Number(e.target.value))}
               fullWidth
               size="small"
               margin="none"
               disabled={isTestRunning}
+              style={{ width: '18ex', minWidth: 'auto' }}
+              
             />
           
           <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
@@ -395,7 +404,8 @@ const App = () => {
                 variant="outlined"
                 disabled={isTestRunning}
                 onClick={() => setDuration((prev) => prev + btn.value)}
-                size="medium"
+                size="large"
+                style={{ width: '15px', minWidth: 'auto' }}
               >
                 {btn.label}
               </Button>
