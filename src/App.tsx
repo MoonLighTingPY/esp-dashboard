@@ -225,12 +225,15 @@ const App = () => {
   const timeRemaining = Math.max(0, duration - Math.floor((Date.now() - startTime!) / 1000));
 
   return (
+    <div className="App">
     <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
       <Box sx={{ display: "flex", flexDirection: "row", flexGrow: 1 }}>
         
         {/* Chart */}
         <Box sx={{ flex: 3 }}>
         <div className="chart-container" ref={chartRef}>
+        <div className="section-box">
+
     <Line 
       data={data} 
       options={{ 
@@ -240,11 +243,17 @@ const App = () => {
       }} 
     />
   </div>
-          
+
+  </div>
+        
+      
+  
         </Box>
+        
         {/* Right side content: Statistics, buttons, and controls */}
         <Box sx={{flex: 1, ml: 2, display: "flex", flexDirection: "column" }}>
           {/* Statistics */}
+          <div className="section-box">
           <Box sx={{ mb: 2, overflowY: "auto" }}>
     <Typography variant="body1">
       <span style={{ fontWeight: "bold", fontSize: "2em" }}>THRUST</span> Max: <span style={{ fontWeight: "bold" }}>{stats.thrustMax}</span> Min: <span style={{ fontWeight: "bold" }}>{stats.thrustMin}</span>
@@ -271,62 +280,54 @@ const App = () => {
       <span style={{ fontWeight: "bold" }}> Propeller Model:</span> {propellerModel}
     </Typography>
   </Box>
-          {/* Save as PDF, Config Wi-Fi and OTA buttons */}
-          <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
-            <Button
-              variant="contained"
-              color="info"
-              onClick={handleSaveAsPDF}
-              fullWidth
-              size="small"
-            >
-              Save as PDF
-            </Button>
-          
-          </Box>
-          {/* Clear Graph button and Duration Countdown */}
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Button
-              variant="contained"
-              color="warning"
-              onClick={handleClearGraph}
-              fullWidth
-              size="small"
-            >
-              Clear Graph
-            </Button>
-            
-          </Box>
-          {/* Test Button */}
-          <Box sx={{ display: "flex",flexDirection: "row", alignItems: "center", mt: 2, ml: 2, mr: 1}}>
+  </div>
+          {/* Buttons */}
+          <div className="section-box">
+          <Box sx={{ display: "flex",flexDirection: "row", alignItems: "center"}}>
           <img
-  src="/images/play.ico"  // Replace with your actual image path for Test button
-  alt="Test"
-  onClick={handleStartReadings}
-  style={{ cursor: 'pointer', width: '15%', height: 'auto' }}
-/>
+            src="/images/play.ico"
+            alt="Test"
+            onClick={handleStartReadings}
+            style={{ cursor: 'pointer', width: '15%', height: 'auto', marginLeft: "45px" }}
+          />
 
-<img
-  src="/images/stop.ico"  // Replace with your actual image path for Stop button
-  alt="Stop"
-  onClick={handleStopReadings}
-  style={{ cursor: 'pointer', width: '15%', height: 'auto'}}  // Example: Adding margin-top
-/>
-<img
-  src="/images/gear.png"  // Replace with your actual image path
-  alt="Configure WiFi"
-  onClick={handleConfigWifi}
-  style={{ cursor: 'pointer', width: '15%', height: 'auto'}}  // Optional: Add styles as needed
-/>
-<Typography variant="body1" sx={{ ml: 2, fontWeight: 'bold', fontSize: '1.2em', color: '#333', textAlign: 'center' }}>
-  {`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(timeRemaining % 60)}`}
-</Typography>
+          <img
+            src="/images/stop.ico"  
+            alt="Stop"
+            onClick={handleStopReadings}
+            style={{ cursor: 'pointer', width: '15%', height: 'auto'}}  
+          />
+          <img
+            src="/images/gear.ico"  
+            alt="Configure WiFi"
+            onClick={handleConfigWifi}
+            style={{ cursor: 'pointer', width: '15%', height: 'auto'}}  
+          />
+          <img
+              src="/images/clear.ico"  
+              alt="Clear Graph"
+              onClick={handleClearGraph}
+              style={{ cursor: 'pointer', width: '15%', height: 'auto' }}
+          />
+          <img
+            src="/images/pdf.ico" 
+            alt="Save as PDF"
+            onClick={handleSaveAsPDF}
+            style={{ cursor: 'pointer', width: '17%', height: 'auto' }}
+          />
+
           </Box>
-         
+          <Typography variant="body1" sx={{ ml: 2, fontWeight: 'bold', fontSize: '1.2em', color: '#333', textAlign: 'center' }}>
+            {`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(timeRemaining % 60)}`}
+          </Typography>
+        </div>
+
         </Box>
         
       </Box>
+      
       <Grid container spacing={2} alignItems="center" sx={{ marginBottom: 2, ml:4 }}>
+        
       <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4.75 }}>
           {/* Motor Model Input */}
           <Grid item xs={12}>
@@ -412,6 +413,7 @@ const App = () => {
         </Grid>
       
     </Box>
+    </div>
   );
 };
 
