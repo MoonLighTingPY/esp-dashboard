@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { z } from "zod";
 
 export const dataSchema = z.object({
@@ -80,7 +80,7 @@ export const useESP = () => {
     const updateSpeed = () => {
       const now = new Date().getTime();
       const elapsed = now - startTime;
-
+    
       if (elapsed >= durationMs) {
         setSpeed(endSpeed); // Ensure final speed is exactly endSpeed
         const finalMessage = JSON.stringify({
@@ -91,43 +91,22 @@ export const useESP = () => {
         clearInterval(intervalId); // Stop the interval once the duration is complete
         return;
       }
-
+    
       // Calculate the current speed based on elapsed time
       const progress = elapsed / durationMs; // Value between 0 and 1
       const currentSpeed = startSpeed + (endSpeed - startSpeed) * progress;
       setSpeed(currentSpeed);
-
+    
       // Send the current speed to the server
       const speedMessage = JSON.stringify({
         type: "speedUpdate",
         speed: currentSpeed,
       });
       socket.send(speedMessage);
-
-      // Add current speed to the buffer
-      speedBuffer.current.push({ timestamp: now, speed: currentSpeed });
-
-      // Calculate the average speed for the last 100ms
-      const cutoffTime = now - 100;
-      while (speedBuffer.current.length > 0 && speedBuffer.current[0].timestamp < cutoffTime) {
-        speedBuffer.current.shift();
-      }
-
-      const averageSpeed = speedBuffer.current.reduce((acc, entry) => acc + entry.speed, 0) / speedBuffer.current.length;
-
-      // Update the speed dataset in the graph data
-      updateESPData((prevData) => ({
-        ...prevData,
-        datasets: prevData.datasets.map((dataset) =>
-          dataset.label === "Speed"
-            ? { ...dataset, data: [...dataset.data, averageSpeed] }
-            : dataset
-        ),
-      }));
-    };
-
+    }
+    
     // Update speed every 100ms
-    const intervalId = setInterval(updateSpeed, 100);
+    const intervalId = setInterval(updateSpeed, 1);
   };
 
   const handleStopReadings = () => {

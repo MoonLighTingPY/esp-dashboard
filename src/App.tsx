@@ -52,6 +52,7 @@ const App = () => {
   const [speedPreview, setSpeedPreview] = useState<number[]>([]);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]); // Add state for saved speed data
+  
 
   const {
     duration,
@@ -179,15 +180,29 @@ const App = () => {
     setIsPreviewOpen(true);
   };
 
-  const handleSavePreviewData = (speedData: number[]) => {
+  const handleSavePreviewData = (speedData: number[], startSpeed: number, endSpeed: number, duration: number) => {
     setSavedSpeedData(speedData);
+    setStartSpeed(startSpeed);
+    setEndSpeed(endSpeed);
+    setDuration(duration);
     setIsPreviewOpen(false);
   };
 
   const handleStartTest = () => {
     if (savedSpeedData.length > 0) {
       console.log("Using saved speed data:", savedSpeedData);
-      // Implement the logic to use savedSpeedData during the test
+      console.log("Start Speed:", startSpeed);
+      console.log("End Speed:", endSpeed);
+      console.log("Duration:", duration);
+      // Update the chart data with savedSpeedData
+      setData((prevData) => ({
+        ...prevData,
+        datasets: prevData.datasets.map((dataset) =>
+          dataset.label === "Speed"
+            ? { ...dataset, data: savedSpeedData }
+            : dataset
+        ),
+      }));
     } else {
       console.log("No saved speed data, using default behavior");
     }
@@ -250,83 +265,87 @@ const App = () => {
       <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
         <Box sx={{ display: "flex", flexDirection: "row", flexGrow: 1 }}>
           {/* Chart */}
-          <Box sx={{ flex: 3 }}>
-            <div className="chart-container" ref={chartRef}>
-              <div className="section-box">
-                <Line
-                  data={data}
-                  options={{
+                <Box sx={{ flex: 3 }}>
+                <div className="chart-container" ref={chartRef}>
+                  <div className="section-box">
+                  <Line
+                    data={data}
+                    options={{
                     animation: false,
                     responsive: true,
                     maintainAspectRatio: false,
-                  }}
-                />
-              </div>
-            </div>
-          </Box>
+                    }}
+                  />
+                  </div>
+                </div>
+                </Box>
 
-          {/* Right side content: Statistics, buttons, and controls */}
-          <Box
-            sx={{ flex: 1, ml: 2, display: "flex", flexDirection: "column" }}
-          >
-            {/* Statistics */}
-            <div className="section-box">
-              <Box sx={{ mb: 2, overflowY: "auto" }}>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                {/* Right side content: Statistics, buttons, and controls */}
+                <Box
+                sx={{ flex: 1, ml: 2, display: "flex", flexDirection: "column" }}
+                >
+                {/* Statistics */}
+                <div className="section-box">
+                  <Box sx={{ mb: 2, overflowY: "auto" }}>
+                  <Typography variant="body1">
+                    <span style={{ fontWeight: "bold", fontSize: "2em" }}>
                     THRUST
-                  </span>{" "}
-                  Max:{" "}
-                  <span style={{ fontWeight: "bold" }}>{stats.thrustMax}</span>{" "}
-                  Min:{" "}
-                  <span style={{ fontWeight: "bold" }}>{stats.thrustMin}</span>
-                </Typography>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                    </span>{" "}
+                    Max:{" "}
+                    <span style={{ fontWeight: "bold" }}>{stats.thrustMax}</span>{" "}
+                    Min:{" "}
+                    <span style={{ fontWeight: "bold" }}>{stats.thrustMin}</span>
+                  </Typography>
+                  <Typography variant="body1">
+                    <span style={{ fontWeight: "bold", fontSize: "2em" }}>
                     TORQUE
-                  </span>{" "}
-                  Max:{" "}
-                  <span style={{ fontWeight: "bold" }}>{stats.torqueMax}</span>{" "}
-                  Min:{" "}
-                  <span style={{ fontWeight: "bold" }}>{stats.torqueMin}</span>
-                </Typography>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                    </span>{" "}
+                    Max:{" "}
+                    <span style={{ fontWeight: "bold" }}>{stats.torqueMax}</span>{" "}
+                    Min:{" "}
+                    <span style={{ fontWeight: "bold" }}>{stats.torqueMin}</span>
+                  </Typography>
+                  <Typography variant="body1">
+                    <span style={{ fontWeight: "bold", fontSize: "2em" }}>
                     VOLTAGE
-                  </span>{" "}
-                  Max:{" "}
-                  <span style={{ fontWeight: "bold" }}>{stats.voltageMax}</span>{" "}
-                  Min:{" "}
-                  <span style={{ fontWeight: "bold" }}>{stats.voltageMin}</span>
-                </Typography>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                    </span>{" "}
+                    Max:{" "}
+                    <span style={{ fontWeight: "bold" }}>{stats.voltageMax}</span>{" "}
+                    Min:{" "}
+                    <span style={{ fontWeight: "bold" }}>{stats.voltageMin}</span>
+                  </Typography>
+                  <Typography variant="body1">
+                    <span style={{ fontWeight: "bold", fontSize: "2em" }}>
                     CURRENT
-                  </span>{" "}
-                  Max:{" "}
-                  <span style={{ fontWeight: "bold" }}>{stats.currentMax}</span>{" "}
-                  Min:{" "}
-                  <span style={{ fontWeight: "bold" }}>{stats.currentMin}</span>
-                </Typography>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold" }}>Speed:</span>{" "}
-                  <span style={{ fontWeight: "bold" }}>{speed}</span>
-                </Typography>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold" }}> Duration:</span>{" "}
-                  <span style={{ fontWeight: "bold" }}>{duration} seconds</span>
-                </Typography>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold" }}> Motor Model:</span>{" "}
-                  {motorModel}
-                </Typography>
-                <Typography variant="body1">
-                  <span style={{ fontWeight: "bold" }}> Propeller Model:</span>{" "}
-                  {propellerModel}
-                </Typography>
-              </Box>
-            </div>
-            {/* Buttons */}
+                    </span>{" "}
+                    Max:{" "}
+                    <span style={{ fontWeight: "bold" }}>{stats.currentMax}</span>{" "}
+                    Min:{" "}
+                    <span style={{ fontWeight: "bold" }}>{stats.currentMin}</span>
+                  </Typography>
+                  <Typography variant="body1">
+                    <span style={{ fontWeight: "bold" }}>Start Speed:</span>{" "}
+                    <span style={{ fontWeight: "bold" }}>{startSpeed}</span>
+                  </Typography>
+                  <Typography variant="body1">
+                    <span style={{ fontWeight: "bold" }}>End Speed:</span>{" "}
+                    <span style={{ fontWeight: "bold" }}>{endSpeed}</span>
+                  </Typography>
+                  <Typography variant="body1">
+                    <span style={{ fontWeight: "bold" }}> Duration:</span>{" "}
+                    <span style={{ fontWeight: "bold" }}>{duration} seconds</span>
+                  </Typography>
+                  <Typography variant="body1">
+                    <span style={{ fontWeight: "bold" }}> Motor Model:</span>{" "}
+                    {motorModel}
+                  </Typography>
+                  <Typography variant="body1">
+                    <span style={{ fontWeight: "bold" }}> Propeller Model:</span>{" "}
+                    {propellerModel}
+                  </Typography>
+                  </Box>
+                </div>
+                {/* Buttons */}
             <div className="section-box">
               <Box
                 sx={{
@@ -406,7 +425,7 @@ const App = () => {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                mt: 4.75,
+
               }}
             >
               {/* Motor Model Input */}
@@ -434,98 +453,20 @@ const App = () => {
                   margin="none"
                   disabled={isTestRunning}
                 />
+                
               </Grid>
-            </Box>
-            <Button onClick={handlePreviewSpeed}>Preview Speed</Button>
+              <Button onClick={handlePreviewSpeed} variant="outlined">Inputs</Button>
             {isPreviewOpen && (
               <SpeedPreviewChart
               open={isPreviewOpen}
               onClose={() => setIsPreviewOpen(false)}
-              speedData={speedPreview.length > 0 ? speedPreview : savedSpeedData}
-              duration={duration}
+              speedData={speedPreview}
               onSave={handleSavePreviewData}
             />
             )}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                mt: 4.75,
-                ml: 5,
-              }}
-            >
-              {/* Speed Input and Presets */}
-              <TextField
-                label="Start Speed"
-                variant="outlined"
-                value={startSpeed}
-                type="number"
-                onChange={(e) => setStartSpeed(Number(e.target.value))}
-                fullWidth
-                size="small"
-                margin="none"
-                disabled={isTestRunning}
-                style={{ width: "18ex", minWidth: "auto" }}
-              />
-              <TextField
-                label="End Speed"
-                variant="outlined"
-                value={endSpeed}
-                type="number"
-                onChange={(e) => setEndSpeed(Number(e.target.value))}
-                fullWidth
-                size="small"
-                margin="none"
-                disabled={isTestRunning}
-                style={{ width: "18ex", minWidth: "auto" }}
-              />
             </Box>
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                mt: 4.75,
-                ml: 1,
-              }}
-            >
-              {/* Duration Input and Presets */}
-              <TextField
-                label="Duration(seconds)"
-                variant="outlined"
-                value={duration}
-                type="number"
-                onChange={(e) => setDuration(Number(e.target.value))}
-                fullWidth
-                size="small"
-                margin="none"
-                disabled={isTestRunning}
-                style={{ width: "18ex", minWidth: "auto" }}
-              />
-
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                {timePresets.map((btn, index) => (
-                  <Button
-                    key={index}
-                    variant="outlined"
-                    disabled={isTestRunning}
-                    onClick={() => setDuration((prev) => prev + btn.value)}
-                    size="large"
-                    style={{ width: "15px", minWidth: "auto" }}
-                  >
-                    {btn.label}
-                  </Button>
-                ))}
-              </Box>
-            </Box>
+            
+            
           </Grid>
         </div>
       </Box>
