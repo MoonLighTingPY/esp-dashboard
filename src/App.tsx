@@ -33,12 +33,8 @@ const timePresets = [
   { label: "-", value: -5 },
 ];
 
-const speedPresets = [
-  { label: "+", value: 50 },
-  { label: "-", value: -50 },
-];
-
 const App = () => {
+  const { speed } = useESP();
   const chartRef = useRef(null);
   const [stats, setStats] = useState({
     thrustMax: 0,
@@ -58,10 +54,13 @@ const App = () => {
     socket,
     setSocket,
     dataQueue,
-    speed,
+    startSpeed,
+    endSpeed,
+    setStartSpeed,
+    setEndSpeed,
     setData,
     startTime,
-    setSpeed,
+  
     setDuration,
     handleStartReadings,
     isTestRunning,
@@ -410,37 +409,29 @@ const App = () => {
             >
               {/* Speed Input and Presets */}
               <TextField
-                label="Speed"
+                label="Start Speed"
                 variant="outlined"
-                value={speed}
+                value={startSpeed}
                 type="number"
-                onChange={(e) => setSpeed(Number(e.target.value))}
+                onChange={(e) => setStartSpeed(Number(e.target.value))}
                 fullWidth
                 size="small"
                 margin="none"
                 disabled={isTestRunning}
                 style={{ width: "18ex", minWidth: "auto" }}
               />
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                {speedPresets.map((btn, index) => (
-                  <Button
-                    key={index}
-                    variant="outlined"
-                    disabled={isTestRunning}
-                    onClick={() => setSpeed((prev) => prev + btn.value)}
-                    size="large"
-                    style={{ width: "15px", minWidth: "auto" }}
-                  >
-                    {btn.label}
-                  </Button>
-                ))}
-              </Box>
+              <TextField
+                label="End Speed"
+                variant="outlined"
+                value={endSpeed}
+                type="number"
+                onChange={(e) => setEndSpeed(Number(e.target.value))}
+                fullWidth
+                size="small"
+                margin="none"
+                disabled={isTestRunning}
+                style={{ width: "18ex", minWidth: "auto" }}
+              />
             </Box>
 
             <Box

@@ -41,36 +41,67 @@ const initData = {
 };
 
 export const useESP = () => {
-  const [speed, setSpeed] = useState(800);
+  const [startSpeed, setStartSpeed] = useState(800);
+  const [endSpeed, setEndSpeed] = useState(1000);
   const [duration, setDuration] = useState(5);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [espStateData, updateESPData] = useState(initData);
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  const [speed, setSpeed] = useState(0); // Declare speed state
 
   const dataQueue = useRef<any[]>([]);
 
   const handleStartReadings = async () => {
-    if (!socket || !speed || !duration) return;
-
+    if (!socket || !startSpeed || !endSpeed || !duration) return;
+  
+    const durationMs = duration * 1000; // Duration in milliseconds
+    const startTime = new Date().getTime(); // Start time
+  
     const message = JSON.stringify({
       type: "start",
-      duration: duration * 1000,
-      speed,
+      duration: durationMs,
+      speed: startSpeed
     });
     socket.send(message);
     setIsTestRunning(true);
-    setStartTime(new Date().getTime());
-
-    // Reset state after the duration has passed
-    setTimeout(() => {
-      setSpeed(() => 800);
-      setDuration(() => 0);
-      setIsTestRunning(() => false);
-      setStartTime(null);
-    }, duration * 1000); // Convert duration to milliseconds
+  
+    const updateSpeed = () => {
+      const now = new Date().getTime();
+      const elapsed = now - startTime;
+      
+      if (elapsed >= durationMs) {
+        setSpeed(endSpeed); // Ensure final speed is exactly endSpeed
+        const finalMessage = JSON.stringify({
+          type: "speedUpdate",
+          speed: endSpeed
+        });
+        socket.send(finalMessage);
+        return; // Stop updating once the duration is complete
+      }
+  
+      // Calculate the current speed based on elapsed time
+      const progress = elapsed / durationMs; // Value between 0 and 1
+      const currentSpeed = startSpeed + (endSpeed - startSpeed) * progress;
+      setSpeed(currentSpeed);
+  
+      // Send the current speed to the server
+      const speedMessage = JSON.stringify({
+        type: "speedUpdate",
+        speed: currentSpeed
+      });
+      socket.send(speedMessage);
+  
+      // Request the next frame update
+      requestAnimationFrame(updateSpeed);
+    };
+  
+    requestAnimationFrame(updateSpeed);
   };
+  
+  
 
+  
   const handleStopReadings = () => {
     if (!socket) return;
 
@@ -78,6 +109,7 @@ export const useESP = () => {
     socket.send(message);
     setIsTestRunning(false);
     setStartTime(null);
+    setSpeed(0); // Reset speed state
   };
 
   const handleClearGraph = () => {
@@ -91,8 +123,10 @@ export const useESP = () => {
   };
 
   return {
-    speed,
-    setSpeed,
+    startSpeed,
+    setStartSpeed,
+    endSpeed,
+    setEndSpeed,
     duration,
     setDuration,
     startTime,
@@ -103,9 +137,9 @@ export const useESP = () => {
     setIsTestRunning,
     socket,
     setSocket,
+    speed, // Return speed state
     dataQueue,
     handleStartReadings,
-
     handleStopReadings,
     handleClearGraph,
   };
