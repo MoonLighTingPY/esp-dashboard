@@ -60,7 +60,6 @@ const App = () => {
     setEndSpeed,
     setData,
     startTime,
-  
     setDuration,
     handleStartReadings,
     isTestRunning,
@@ -119,10 +118,10 @@ const App = () => {
 
   const refreshGraphData = () => {
     if (dataQueue.current.length <= 0) return;
-
+  
     const batchData = dataQueue.current;
     dataQueue.current = [];
-
+  
     const averages = batchData.reduce((acc, curr) => {
       Object.keys(curr).forEach((key) => {
         if (!acc[key]) {
@@ -131,32 +130,32 @@ const App = () => {
         acc[key].push(curr[key]);
       });
       return acc;
-    }, {});
-
+    }, {} as { [key: string]: number[] });
+  
     Object.keys(averages).forEach((key) => {
-      averages[key] =
-        averages[key].reduce((a: any, b: any) => a + b, 0) /
-        averages[key].length;
+      averages[key] = averages[key].reduce((a: number, b: number) => a + b, 0) / averages[key].length;
     });
-
-    const currentTime = new Date().getTime();
-
-    const timeElapsedInSeconds = Math.floor(
-      (currentTime - (startTime || currentTime)) / 1000
-    );
-
-    const minutes = addZero(Math.floor(timeElapsedInSeconds / 60));
-    const seconds = addZero(timeElapsedInSeconds % 60);
-
+  
+    // Format elapsed time in mm:ss
+    const elapsedTime = (new Date().getTime() - (startTime || 0)) / 1000;
+    const minutes = Math.floor(elapsedTime / 60).toString().padStart(2, '0');
+    const seconds = Math.floor(elapsedTime % 60).toString().padStart(2, '0');
+    const timeLabel = `${minutes}:${seconds}`;
+  
+    // Update the graph data
     setData((prevData) => ({
       ...prevData,
-      labels: [...prevData.labels, `${minutes}:${seconds}`],
-      datasets: prevData.datasets.map((dataset, index) => ({
+      labels: [...prevData.labels, timeLabel],
+      datasets: prevData.datasets.map((dataset) => ({
         ...dataset,
-        data: [...dataset.data, averages[Object.keys(averages)[index]]],
+        data: [
+          ...dataset.data,
+          averages[dataset.label.toLowerCase()] ?? dataset.data[dataset.data.length - 1],
+        ],
       })),
     }));
   };
+  
 
   const handleSaveAsPDF = async () => {
     const chartElement = chartRef.current;

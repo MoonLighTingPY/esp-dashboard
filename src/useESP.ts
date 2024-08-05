@@ -8,7 +8,7 @@ export const dataSchema = z.object({
   current: z.number(),
 });
 
-type DateSchema = z.infer<typeof dataSchema>;
+type DateSchema = number;
 
 const initData = {
   labels: [] as string[],
@@ -37,6 +37,12 @@ const initData = {
       borderColor: "rgb(58, 201, 68)",
       backgroundColor: "rgba(77, 192, 75, 0.2)",
     },
+    {
+      label: "Speed",
+      data: [] as number[], // Add speed dataset
+      borderColor: "rgba(255, 206, 86, 1)",
+      backgroundColor: "rgba(255, 206, 86, 0.2)",
+    },
   ],
 };
 
@@ -51,58 +57,79 @@ export const useESP = () => {
   const [speed, setSpeed] = useState(0); // Declare speed state
 
   const dataQueue = useRef<any[]>([]);
+  const speedBuffer = useRef<{ timestamp: number; speed: number }[]>([]);
 
   const handleStartReadings = async () => {
     if (!socket || !startSpeed || !endSpeed || !duration) return;
-  
+
     const durationMs = duration * 1000; // Duration in milliseconds
     const startTime = new Date().getTime(); // Start time
-  
+
     const message = JSON.stringify({
       type: "start",
       duration: durationMs,
-      speed: startSpeed
+      speed: startSpeed,
     });
     socket.send(message);
     setIsTestRunning(true);
-    setStartTime(new Date().getTime());
-  
+    setStartTime(startTime);
+
+    // Clear any existing speed data
+    speedBuffer.current = [];
+
     const updateSpeed = () => {
       const now = new Date().getTime();
       const elapsed = now - startTime;
-      
+
       if (elapsed >= durationMs) {
         setSpeed(endSpeed); // Ensure final speed is exactly endSpeed
         const finalMessage = JSON.stringify({
           type: "speedUpdate",
-          speed: endSpeed
+          speed: endSpeed,
         });
         socket.send(finalMessage);
-        return; // Stop updating once the duration is complete
+        clearInterval(intervalId); // Stop the interval once the duration is complete
+        return;
       }
-  
+
       // Calculate the current speed based on elapsed time
       const progress = elapsed / durationMs; // Value between 0 and 1
       const currentSpeed = startSpeed + (endSpeed - startSpeed) * progress;
       setSpeed(currentSpeed);
-  
+
       // Send the current speed to the server
       const speedMessage = JSON.stringify({
         type: "speedUpdate",
-        speed: currentSpeed
+        speed: currentSpeed,
       });
       socket.send(speedMessage);
-  
-      // Request the next frame update
-      requestAnimationFrame(updateSpeed);
-    };
-  
-    requestAnimationFrame(updateSpeed);
-  };
-  
-  
 
-  
+      // Add current speed to the buffer
+      speedBuffer.current.push({ timestamp: now, speed: currentSpeed });
+
+      // Calculate the average speed for the last 100ms
+      const cutoffTime = now - 100;
+      while (speedBuffer.current.length > 0 && speedBuffer.current[0].timestamp < cutoffTime) {
+        speedBuffer.current.shift();
+      }
+
+      const averageSpeed = speedBuffer.current.reduce((acc, entry) => acc + entry.speed, 0) / speedBuffer.current.length;
+
+      // Update the speed dataset in the graph data
+      updateESPData((prevData) => ({
+        ...prevData,
+        datasets: prevData.datasets.map((dataset) =>
+          dataset.label === "Speed"
+            ? { ...dataset, data: [...dataset.data, averageSpeed] }
+            : dataset
+        ),
+      }));
+    };
+
+    // Update speed every 100ms
+    const intervalId = setInterval(updateSpeed, 100);
+  };
+
   const handleStopReadings = () => {
     if (!socket) return;
 
