@@ -1,4 +1,3 @@
-// src/SpeedPreviewChart.tsx
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { Box, Modal, Typography, Button } from "@mui/material";
@@ -12,7 +11,7 @@ interface SpeedPreviewChartProps {
   onClose: () => void;
   speedData: number[];
   duration: number;
-  onSave: (speedData: number[]) => void; // Add onSave prop
+  onSave: (speedData: number[]) => void;
 }
 
 const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData, duration, onSave }) => {

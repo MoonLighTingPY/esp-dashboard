@@ -1,5 +1,5 @@
 import "./index.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { Button, TextField, Box, Grid, Typography } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import {
@@ -161,16 +161,20 @@ const App = () => {
   };
   
 
-  const handlePreviewSpeed = () => {
-    if (!startSpeed || !endSpeed || !duration) return;
-
+   // Memoize the preview data
+   const previewData = useMemo(() => {
+    if (!startSpeed || !endSpeed || !duration) return [];
     const durationMs = duration * 1000;
-    const previewData = [];
+    const data = [];
     for (let elapsed = 0; elapsed <= durationMs; elapsed += 100) {
       const progress = elapsed / durationMs;
       const currentSpeed = startSpeed + (endSpeed - startSpeed) * progress;
-      previewData.push(currentSpeed);
+      data.push(currentSpeed);
     }
+    return data;
+  }, [startSpeed, endSpeed, duration]);
+
+  const handlePreviewSpeed = () => {
     setSpeedPreview(previewData);
     setIsPreviewOpen(true);
   };
@@ -182,11 +186,9 @@ const App = () => {
 
   const handleStartTest = () => {
     if (savedSpeedData.length > 0) {
-      // Use savedSpeedData during the test
       console.log("Using saved speed data:", savedSpeedData);
       // Implement the logic to use savedSpeedData during the test
     } else {
-      // Fallback to default behavior if no saved speed data
       console.log("No saved speed data, using default behavior");
     }
   };
@@ -337,7 +339,10 @@ const App = () => {
                 <img
                   src="/images/play.ico"
                   alt="Test"
-                  onClick={handleStartReadings}
+                  onClick={() => {
+                    handleStartReadings();
+                    handleStartTest();
+                  }}
                   style={{
                     cursor: "pointer",
                     width: "15%",
@@ -431,20 +436,16 @@ const App = () => {
                 />
               </Grid>
             </Box>
-            <Button
-                variant="contained"
-                onClick={handlePreviewSpeed}
-                disabled={isTestRunning}
-              >
-                Preview Speed
-              </Button>
+            <Button onClick={handlePreviewSpeed}>Preview Speed</Button>
+            {isPreviewOpen && (
               <SpeedPreviewChart
               open={isPreviewOpen}
               onClose={() => setIsPreviewOpen(false)}
-              speedData={speedPreview}
+              speedData={speedPreview.length > 0 ? speedPreview : savedSpeedData}
               duration={duration}
-              onSave={handleSavePreviewData} // Pass the handler function as a prop
+              onSave={handleSavePreviewData}
             />
+            )}
             <Box
               sx={{
                 display: "flex",
