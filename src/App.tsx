@@ -51,6 +51,7 @@ const App = () => {
   const [propellerModel, setPropellerModel] = useState("");
   const [speedPreview, setSpeedPreview] = useState<number[]>([]);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]); // Add state for saved speed data
 
   const {
     duration,
@@ -162,7 +163,7 @@ const App = () => {
 
   const handlePreviewSpeed = () => {
     if (!startSpeed || !endSpeed || !duration) return;
-  
+
     const durationMs = duration * 1000;
     const previewData = [];
     for (let elapsed = 0; elapsed <= durationMs; elapsed += 100) {
@@ -173,14 +174,22 @@ const App = () => {
     setSpeedPreview(previewData);
     setIsPreviewOpen(true);
   };
-  
-  // In the return statement of the App component
-  <SpeedPreviewChart
-    open={isPreviewOpen}
-    onClose={() => setIsPreviewOpen(false)}
-    speedData={speedPreview}
-    duration={duration} // Pass duration prop
-  />
+
+  const handleSavePreviewData = (speedData: number[]) => {
+    setSavedSpeedData(speedData);
+    setIsPreviewOpen(false);
+  };
+
+  const handleStartTest = () => {
+    if (savedSpeedData.length > 0) {
+      // Use savedSpeedData during the test
+      console.log("Using saved speed data:", savedSpeedData);
+      // Implement the logic to use savedSpeedData during the test
+    } else {
+      // Fallback to default behavior if no saved speed data
+      console.log("No saved speed data, using default behavior");
+    }
+  };
 
   const handleSaveAsPDF = async () => {
     const chartElement = chartRef.current;
@@ -429,7 +438,13 @@ const App = () => {
               >
                 Preview Speed
               </Button>
-              <SpeedPreviewChart open={isPreviewOpen} onClose={() => setIsPreviewOpen(false)} speedData={speedPreview} duration={duration} />
+              <SpeedPreviewChart
+              open={isPreviewOpen}
+              onClose={() => setIsPreviewOpen(false)}
+              speedData={speedPreview}
+              duration={duration}
+              onSave={handleSavePreviewData} // Pass the handler function as a prop
+            />
             <Box
               sx={{
                 display: "flex",
