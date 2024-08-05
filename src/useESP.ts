@@ -65,6 +65,7 @@ export const useESP = () => {
     });
     socket.send(message);
     setIsTestRunning(true);
+    setStartTime(new Date().getTime());
   
     const updateSpeed = () => {
       const now = new Date().getTime();
