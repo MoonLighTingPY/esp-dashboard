@@ -15,6 +15,7 @@ import {
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { dataSchema, useESP } from "./useESP";
+import SpeedPreviewChart from "./SpeedPreviewChart";
 
 ChartJS.register(
   CategoryScale,
@@ -48,6 +49,8 @@ const App = () => {
   });
   const [motorModel, setMotorModel] = useState("");
   const [propellerModel, setPropellerModel] = useState("");
+  const [speedPreview, setSpeedPreview] = useState<number[]>([]);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   const {
     duration,
@@ -156,6 +159,28 @@ const App = () => {
     }));
   };
   
+
+  const handlePreviewSpeed = () => {
+    if (!startSpeed || !endSpeed || !duration) return;
+  
+    const durationMs = duration * 1000;
+    const previewData = [];
+    for (let elapsed = 0; elapsed <= durationMs; elapsed += 100) {
+      const progress = elapsed / durationMs;
+      const currentSpeed = startSpeed + (endSpeed - startSpeed) * progress;
+      previewData.push(currentSpeed);
+    }
+    setSpeedPreview(previewData);
+    setIsPreviewOpen(true);
+  };
+  
+  // In the return statement of the App component
+  <SpeedPreviewChart
+    open={isPreviewOpen}
+    onClose={() => setIsPreviewOpen(false)}
+    speedData={speedPreview}
+    duration={duration} // Pass duration prop
+  />
 
   const handleSaveAsPDF = async () => {
     const chartElement = chartRef.current;
@@ -397,6 +422,14 @@ const App = () => {
                 />
               </Grid>
             </Box>
+            <Button
+                variant="contained"
+                onClick={handlePreviewSpeed}
+                disabled={isTestRunning}
+              >
+                Preview Speed
+              </Button>
+              <SpeedPreviewChart open={isPreviewOpen} onClose={() => setIsPreviewOpen(false)} speedData={speedPreview} duration={duration} />
             <Box
               sx={{
                 display: "flex",
