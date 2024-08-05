@@ -3,7 +3,7 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import { Box, Modal, Typography, Button } from "@mui/material";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
-import dragDataPlugin from "chartjs-plugin-dragdata";
+import dragDataPlugin from 'chartjs-plugin-dragdata';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, dragDataPlugin);
 
@@ -41,7 +41,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
       dragData: {
         round: 1,
         showTooltip: true,
-        onDragEnd: (e: any, datasetIndex: number, index: number, value: number) => {
+        onDragEnd: (_e: any, _datasetIndex: number, index: number, value: number) => {
           speedData[index] = value;
         },
       },
@@ -63,7 +63,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
         <Typography variant="h6" gutterBottom>
           Speed Preview
         </Typography>
-        <Line data={data} options={options} />
+        <Line data={data} options={options as any} />
         <Button onClick={() => onSave(speedData)} variant="contained" color="primary" sx={{ mt: 2 }}>
           Save
         </Button>
