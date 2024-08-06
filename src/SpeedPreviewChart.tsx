@@ -10,7 +10,7 @@ interface SpeedPreviewChartProps {
   open: boolean;
   onClose: () => void;
   speedData: number[];
-  onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number) => void;
+  onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string) => void;
 }
 
 const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData: initialSpeedData, onSave }) => {
@@ -20,6 +20,8 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const [acceleration, setAcceleration] = useState(0);
   const [speedData, setSpeedData] = useState<number[]>(initialSpeedData);
   const [isAccelerationVisible, setIsAccelerationVisible] = useState(true);
+  const [motorModel, setMotorModel] = useState("");
+  const [propellerModel, setPropellerModel] = useState("");
 
   useEffect(() => {
     if (!startSpeed || !endSpeed || !duration) return;
@@ -94,10 +96,11 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={{ width: 900, margin: "auto", marginTop: "10%", padding: 2, backgroundColor: "white", borderRadius: 2 }}>
+      <Box sx={{ width: 800, margin: "auto", marginTop: "10%", padding: 2, backgroundColor: "white", borderRadius: 2 }}>
         <Typography variant="h6" gutterBottom>
           Speed Preview
         </Typography>
+        
         <Box
           sx={{
             display: "flex",
@@ -106,6 +109,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             mt: 0,
           }}
         >
+          
           <TextField
             label="Start Speed"
             type="number"
@@ -147,9 +151,33 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
           />
         )}
         <Line data={data} options={options as any} />
-        <Button onClick={() => onSave(speedData, startSpeed, endSpeed, duration)} variant="contained" color="primary" sx={{ mt: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            mt: 0,
+          }}>
+        <Button onClick={() => onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel)} variant="contained" color="primary" sx={{ mt: 2 }}>
           Save
         </Button>
+        <TextField
+            label="Motor Model"
+            type="text"
+            value={motorModel}
+            onChange={(e) => setMotorModel(e.target.value)}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Propeller Model"
+            type="text"
+            value={propellerModel}
+            onChange={(e) => setPropellerModel(e.target.value)}
+            fullWidth
+            margin="normal"
+          />
+          </Box>
       </Box>
     </Modal>
   );
