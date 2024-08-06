@@ -187,22 +187,27 @@ const App = () => {
   };
 
   const handleStartTest = () => {
+    const savedSpeedData = JSON.parse(localStorage.getItem('speedData') || '[]');
     if (savedSpeedData.length > 0) {
-      console.log("Using saved speed data:", savedSpeedData);
+      console.log("Using saved speed data from localStorage:", savedSpeedData);
       console.log("Start Speed:", startSpeed);
       console.log("End Speed:", endSpeed);
       console.log("Duration:", duration);
-      // Update the chart data with savedSpeedData
+  
+      // Generate new preview data
+      const newPreviewData = savedSpeedData;
+  
+      // Append new preview data to the existing data
       setData((prevData) => ({
         ...prevData,
         datasets: prevData.datasets.map((dataset) =>
           dataset.label === "Speed"
-            ? { ...dataset, data: savedSpeedData }
+            ? { ...dataset, data: [...dataset.data, ...newPreviewData] }
             : dataset
         ),
       }));
     } else {
-      console.log("No saved speed data, using default behavior");
+      console.log("No saved speed data in localStorage, using default behavior");
     }
   };
 

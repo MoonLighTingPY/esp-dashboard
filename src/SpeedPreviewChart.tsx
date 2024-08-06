@@ -17,7 +17,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const [startSpeed, setStartSpeed] = useState(800);
   const [endSpeed, setEndSpeed] = useState(1000);
   const [duration, setDuration] = useState(5);
-  const [acceleration, setAcceleration] = useState(1);
+  const [acceleration, setAcceleration] = useState(0);
   const [speedData, setSpeedData] = useState<number[]>(initialSpeedData);
   const [isAccelerationVisible, setIsAccelerationVisible] = useState(true);
 
@@ -38,9 +38,12 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
       data.push(currentSpeed);
     }
     setSpeedData(data);
-  }, [startSpeed, endSpeed, duration, acceleration]);
+    localStorage.setItem('speedData', JSON.stringify(data));
 
-  const labels = Array.from({ length: speedData.length }, (_, index) => {
+  }, [startSpeed, endSpeed, duration, acceleration]);
+  
+
+  const labels = speedData.map((_, index) => {
     const elapsedTime = (index * duration) / speedData.length;
     const minutes = Math.floor(elapsedTime / 60).toString().padStart(2, '0');
     const seconds = Math.floor(elapsedTime % 60).toString().padStart(2, '0');
@@ -107,9 +110,10 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             label="Start Speed"
             type="number"
             value={startSpeed}
-            onChange={(e) => setStartSpeed(Number(e.target.value))}
+            onChange={(e) => setStartSpeed(Number(e.target.value) === 0 ? 1 : Number(e.target.value))}
             fullWidth
             margin="normal"
+            
           />
           <TextField
             label="End Speed"
