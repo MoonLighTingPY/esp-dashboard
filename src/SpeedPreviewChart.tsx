@@ -13,6 +13,9 @@ interface SpeedPreviewChartProps {
   onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number) => void;
 }
 
+const [currentSpeed, setCurentSpeed] = useState(0);
+export const nowSpeed = currentSpeed;
+
 const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData: initialSpeedData, onSave }) => {
   const [startSpeed, setStartSpeed] = useState(800);
   const [endSpeed, setEndSpeed] = useState(1000);
@@ -20,7 +23,8 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const [acceleration, setAcceleration] = useState(1);
   const [speedData, setSpeedData] = useState<number[]>(initialSpeedData);
   const [isAccelerationVisible, setIsAccelerationVisible] = useState(true);
-
+ 
+ 
   useEffect(() => {
     if (!startSpeed || !endSpeed || !duration) return;
     const durationMs = duration * 1000;
@@ -34,7 +38,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
       } else {
         progress = 1 - Math.pow(1 - elapsed / durationMs, -acceleration);
       }
-      const currentSpeed = startSpeed + (endSpeed - startSpeed) * progress;
+      setCurentSpeed(startSpeed + (endSpeed - startSpeed) * progress);
       data.push(currentSpeed);
     }
     setSpeedData(data);

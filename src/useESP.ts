@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { z } from "zod";
+import { nowSpeed } from "./SpeedPreviewChart";
 
 export const dataSchema = z.object({
   thrust: z.number(),
@@ -55,7 +56,7 @@ export const useESP = () => {
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [speed, setSpeed] = useState(0); // Declare speed state
-  const [acceleration, setAcceleration] = useState(1);
+  const [acceleration] = useState(1);
 
   const dataQueue = useRef<any[]>([]);
   const speedBuffer = useRef<{ timestamp: number; speed: number }[]>([]);
@@ -82,7 +83,7 @@ export const useESP = () => {
     const updateSpeed = () => {
       const now = new Date().getTime();
       const elapsed = now - startTime;
-    
+
       if (elapsed >= durationMs || isTestRunning === true) {
         setSpeed(endSpeed); // Ensure final speed is exactly endSpeed
         const finalMessage = JSON.stringify({
@@ -95,27 +96,17 @@ export const useESP = () => {
         }
         return;
       }
-    
-      // Calculate the current speed based on elapsed time
-      let progress; 
-      if (acceleration === 0) {
-        progress = elapsed / durationMs;
-      } else if (acceleration > 0) {
-        progress = Math.pow(elapsed / durationMs, acceleration);
-      } else {
-        progress = 1 - Math.pow(1 - elapsed / durationMs, -acceleration);
-      }
-      const currentSpeed = startSpeed + (endSpeed - startSpeed) * progress;
-      setSpeed(currentSpeed);
-    
+
+      setSpeed(nowSpeed);
+
       // Send the current speed to the server
       const speedMessage = JSON.stringify({
         type: "speedUpdate",
-        speed: currentSpeed,
+        speed: nowSpeed,
       });
       socket.send(speedMessage);
     }
-    
+
     // Update speed every 100ms
     intervalIdRef.current = setInterval(updateSpeed, 100); // Store interval ID
   };
