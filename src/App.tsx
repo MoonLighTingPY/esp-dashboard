@@ -173,9 +173,10 @@ const App = () => {
   }, [startSpeed, endSpeed, duration]);
 
   const handlePreviewSpeed = () => {
-    setSpeedPreview(previewData);
+    setSpeedPreview(savedSpeedData.length > 0 ? savedSpeedData : previewData);
     setIsPreviewOpen(true);
   };
+  
 
   const handleSavePreviewData = (speedData: number[], startSpeed: number, endSpeed: number, duration: number) => {
     setSavedSpeedData(speedData);
@@ -453,14 +454,12 @@ const App = () => {
                 
               </Grid>
               <Button onClick={handlePreviewSpeed} variant="outlined">Inputs</Button>
-            {isPreviewOpen && (
               <SpeedPreviewChart
-              open={isPreviewOpen}
-              onClose={() => setIsPreviewOpen(false)}
-              speedData={speedPreview}
-              onSave={handleSavePreviewData}
-            />
-            )}
+                open={isPreviewOpen}
+                onClose={() => setIsPreviewOpen(false)}
+                speedData={savedSpeedData.length > 0 ? savedSpeedData : previewData}
+                onSave={handleSavePreviewData}
+              />
             </Box>
             
             

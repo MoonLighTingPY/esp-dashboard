@@ -55,7 +55,6 @@ export const useESP = () => {
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [speed, setSpeed] = useState(0); // Declare speed state
-  const [acceleration, setAcceleration] = useState(1);
 
   const dataQueue = useRef<any[]>([]);
   const speedBuffer = useRef<{ timestamp: number; speed: number }[]>([]);
@@ -97,14 +96,8 @@ export const useESP = () => {
       }
     
       // Calculate the current speed based on elapsed time
-      let progress; 
-      if (acceleration === 0) {
-        progress = elapsed / durationMs;
-      } else if (acceleration > 0) {
-        progress = Math.pow(elapsed / durationMs, acceleration);
-      } else {
-        progress = 1 - Math.pow(1 - elapsed / durationMs, -acceleration);
-      }
+      let progress;
+      progress = elapsed / durationMs;     
       const currentSpeed = startSpeed + (endSpeed - startSpeed) * progress;
       setSpeed(currentSpeed);
     
