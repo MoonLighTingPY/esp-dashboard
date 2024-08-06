@@ -50,6 +50,8 @@ const App = () => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]); // Add state for saved speed data
   
+  
+  
 
   const {
     duration,
@@ -187,6 +189,8 @@ const App = () => {
   };
 
   const handleStartTest = () => {
+    handleClearGraph();
+    
     const savedSpeedData = JSON.parse(localStorage.getItem('speedData') || '[]');
     if (savedSpeedData.length > 0) {
       console.log("Using saved speed data from localStorage:", savedSpeedData);
