@@ -46,7 +46,7 @@ const App = () => {
   });
   const [motorModel, setMotorModel] = useState("");
   const [propellerModel, setPropellerModel] = useState("");
-  const [speedPreview, setSpeedPreview] = useState<number[]>([]);
+  const [, setSpeedPreview] = useState<number[]>([]);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]); // Add state for saved speed data
   

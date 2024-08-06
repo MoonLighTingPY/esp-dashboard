@@ -61,61 +61,66 @@ export const useESP = () => {
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null); // Store interval ID
 
   const handleStartReadings = async () => {
-    if (!socket || !startSpeed || !endSpeed || !duration) return;
+  if (!socket || !startSpeed || !endSpeed || !duration) return;
+
+  const durationMs = duration * 1000; // Duration in milliseconds
+  const startTime = new Date().getTime(); // Start time
+
+  const message = JSON.stringify({
+    type: "start",
+    duration: durationMs,
+    speed: startSpeed,
+  });
+  socket.send(message);
+  setIsTestRunning(true);
+  setStartTime(startTime);
+
+  // Clear any existing speed data
+  speedBuffer.current = [];
   
-    const durationMs = duration * 1000; // Duration in milliseconds
-    const startTime = new Date().getTime(); // Start time
-  
-    const message = JSON.stringify({
-      type: "start",
-      duration: durationMs,
-      speed: startSpeed,
-    });
-    socket.send(message);
-    setIsTestRunning(true);
-    setStartTime(startTime);
-  
-    // Clear any existing speed data
-    speedBuffer.current = [];
-  
-    const updateSpeed = () => {
-      const now = new Date().getTime();
-      const elapsed = now - startTime;
-  
-      if (elapsed >= durationMs) {
-        setSpeed(endSpeed); // Ensure final speed is exactly endSpeed
-        const finalMessage = JSON.stringify({
-          type: "speedUpdate",
-          speed: endSpeed,
-        });
-        socket.send(finalMessage);
-        if (intervalIdRef.current) {
-          clearInterval(intervalIdRef.current);
-        }
-        return;
+  // Clear any existing interval
+  if (intervalIdRef.current) {
+    clearInterval(intervalIdRef.current);
+  }
+
+  const updateSpeed = () => {
+    const now = new Date().getTime();
+    const elapsed = now - startTime;
+
+    if (elapsed >= durationMs) {
+      setSpeed(endSpeed); // Ensure final speed is exactly endSpeed
+      const finalMessage = JSON.stringify({
+        type: "speedUpdate",
+        speed: endSpeed,
+      });
+      socket.send(finalMessage);
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
       }
-  
-      // Calculate the current speed based on elapsed time
-      const y = localStorage.getItem('speedData');
-      const savedSpeedData = JSON.parse(y || '[]');
-      if (savedSpeedData.length > 0) {
-        const currentSpeed = savedSpeedData[Math.floor((elapsed / durationMs) * savedSpeedData.length)];
-        setSpeed(currentSpeed);
-  
-        // Send the current speed to the server
-        const speedMessage = JSON.stringify({
-          type: "speedUpdate",
-          speed: currentSpeed,
-        });
-        socket.send(speedMessage);
-      }
-    };
-  
-    // Update speed every 100ms or based on the number of data points
-    const savedSpeedData = espStateData.datasets[4].data; // Get the speed data from the datasets
-    const interval = (durationMs / savedSpeedData.length);
-    intervalIdRef.current = setInterval(updateSpeed, interval); // Store interval ID
+      return;
+    }
+
+    // Calculate the current speed based on elapsed time
+    const y = localStorage.getItem('speedData');
+    const savedSpeedData = JSON.parse(y || '[]');
+    if (savedSpeedData.length > 0) {
+      const currentSpeed = savedSpeedData[Math.floor((elapsed / durationMs) * savedSpeedData.length)];
+      setSpeed(currentSpeed);
+
+      // Send the current speed to the server
+      const speedMessage = JSON.stringify({
+        type: "speedUpdate",
+        speed: currentSpeed,
+      });
+      socket.send(speedMessage);
+    }
   };
+
+  // Update speed every 100ms or based on the number of data points
+  const savedSpeedData = espStateData.datasets[4].data; // Get the speed data from the datasets
+  const interval = durationMs / savedSpeedData.length;
+  intervalIdRef.current = setInterval(updateSpeed, interval); // Store interval ID
+};
 
   const handleStopReadings = () => {
     if (!socket) return;
