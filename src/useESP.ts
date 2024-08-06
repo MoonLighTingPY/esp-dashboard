@@ -55,9 +55,11 @@ export const useESP = () => {
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [speed, setSpeed] = useState(0); // Declare speed state
+  const [acceleration, setAcceleration] = useState(1);
 
   const dataQueue = useRef<any[]>([]);
   const speedBuffer = useRef<{ timestamp: number; speed: number }[]>([]);
+  const intervalIdRef = useRef<NodeJS.Timeout | null>(null); // Store interval ID
 
   const handleStartReadings = async () => {
     if (!socket || !startSpeed || !endSpeed || !duration) return;
@@ -81,19 +83,28 @@ export const useESP = () => {
       const now = new Date().getTime();
       const elapsed = now - startTime;
     
-      if (elapsed >= durationMs) {
+      if (elapsed >= durationMs || isTestRunning === true) {
         setSpeed(endSpeed); // Ensure final speed is exactly endSpeed
         const finalMessage = JSON.stringify({
           type: "speedUpdate",
           speed: endSpeed,
         });
         socket.send(finalMessage);
-        clearInterval(intervalId); // Stop the interval once the duration is complete
+        if (intervalIdRef.current) {
+          clearInterval(intervalIdRef.current);
+        }
         return;
       }
     
       // Calculate the current speed based on elapsed time
-      const progress = elapsed / durationMs; // Value between 0 and 1
+      let progress; 
+      if (acceleration === 0) {
+        progress = elapsed / durationMs;
+      } else if (acceleration > 0) {
+        progress = Math.pow(elapsed / durationMs, acceleration);
+      } else {
+        progress = 1 - Math.pow(1 - elapsed / durationMs, -acceleration);
+      }
       const currentSpeed = startSpeed + (endSpeed - startSpeed) * progress;
       setSpeed(currentSpeed);
     
@@ -106,7 +117,7 @@ export const useESP = () => {
     }
     
     // Update speed every 100ms
-    const intervalId = setInterval(updateSpeed, 1);
+    intervalIdRef.current = setInterval(updateSpeed, 100); // Store interval ID
   };
 
   const handleStopReadings = () => {
@@ -116,7 +127,12 @@ export const useESP = () => {
     socket.send(message);
     setIsTestRunning(false);
     setStartTime(null);
-    setSpeed(0); // Reset speed state
+    setSpeed(0);
+
+    if (intervalIdRef.current) {
+      clearInterval(intervalIdRef.current); // Clear the interval
+      intervalIdRef.current = null;
+    }
   };
 
   const handleClearGraph = () => {
