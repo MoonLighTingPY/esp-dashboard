@@ -29,10 +29,7 @@ ChartJS.register(
 
 const addZero = (num: number) => (num < 10 ? `0${num}` : num);
 
-const timePresets = [
-  { label: "+", value: 5 },
-  { label: "-", value: -5 },
-];
+
 
 const App = () => {
   const { speed } = useESP();
