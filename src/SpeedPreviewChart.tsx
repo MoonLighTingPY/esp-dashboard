@@ -20,7 +20,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const [speedData, setSpeedData] = useState<number[]>(initialSpeedData);
   const [motorModel, setMotorModel] = useState("");
   const [propellerModel, setPropellerModel] = useState("");
-  const [acceleration, setAcceleration] = useState(0);
+  const [acceleration, setAcceleration] = useState(1);
   const [isAccelerationOn, setIsAccelOn] = useState(false);
 
   const isSmallScreen = useMediaQuery('(max-width:600px)');
@@ -81,7 +81,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const handleToggleAcceleration = () => {
     setIsAccelOn(!isAccelerationOn);
     if (isAccelerationOn) {
-      setAcceleration(0);
+      setAcceleration(1);
     }
   };
 
@@ -102,9 +102,9 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
                 sx={{ width: '95%' }} // Add margin top and bottom
                 value={acceleration}
                 onChange={(_, newValue) => setAcceleration(newValue as number)}
-                min={-5}
+                min={0.02}
                 max={5}
-                step={0.1}
+                step={0.01}
               />
             </Box>
           )}
@@ -122,7 +122,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
           >
             <Button
             onClick={() => {handleToggleAcceleration(); if (!isAccelerationOn) {
-              setAcceleration(-5);
+              setAcceleration(0.02);
             }}}
             variant="contained"
             size="small"
