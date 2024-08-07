@@ -273,87 +273,87 @@ const App = () => {
       <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
         <Box sx={{ display: "flex", flexDirection: "row", flexGrow: 1 }}>
           {/* Chart */}
-                <Box sx={{ flex: 3 }}>
-                <div className="chart-container" ref={chartRef}>
-                  <div className="section-box">
-                  <Line
-                    data={data}
-                    options={{
+          <Box sx={{ flex: 3 }}>
+            <div className="chart-container" ref={chartRef}>
+              <div className="section-box">
+                <Line
+                  data={data}
+                  options={{
                     animation: false,
                     responsive: true,
                     maintainAspectRatio: false,
-                    }}
-                  />
-                  </div>
-                </div>
-                </Box>
+                  }}
+                />
+              </div>
+            </div>
+          </Box>
 
-                {/* Right side content: Statistics, buttons, and controls */}
-                <Box
-                sx={{ flex: 1, ml: 2, display: "flex", flexDirection: "column" }}
-                >
-                {/* Statistics */}
-                <div className="section-box">
-                  <Box sx={{ mb: 2, overflowY: "auto" }}>
-                    <Typography variant="body1">
-                      <span style={{ fontWeight: "bold", fontSize: "2em" }}>
-                        THRUST
-                      </span>{" "}
-                      Max:{" "}
-                      <span>{stats.thrustMax}</span>{" "}
-                      Min:{" "}
-                      <span>{stats.thrustMin}</span>
-                    </Typography>
-                    <Typography variant="body1">
-                      <span style={{ fontWeight: "bold", fontSize: "2em" }}>
-                        TORQUE
-                      </span>{" "}
-                      Max:{" "}
-                      <span>{stats.torqueMax}</span>{" "}
-                      Min:{" "}
-                      <span>{stats.torqueMin}</span>
-                    </Typography>
-                    <Typography variant="body1">
-                      <span style={{ fontWeight: "bold", fontSize: "2em" }}>
-                        VOLTAGE
-                      </span>{" "}
-                      Max:{" "}
-                      <span>{stats.voltageMax}</span>{" "}
-                      Min:{" "}
-                      <span>{stats.voltageMin}</span>
-                    </Typography>
-                    <Typography variant="body1">
-                      <span style={{ fontWeight: "bold", fontSize: "2em" }}>
-                        CURRENT
-                      </span>{" "}
-                      Max:{" "}
-                      <span>{stats.currentMax}</span>{" "}
-                      Min:{" "}
-                      <span>{stats.currentMin}</span>
-                    </Typography>
-                    <Typography variant="body1">
-                      <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>Start Speed:</span>{" "}
-                      <span>{startSpeed}</span>
-                    </Typography>
-                    <Typography variant="body1">
-                      <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>End Speed:</span>{" "}
-                      <span>{endSpeed}</span>
-                    </Typography>
-                    <Typography variant="body1">
-                      <span style={{ fontWeight: "bold", fontSize: "1.3em" }}> Duration:</span>{" "}
-                      <span>{duration} seconds</span>
-                    </Typography>
-                    <Typography variant="body1">
-                      <span style={{ fontWeight: "bold", fontSize: "1.3em" }}> Motor Model:</span>{" "}
-                      <span>{motorModel}</span>
-                    </Typography>
-                    <Typography variant="body1">
-                      <span style={{ fontWeight: "bold", fontSize: "1.3em" }}> Propeller Model:</span>{" "}
-                      <span>{propellerModel}</span>
-                    </Typography>
-                  </Box>
-                </div>
-                {/* Buttons */}
+          {/* Right side content: Statistics, buttons, and controls */}
+          <Box sx={{ flex: 1, ml: 2, display: "flex", flexDirection: "column" }}>
+            {/* Statistics */}
+            <div className="section-box">
+              <Box sx={{ mb: 2, overflowY: "auto" }}>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                    THRUST
+                  </span>{" "}
+                  Max: <span>{stats.thrustMax}</span> Min:{" "}
+                  <span>{stats.thrustMin}</span>
+                </Typography>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                    TORQUE
+                  </span>{" "}
+                  Max: <span>{stats.torqueMax}</span> Min:{" "}
+                  <span>{stats.torqueMin}</span>
+                </Typography>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                    VOLTAGE
+                  </span>{" "}
+                  Max: <span>{stats.voltageMax}</span> Min:{" "}
+                  <span>{stats.voltageMin}</span>
+                </Typography>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                    CURRENT
+                  </span>{" "}
+                  Max: <span>{stats.currentMax}</span> Min:{" "}
+                  <span>{stats.currentMin}</span>
+                </Typography>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>
+                    Start Speed:
+                  </span>{" "}
+                  <span>{startSpeed}</span>
+                </Typography>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>
+                    End Speed:
+                  </span>{" "}
+                  <span>{endSpeed}</span>
+                </Typography>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>
+                    Duration:
+                  </span>{" "}
+                  <span>{duration} seconds</span>
+                </Typography>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>
+                    Motor Model:
+                  </span>{" "}
+                  <span>{motorModel}</span>
+                </Typography>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>
+                    Propeller Model:
+                  </span>{" "}
+                  <span>{propellerModel}</span>
+                </Typography>
+              </Box>
+            </div>
+            {/* Buttons */}
             <div className="section-box">
               <Box
                 sx={{
@@ -392,11 +392,13 @@ const App = () => {
                   style={{ cursor: "pointer", width: "15%", height: "auto" }}
                 />
                 <SpeedPreviewChart
-                open={isPreviewOpen}
-                onClose={() => setIsPreviewOpen(false)}
-                speedData={savedSpeedData.length > 0 ? savedSpeedData : previewData}
-                onSave={handleSavePreviewData}
-              />
+                  open={isPreviewOpen}
+                  onClose={() => setIsPreviewOpen(false)}
+                  speedData={
+                    savedSpeedData.length > 0 ? savedSpeedData : previewData
+                  }
+                  onSave={handleSavePreviewData}
+                />
                 <img
                   src="/images/pdf.ico"
                   alt="Save as PDF"
@@ -427,7 +429,6 @@ const App = () => {
             </div>
           </Box>
         </Box>
-
       </Box>
     </div>
   );

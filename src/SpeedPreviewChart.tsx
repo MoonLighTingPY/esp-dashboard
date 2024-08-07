@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import { Box, Modal, Typography, Button, TextField, Slider } from "@mui/material";
+import { Box, Modal, Typography, Button, TextField, Slider, useMediaQuery } from "@mui/material";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
-import dragDataPlugin from 'chartjs-plugin-dragdata';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, dragDataPlugin);
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 interface SpeedPreviewChartProps {
   open: boolean;
@@ -17,11 +17,13 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const [startSpeed, setStartSpeed] = useState(800);
   const [endSpeed, setEndSpeed] = useState(1000);
   const [duration, setDuration] = useState(5);
-  const [acceleration, setAcceleration] = useState(0);
   const [speedData, setSpeedData] = useState<number[]>(initialSpeedData);
-  const [isAccelerationVisible, setIsAccelerationVisible] = useState(true);
   const [motorModel, setMotorModel] = useState("");
   const [propellerModel, setPropellerModel] = useState("");
+  const [acceleration, setAcceleration] = useState(0);
+  const [isAccelerationOn, setIsAccelOn] = useState(false);
+
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     if (!startSpeed || !endSpeed || !duration) return;
@@ -32,18 +34,16 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
       if (acceleration === 0) {
         progress = elapsed / durationMs;
       } else if (acceleration > 0) {
-        progress = Math.pow(elapsed / durationMs, acceleration);
+        progress = Math.pow(elapsed / durationMs, 1 / acceleration);
       } else {
-        progress = 1 - Math.pow(1 - elapsed / durationMs, -acceleration);
+        progress = Math.pow(elapsed / durationMs, -acceleration);
       }
       const currentSpeed = startSpeed + (endSpeed - startSpeed) * progress;
       data.push(currentSpeed);
     }
     setSpeedData(data);
     localStorage.setItem('speedData', JSON.stringify(data));
-
   }, [startSpeed, endSpeed, duration, acceleration]);
-  
 
   const labels = speedData.map((_, index) => {
     const elapsedTime = (index * duration) / speedData.length;
@@ -65,17 +65,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   };
 
   const options = {
-    plugins: {
-      dragData: {
-        round: 1,
-        showTooltip: true,
-        onDragEnd: (_e: any, _datasetIndex: number, index: number, value: number) => {
-          const updatedSpeedData = [...speedData];
-          updatedSpeedData[index] = value;
-          setSpeedData(updatedSpeedData);
-        },
-      },
-    },
+
     scales: {
       x: {
         type: 'category',
@@ -84,103 +74,130 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
       y: {
         beginAtZero: true,
       },
+      maintainaspectratio: false,
     },
   };
 
   const handleToggleAcceleration = () => {
-    setIsAccelerationVisible((prev) => !prev);
-    if (isAccelerationVisible) {
+    setIsAccelOn(!isAccelerationOn);
+    if (isAccelerationOn) {
       setAcceleration(0);
     }
   };
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={{ width: 800, margin: "auto", marginTop: "10%", padding: 2, backgroundColor: "white", borderRadius: 2 }}>
-        <Typography variant="h6" gutterBottom>
-          Speed Preview
-        </Typography>
-        
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            mt: 0,
-          }}
-        >
-          
-          <TextField
-            label="Start Speed"
-            type="number"
-            value={startSpeed}
-            onChange={(e) => setStartSpeed(Number(e.target.value) === 0 ? 1 : Number(e.target.value))}
-            fullWidth
-            margin="normal"
-            
-          />
-          <TextField
-            label="End Speed"
-            type="number"
-            value={endSpeed}
-            onChange={(e) => setEndSpeed(Number(e.target.value))}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Duration (seconds)"
-            type="number"
-            value={duration}
-            onChange={(e) => setDuration(Number(e.target.value))}
-            fullWidth
-            margin="normal"
-          />
-          <Button onClick={handleToggleAcceleration} variant="contained" color="secondary" sx={{ ml: 2 }}>
-            {isAccelerationVisible ? "Accel: ON" : "Accel: OFF"}
-          </Button>
-        </Box>
-        {isAccelerationVisible && (
-          <Slider
-            value={acceleration}
-            onChange={(_, newValue) => setAcceleration(newValue as number)}
-            min={-5}
-            max={5}
-            step={0.1}
-            valueLabelDisplay="auto"
-            sx={{ mt: 2 }}
-          />
-        )}
-        <Line data={data} options={options as any} />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            mt: 0,
-          }}>
-        <Button onClick={() => onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel)} variant="contained" color="primary" sx={{ mt: 2 }}>
-          Save
-        </Button>
-        <TextField
-            label="Motor Model"
-            type="text"
-            value={motorModel}
-            onChange={(e) => setMotorModel(e.target.value)}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Propeller Model"
-            type="text"
-            value={propellerModel}
-            onChange={(e) => setPropellerModel(e.target.value)}
-            fullWidth
-            margin="normal"
-          />
+      <div className="speed-preview-chart-container">
+        <Box className="speed-preview-chart">
+
+          <Typography variant="h4" gutterBottom mt={1} align="center" style={{ fontWeight: 'bold' }}>
+            INPUTS
+          </Typography>
+          <Box>
+            <Line data={data} options={options as any} />
           </Box>
-      </Box>
+          {isAccelerationOn && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mb: 2 }}>
+              <Slider
+                sx={{ width: '95%' }} // Add margin top and bottom
+                value={acceleration}
+                onChange={(_, newValue) => setAcceleration(newValue as number)}
+                min={-5}
+                max={5}
+                step={0.1}
+              />
+            </Box>
+          )}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: isSmallScreen ? "column" : "row",
+              alignItems: "center",
+              mt: 0,
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+              padding: 1,
+              borderRadius: 1,
+              marginBottom: 1,
+            }}
+          >
+            <Button
+            onClick={() => {handleToggleAcceleration(); if (!isAccelerationOn) {
+              setAcceleration(-5);
+            }}}
+            variant="contained"
+            size="small"
+            sx={{
+              mr: 2,
+              mt: 1,
+              borderRadius: 20,
+              backgroundColor: isAccelerationOn ? 'green' : 'red',
+              '&:hover': {
+                backgroundColor: isAccelerationOn ? 'darkgreen' : 'darkred',
+              },
+            }}
+          >
+            Acceleration
+          </Button>
+            <TextField
+              label="Start Speed"
+              type="number"
+              value={startSpeed}
+              onChange={(e) => setStartSpeed(Number(e.target.value) === 0 ? 1 : Number(e.target.value))}
+              fullWidth
+              margin="normal"
+              size="small"
+              sx={{ marginRight: 2, width: isSmallScreen ? "100%" : "12%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+            />
+            <TextField
+              label="End Speed"
+              type="number"
+              value={endSpeed}
+              onChange={(e) => setEndSpeed(Number(e.target.value))}
+              fullWidth
+              margin="normal"
+              size="small"
+              sx={{ marginRight: 2, width: isSmallScreen ? "100%" : "12%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+            />
+            <TextField
+              label="Duration (seconds)"
+              type="number"
+              value={duration}
+              onChange={(e) => setDuration(Number(e.target.value))}
+              fullWidth
+              margin="normal"
+              size="small"
+              sx={{ marginRight: 2, width: isSmallScreen ? "100%" : "12%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+            />
+            <TextField
+              label="Motor Model"
+              type="text"
+              value={motorModel}
+              onChange={(e) => setMotorModel(e.target.value)}
+              margin="normal"
+              size="small"
+              sx={{ marginRight: 2, width: isSmallScreen ? "100%" : "22%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+            />
+            <TextField
+              label="Propeller Model"
+              type="text"
+              value={propellerModel}
+              onChange={(e) => setPropellerModel(e.target.value)}
+              fullWidth
+              margin="normal"
+              size="small"
+              sx={{ width: isSmallScreen ? "100%" : "22%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+            />
+            <div className="close-icon-container">
+              <svg className="close-icon" viewBox="0 0 24 24" onClick={() => onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel)}>
+                <polyline points="20 6 9 17 4 12" fill="none" style={{ strokeWidth: '4' }} />
+              </svg>
+            </div>
+          </Box>
+        </Box>
+      </div>
     </Modal>
   );
 };
+
 
 export default SpeedPreviewChart;
