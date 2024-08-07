@@ -294,62 +294,58 @@ const App = () => {
             <div className="section-box">
               <Box sx={{ mb: 2, overflowY: "auto" }}>
                 <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                  <span style={{ fontWeight: "bold", fontSize: "1.2vw" }}>
                     THRUST
                   </span>{" "}
-                  Max: <span>{stats.thrustMax}</span> Min:{" "}
-                  <span>{stats.thrustMin}</span>
+                  <span style={{ fontSize: "0.9vw" }}>Max: {stats.thrustMax} Min:{" "} {stats.thrustMin}</span>
                 </Typography>
                 <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                  <span style={{ fontWeight: "bold", fontSize: "1.2vw" }}>
                     TORQUE
                   </span>{" "}
-                  Max: <span>{stats.torqueMax}</span> Min:{" "}
-                  <span>{stats.torqueMin}</span>
+                  <span style={{ fontSize: "0.9vw" }}>Max: {stats.torqueMax} Min:{" "} {stats.torqueMin}</span>
                 </Typography>
                 <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                  <span style={{ fontWeight: "bold", fontSize: "1.2vw" }}>
                     VOLTAGE
                   </span>{" "}
-                  Max: <span>{stats.voltageMax}</span> Min:{" "}
-                  <span>{stats.voltageMin}</span>
+                  <span style={{ fontSize: "0.9vw" }}>Max: {stats.voltageMax} Min:{" "} {stats.voltageMin}</span>
                 </Typography>
                 <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "2em" }}>
+                  <span style={{ fontWeight: "bold", fontSize: "1.2vw" }}>
                     CURRENT
                   </span>{" "}
-                  Max: <span>{stats.currentMax}</span> Min:{" "}
-                  <span>{stats.currentMin}</span>
+                  <span style={{ fontSize: "0.9vw" }}>Max: {stats.currentMax} Min:{" "} {stats.currentMin}</span>
                 </Typography>
                 <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>
+                  <span style={{ fontWeight: "bold", fontSize: "0.8vw" }}>
                     Start Speed:
                   </span>{" "}
-                  <span>{startSpeed}</span>
+                  <span style={{ fontSize: "0.8vw" }}>{startSpeed}</span>
                 </Typography>
                 <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>
+                  <span style={{ fontWeight: "bold", fontSize: "0.8vw" }}>
                     End Speed:
                   </span>{" "}
-                  <span>{endSpeed}</span>
+                  <span style={{ fontSize: "0.8vw" }}>{endSpeed}</span>
                 </Typography>
                 <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>
+                  <span style={{ fontWeight: "bold", fontSize: "0.8vw" }}>
                     Duration:
                   </span>{" "}
-                  <span>{duration} seconds</span>
+                  <span style={{ fontSize: "0.8vw" }}>{duration} seconds</span>
                 </Typography>
                 <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>
+                  <span style={{ fontWeight: "bold", fontSize: "0.8vw" }}>
                     Motor Model:
                   </span>{" "}
-                  <span>{motorModel}</span>
+                  <span style={{ fontSize: "0.8vw" }}>{motorModel}</span>
                 </Typography>
                 <Typography variant="body1">
-                  <span style={{ fontWeight: "bold", fontSize: "1.3em" }}>
+                  <span style={{ fontWeight: "bold", fontSize: "0.8vw" }}>
                     Propeller Model:
                   </span>{" "}
-                  <span>{propellerModel}</span>
+                  <span style={{ fontSize: "0.8vw" }}>{propellerModel}</span>
                 </Typography>
               </Box>
             </div>
@@ -415,6 +411,7 @@ const App = () => {
               <Typography
                 variant="body1"
                 sx={{
+                  mt: 1,
                   ml: 2,
                   fontWeight: "bold",
                   fontSize: "1.2em",
@@ -422,9 +419,9 @@ const App = () => {
                   textAlign: "center",
                 }}
               >
-                {`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(
+                <span style={{ fontSize: "1vw" }}>{`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(
                   timeRemaining % 60
-                )}`}
+                )}`}</span>
               </Typography>
             </div>
           </Box>

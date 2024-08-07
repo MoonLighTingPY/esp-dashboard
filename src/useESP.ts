@@ -61,6 +61,7 @@ export const useESP = () => {
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null); // Store interval ID
 
   const handleStartReadings = async () => {
+    handleClearGraph();
   if (!socket || !startSpeed || !endSpeed || !duration) return;
 
   const durationMs = duration * 1000; // Duration in milliseconds
@@ -94,6 +95,7 @@ export const useESP = () => {
         speed: endSpeed,
       });
       socket.send(finalMessage);
+      handleStopReadings();
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
       }
@@ -104,7 +106,7 @@ export const useESP = () => {
     const y = localStorage.getItem('speedData');
     const savedSpeedData = JSON.parse(y || '[]');
     if (savedSpeedData.length > 0) {
-      const currentSpeed = savedSpeedData[Math.floor((elapsed / durationMs) * savedSpeedData.length)];
+      const currentSpeed = savedSpeedData[Math.floor((elapsed / durationMs) * (savedSpeedData.length - 1))];
       setSpeed(currentSpeed);
 
       // Send the current speed to the server

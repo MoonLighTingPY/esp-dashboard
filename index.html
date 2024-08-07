@@ -6,17 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Motor Tester</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      width: 100%;
-      background-color: #e0e0e0; /* Light grey background */
-      font-family: Arial, sans-serif; /* Set a nice font for better readability */
-    }
+
 
     #root {
       display: flex;
@@ -25,10 +15,31 @@
       padding: 20px;
       border-radius: 12px; /* Rounded corners for the container */
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
-      max-width: 200ex; /* Maximum width for the container */
+      max-width: 100%; /* Maximum width for the container */
       width: 90%;
       overflow: auto; /* Ensure overflow is handled */
     }
+
+    .speed-preview-chart-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    .speed-preview-chart {
+      width: auto !important; /* Ensure the canvas takes full width of its container */
+      height: auto !important; /* Allow the canvas to adjust height as needed */
+      position: relative;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    
 
     .section {
       margin-bottom: 20px; /* Space between sections */
