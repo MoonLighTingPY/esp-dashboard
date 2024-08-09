@@ -90,6 +90,7 @@ const App = () => {
     socket.onmessage = (event) => {
       const newData = JSON.parse(event.data);
       console.log("Received data:", newData);
+      
 
       const parsed = dataSchema.safeParse(newData);
 

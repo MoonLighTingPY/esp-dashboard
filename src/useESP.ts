@@ -119,9 +119,10 @@ export const useESP = () => {
   };
 
   // Update speed every 100ms or based on the number of data points
-  const savedSpeedData = espStateData.datasets[4].data; // Get the speed data from the datasets
-  const interval = durationMs / savedSpeedData.length;
-  intervalIdRef.current = setInterval(updateSpeed, interval); // Store interval ID
+  //const savedSpeedData = espStateData.datasets[4].data; // Get the speed data from the datasets
+  //const interval = durationMs / savedSpeedData.length;
+  //console.log(espStateData.datasets[4].data)
+  intervalIdRef.current = setInterval(updateSpeed, 100); // Store interval ID
 };
 
   const handleStopReadings = () => {
