@@ -32,7 +32,7 @@ const addZero = (num: number) => (num < 10 ? `0${num}` : num);
 
 
 const App = () => {
-  const { speed } = useESP();
+  const {} = useESP();
   const chartRef = useRef(null);
   const [stats, setStats] = useState({
     thrustMax: 0,
@@ -49,6 +49,7 @@ const App = () => {
   const [, setSpeedPreview] = useState<number[]>([]);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]); // Add state for saved speed data
+  const [acceleration, setAcceleration] = useState(1);
   
   
   
@@ -199,6 +200,8 @@ const App = () => {
       console.log("Using saved speed data from localStorage:", savedSpeedData);
       console.log("Start Speed:", startSpeed);
       console.log("End Speed:", endSpeed);
+      console.log("Acceleration:", acceleration);
+
       console.log("Duration:", duration);
   
       // Generate new preview data
@@ -236,27 +239,30 @@ const App = () => {
     const statsText = `
     Stats:
 
-    THRUST Max: ${stats.thrustMax} Min: ${stats.thrustMin}
-    TORQUE Max: ${stats.torqueMax} Min: ${stats.torqueMin}
-    VOLTAGE Max: ${stats.voltageMax} Min: ${stats.voltageMin}
-    CURRENT Max: ${stats.currentMax} Min: ${stats.currentMin}
+    Thrust Max: ${stats.thrustMax} Min: ${stats.thrustMin}
+    Torque Max: ${stats.torqueMax} Min: ${stats.torqueMin}
+    Voltage Max: ${stats.voltageMax} Min: ${stats.voltageMin}
+    Current Max: ${stats.currentMax} Min: ${stats.currentMin}
 
     `;
 
-    pdf.text(statsText, 120, pdfHeight + 10);
+    pdf.text(statsText, 120, pdfHeight);
 
+    const accelerationState = acceleration === 1 ? "Off" : "On";
     // Add input values to PDF
     const inputsText = `
-    Test info:
+    Inputs:
 
     Duration: ${Math.floor(duration / 60)} minutes ${addZero(
       duration % 60
     )} seconds
-    Speed: ${speed}
+    Start Speed: ${startSpeed}
+    End Speed: ${endSpeed}
+    Acceleration: ${accelerationState} (Factor: ${acceleration})
     Motor Model: ${motorModel}
     Propeller Model: ${propellerModel}`;
 
-    pdf.text(inputsText, 10, pdfHeight + 10);
+    pdf.text(inputsText, 10, pdfHeight);
 
     pdf.save("chart.pdf");
   };
@@ -392,6 +398,8 @@ const App = () => {
                 <SpeedPreviewChart
                   open={isPreviewOpen}
                   onClose={() => setIsPreviewOpen(false)}
+                  acceleration={acceleration}
+                  setAcceleration={setAcceleration}
                   speedData={
                     savedSpeedData.length > 0 ? savedSpeedData : previewData
                   }

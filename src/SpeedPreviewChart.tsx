@@ -11,16 +11,18 @@ interface SpeedPreviewChartProps {
   onClose: () => void;
   speedData: number[];
   onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string) => void;
+  acceleration: number;
+  setAcceleration: (acceleration: number) => void;
 }
 
-const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData: initialSpeedData, onSave }) => {
+const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData: initialSpeedData, onSave, acceleration, setAcceleration  }) => {
   const [startSpeed, setStartSpeed] = useState(800);
   const [endSpeed, setEndSpeed] = useState(1000);
   const [duration, setDuration] = useState(5);
   const [speedData, setSpeedData] = useState<number[]>(initialSpeedData);
   const [motorModel, setMotorModel] = useState("");
   const [propellerModel, setPropellerModel] = useState("");
-  const [acceleration, setAcceleration] = useState(1);
+
   const [isAccelerationOn, setIsAccelOn] = useState(false);
 
   const isSmallScreen = useMediaQuery('(max-width:600px)');
