@@ -6,6 +6,7 @@ export const dataSchema = z.object({
   torque: z.number(),
   voltage: z.number(),
   current: z.number(),
+  speed: z.number(),
 });
 
 type DateSchema = number;
@@ -18,30 +19,41 @@ const initData = {
       data: [] as DateSchema[],
       borderColor: "rgba(255, 99, 132, 1)",
       backgroundColor: "rgba(255, 99, 132, 0.2)",
+      borderWidth: 2,
+      yAxisID: 'y4'
     },
     {
       label: "Torque",
       data: [] as DateSchema[],
       borderColor: "rgba(54, 162, 235, 1)",
       backgroundColor: "rgba(54, 162, 235, 0.2)",
+      borderWidth: 2,
+      yAxisID: 'y3'
     },
     {
       label: "Voltage",
       data: [] as DateSchema[],
       borderColor: "rgba(75, 192, 192, 1)",
       backgroundColor: "rgba(75, 192, 192, 0.2)",
+      borderWidth: 2,
+      yAxisID: 'y2'
+      
     },
     {
       label: "Current",
       data: [] as DateSchema[],
       borderColor: "rgb(58, 201, 68)",
       backgroundColor: "rgba(77, 192, 75, 0.2)",
+      borderWidth: 2,
+      yAxisID: 'y1'
     },
     {
       label: "Speed",
-      data: [] as number[], // Add speed dataset
+      data: [] as DateSchema[], // Add speed dataset
       borderColor: "rgba(255, 206, 86, 1)",
       backgroundColor: "rgba(255, 206, 86, 0.2)",
+      borderWidth: 2,
+      yAxisID: 'y'
     },
   ],
 };

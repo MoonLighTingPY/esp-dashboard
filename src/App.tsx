@@ -68,7 +68,6 @@ const App = () => {
     setDuration,
     handleStartReadings,
     handleStopReadings,
-    handleClearGraph,
     data,
   } = useESP();
 
@@ -192,34 +191,7 @@ const App = () => {
     setIsPreviewOpen(false);
   };
 
-  const handleStartTest = () => {
-    handleClearGraph();
-    
-    const savedSpeedData = JSON.parse(localStorage.getItem('speedData') || '[]');
-    if (savedSpeedData.length > 0) {
-      console.log("Using saved speed data from localStorage:", savedSpeedData);
-      console.log("Start Speed:", startSpeed);
-      console.log("End Speed:", endSpeed);
-      console.log("Acceleration:", acceleration);
-
-      console.log("Duration:", duration);
   
-      // Generate new preview data
-      const newPreviewData = savedSpeedData;
-  
-      // Append new preview data to the existing data
-      setData((prevData) => ({
-        ...prevData,
-        datasets: prevData.datasets.map((dataset) =>
-          dataset.label === "Speed"
-            ? { ...dataset, data: [...dataset.data, ...newPreviewData] }
-            : dataset
-        ),
-      }));
-    } else {
-      console.log("No saved speed data in localStorage, using default behavior");
-    }
-  };
 
   const handleSaveAsPDF = async () => {
     const chartElement = chartRef.current;
@@ -290,6 +262,73 @@ const App = () => {
                     animation: false,
                     responsive: true,
                     maintainAspectRatio: false,
+                    
+                    scales: {
+                      y: {
+                        
+                          grid: {
+                              color: 'rgba(0, 0, 0, 0)',  // Change axis line color
+                                         // Change the border color (axis line)
+                          },
+                          ticks: {
+                              color: '#baf202' // Change label color on y-axis
+                          }
+                      },
+                      y1: {
+                        
+                          grid: {
+                              color: 'rgba(0, 0, 0, 0)',  // Change axis line color
+                                        // Change the border color (axis line)
+                          },
+                          ticks: {
+                            callback: function(value) {
+                              return value + 'A'; // Customize the label
+                          },
+                              color: 'green' // Change label color on y-axis
+                          }
+                          
+                      },
+                      y2: {
+                        
+                          grid: {
+                              color: 'rgba(0, 0, 0, 0)',  // Change axis line color
+                                        // Change the border color (axis line)
+                          },
+                          ticks: {
+                            callback: function(value) {
+                              return value + 'V'; // Customize the label
+                          },
+                              color: '#00d6b3' // Change label color on y-axis
+                          }
+                      },
+                      y3: {
+                        
+                          grid: {
+                              color: 'rgba(0, 0, 0, 0)',  // Change axis line color
+                                        // Change the border color (axis line)
+                          },
+                          ticks: {
+                            callback: function(value) {
+                              return value + ' g.'; // Customize the label
+                          },
+                              color: 'blue' // Change label color on y-axis
+                          }
+                      },
+                      y4: {
+                        
+                          grid: {
+                              color: 'rgba(0, 0, 0, 0)',  // Change axis line color
+                                        // Change the border color (axis line)
+                          },
+                          ticks: {
+                            callback: function(value) {
+                              return value + ' g.'; // Customize the label
+                          },
+                              color: 'red' // Change label color on y-axis
+                          }
+                      },
+                      
+                  }
                   }}
                 />
               </div>
@@ -372,7 +411,7 @@ const App = () => {
                   alt="Test"
                   onClick={() => {
                     handleStartReadings();
-                    handleStartTest();
+                    
                   }}
                   style={{
                     cursor: "pointer",
