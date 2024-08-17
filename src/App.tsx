@@ -274,7 +274,7 @@ const App = () => {
                                          // Change the border color (axis line)
                           },
                           ticks: {
-                              color: '#baf202' // Change label color on y-axis
+                              color: '#b7a038' // Change label color on y-axis
                           }
                       },
                       y1: {

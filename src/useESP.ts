@@ -110,7 +110,7 @@ export const useESP = () => {
     const savedSpeedData = JSON.parse(y || '[]'); // Move the declaration of savedSpeedData here
   
     if (elapsed >= durationMs) {
-
+      
       handleStopReadings();
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
