@@ -141,12 +141,14 @@ const App = () => {
       averages[key] = averages[key].reduce((a: number, b: number) => a + b, 0) / averages[key].length;
     });
   
+    const currentTime = new Date().getTime();
+
     // Format elapsed time in mm:ss
-    const elapsedTime = (new Date().getTime() - (startTime || 0)) / 1000;
+    const elapsedTime = (currentTime - (startTime || 0)) / 1000;
     const minutes = Math.floor(elapsedTime / 60).toString().padStart(2, '0');
     const seconds = Math.floor(elapsedTime % 60).toString().padStart(2, '0');
     const timeLabel = `${minutes}:${seconds}`;
-  
+
     // Update the graph data
     setData((prevData) => ({
       ...prevData,
@@ -282,8 +284,8 @@ const App = () => {
                           },
                           ticks: {
                             callback: function(value) {
-                              return value + 'A'; // Customize the label
-                          },
+                              return Number(value).toFixed(2) + 'A'; // Customize the label
+                            },
                               color: 'green' // Change label color on y-axis
                           }
                           
@@ -296,7 +298,7 @@ const App = () => {
                           },
                           ticks: {
                             callback: function(value) {
-                              return value + 'V'; // Customize the label
+                              return Number(value).toFixed(2) + 'V'; // Customize the label
                           },
                               color: '#00d6b3' // Change label color on y-axis
                           }
