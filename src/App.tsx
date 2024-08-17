@@ -97,6 +97,7 @@ const App = () => {
       if (!parsed.success) {
         return alert("Fetched data in wrong format");
       }
+      
 
       dataQueue.current.push(parsed.data);
 

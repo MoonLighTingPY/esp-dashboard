@@ -16,8 +16,8 @@ interface SpeedPreviewChartProps {
 }
 
 const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData: initialSpeedData, onSave, acceleration, setAcceleration  }) => {
-  const [startSpeed, setStartSpeed] = useState(800);
-  const [endSpeed, setEndSpeed] = useState(1000);
+  const [startSpeed, setStartSpeed] = useState(1200);
+  const [endSpeed, setEndSpeed] = useState(1400);
   const [duration, setDuration] = useState(5);
   const [speedData, setSpeedData] = useState<number[]>(initialSpeedData);
   const [motorModel, setMotorModel] = useState("");

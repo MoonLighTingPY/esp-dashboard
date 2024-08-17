@@ -78,11 +78,16 @@ export const useESP = () => {
 
   const durationMs = duration * 1000; // Duration in milliseconds
   const startTime = new Date().getTime(); // Start time
+  const y = localStorage.getItem('speedData');
+    const savedSpeedData = JSON.parse(y || '[]');
+    const currentSpeed = savedSpeedData[0];
+    setSpeed(currentSpeed);
+
 
   const message = JSON.stringify({
     type: "start",
     duration: durationMs,
-    speed: startSpeed,
+    speed: currentSpeed,
   });
   socket.send(message);
   setIsTestRunning(true);
@@ -99,28 +104,24 @@ export const useESP = () => {
   const updateSpeed = () => {
     const now = new Date().getTime();
     const elapsed = now - startTime;
-
+  
+    // Calculate the current speed based on elapsed time
+    const y = localStorage.getItem('speedData');
+    const savedSpeedData = JSON.parse(y || '[]'); // Move the declaration of savedSpeedData here
+  
     if (elapsed >= durationMs) {
-      setSpeed(endSpeed); // Ensure final speed is exactly endSpeed
-      const finalMessage = JSON.stringify({
-        type: "speedUpdate",
-        speed: endSpeed,
-      });
-      socket.send(finalMessage);
+
       handleStopReadings();
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
       }
       return;
     }
-
-    // Calculate the current speed based on elapsed time
-    const y = localStorage.getItem('speedData');
-    const savedSpeedData = JSON.parse(y || '[]');
+  
     if (savedSpeedData.length > 0) {
       const currentSpeed = savedSpeedData[Math.floor((elapsed / durationMs) * (savedSpeedData.length - 1))];
       setSpeed(currentSpeed);
-
+  
       // Send the current speed to the server
       const speedMessage = JSON.stringify({
         type: "speedUpdate",
