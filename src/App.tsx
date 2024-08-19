@@ -214,7 +214,18 @@ const App = () => {
     setIsPreviewOpen(false);
   };
 
-  
+  const handleClearStats = () => {
+    setStats({
+      thrustMax: 0,
+      thrustMin: 0,
+      torqueMax: 0,
+      torqueMin: 0,
+      voltageMax: 0,
+      voltageMin: 0,
+      currentMax: 0,
+      currentMin: 0,
+    });
+  }
 
   const handleSaveAsPDF = async () => {
     const chartElement = chartRef.current;
@@ -434,6 +445,7 @@ const App = () => {
                   alt="Test"
                   onClick={() => {
                     handleStartReadings();
+                    handleClearStats();
                   }}
                   style={{
                     cursor: "pointer",
