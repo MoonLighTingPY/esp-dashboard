@@ -59,8 +59,8 @@ const initData = {
 };
 
 export const useESP = () => {
-  const [startSpeed, setStartSpeed] = useState(800);
-  const [endSpeed, setEndSpeed] = useState(1000);
+  const [startSpeed, setStartSpeed] = useState(1200);
+  const [endSpeed, setEndSpeed] = useState(1400);
   const [duration, setDuration] = useState(5);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [espStateData, updateESPData] = useState(initData);
@@ -110,6 +110,11 @@ export const useESP = () => {
     const savedSpeedData = JSON.parse(y || '[]'); // Move the declaration of savedSpeedData here
   
     if (elapsed >= durationMs) {
+      const finalMessage = JSON.stringify({
+        type: "speedUpdate",
+        speed: savedSpeedData[savedSpeedData.length - 1],
+      });
+      socket.send(finalMessage);
       
       handleStopReadings();
       if (intervalIdRef.current) {

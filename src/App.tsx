@@ -1,6 +1,6 @@
 import "./index.css";
 import { useEffect, useRef, useState, useMemo } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, LinearProgress, Alert} from "@mui/material";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -50,6 +50,8 @@ const App = () => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]); // Add state for saved speed data
   const [acceleration, setAcceleration] = useState(1);
+  const [showSaveSucess, setShowSaveSucess] = useState(false); // Alert just like AlertDefaultInput, just to lazy to rename to "alertSaveSuccess"
+  const [AlertDefaultInputs, setAlertDefaultInputs] = useState(true);
   
   
   
@@ -114,6 +116,23 @@ const App = () => {
       }));
     };
   }, [socket]);
+
+  useEffect(() => {
+    if (showSaveSucess) {
+      const timeoutId = setTimeout(() => {
+        setShowSaveSucess(false);
+      }, 15000);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [showSaveSucess]);
+
+
+  useEffect(() => {
+    if (showSaveSucess) {
+      setAlertDefaultInputs(false);
+    }
+  } , [savedSpeedData]);      
 
   // Refresh the graph data every 100ms
   useEffect(() => {
@@ -185,6 +204,7 @@ const App = () => {
   
 
   const handleSavePreviewData = (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string) => {
+    setShowSaveSucess(true);
     setSavedSpeedData(speedData);
     setStartSpeed(startSpeed);
     setEndSpeed(endSpeed);
@@ -226,16 +246,16 @@ const App = () => {
     const accelerationState = acceleration === 1 ? "Off" : "On";
     // Add input values to PDF
     const inputsText = `
-    Inputs:
+      Inputs:
 
-    Duration: ${Math.floor(duration / 60)} minutes ${addZero(
-      duration % 60
-    )} seconds
-    Start Speed: ${startSpeed}
-    End Speed: ${endSpeed}
-    Acceleration: ${accelerationState} (Factor: ${acceleration})
-    Motor Model: ${motorModel}
-    Propeller Model: ${propellerModel}`;
+      Duration: ${Math.floor(duration / 60)} minutes ${addZero(
+        duration % 60
+      )} seconds
+      Start Speed: ${startSpeed || 'Not set'}
+      End Speed: ${endSpeed || 'Not set'}
+      Acceleration: ${accelerationState} (Factor: ${acceleration})
+      Motor Model: ${motorModel || 'Not set'}
+      Propeller Model: ${propellerModel || 'Not set'}`;
 
     pdf.text(inputsText, 10, pdfHeight);
 
@@ -414,7 +434,6 @@ const App = () => {
                   alt="Test"
                   onClick={() => {
                     handleStartReadings();
-                    
                   }}
                   style={{
                     cursor: "pointer",
@@ -430,7 +449,6 @@ const App = () => {
                   onClick={handleStopReadings}
                   style={{ cursor: "pointer", width: "15%", height: "auto" }}
                 />
-
                 <img
                   src="/images/gear.ico"
                   alt="Inputs"
@@ -447,6 +465,7 @@ const App = () => {
                   }
                   onSave={handleSavePreviewData}
                 />
+                
                 <img
                   src="/images/pdf.ico"
                   alt="Save as PDF"
@@ -474,8 +493,35 @@ const App = () => {
                 <span style={{ fontSize: "1vw" }}>{`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(
                   timeRemaining % 60
                 )}`}</span>
+                <LinearProgress
+              variant="determinate"
+              value={((duration - timeRemaining) / duration) * 100}
+              sx={{
+                marginTop: 2,
+                height: 10, // Custom height
+                backgroundColor: "#e0e0e0", // Background color
+                "& .MuiLinearProgress-bar": {
+                  backgroundColor: "#3f51b5", // Bar color
+                },
+              }}
+            />
               </Typography>
             </div>
+            {showSaveSucess && (
+                <div className="alert-container">
+                  <Alert severity="success" onClose={() => setShowSaveSucess(false)} sx={{ fontSize: "1.3em", }}>
+                    Inputs saved successfully!
+                  </Alert>
+                </div>
+                )}
+            {AlertDefaultInputs && (
+            <div className="alert-container">
+              <Alert severity="info" onClose={() => setAlertDefaultInputs(false)} sx={{ fontSize: "1.3em",  }}>
+                Using default inputs.<br />
+                Click the gear icon to change them.
+              </Alert>
+            </div>
+            )}
           </Box>
         </Box>
       </Box>

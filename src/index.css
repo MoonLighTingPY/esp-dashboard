@@ -13,6 +13,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+
+.alert-container {
+  width: 100%;
+  z-index: 1000; /* Ensure it appears above other elements */
+  box-sizing: border-box;
+  padding: 18px;
+}
+
 .speed-preview-chart-container {
   display: flex;
   justify-content: center;

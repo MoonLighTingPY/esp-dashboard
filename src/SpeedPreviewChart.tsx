@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import { Box, Modal, Typography, Button, TextField, Slider, useMediaQuery } from "@mui/material";
+import { Box, Modal, Typography, Button, TextField, Slider, useMediaQuery} from "@mui/material";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 
 
@@ -15,13 +15,14 @@ interface SpeedPreviewChartProps {
   setAcceleration: (acceleration: number) => void;
 }
 
-const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData: initialSpeedData, onSave, acceleration, setAcceleration  }) => {
+const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData: initialSpeedData, onSave, acceleration, setAcceleration}) => {
   const [startSpeed, setStartSpeed] = useState(1200);
   const [endSpeed, setEndSpeed] = useState(1400);
   const [duration, setDuration] = useState(5);
   const [speedData, setSpeedData] = useState<number[]>(initialSpeedData);
   const [motorModel, setMotorModel] = useState("");
   const [propellerModel, setPropellerModel] = useState("");
+
 
   const [isAccelerationOn, setIsAccelOn] = useState(false);
 
@@ -79,6 +80,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
       maintainaspectratio: false,
     },
   };
+
 
   const handleToggleAcceleration = () => {
     setIsAccelOn(!isAccelerationOn);
@@ -190,10 +192,11 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
               sx={{ width: isSmallScreen ? "100%" : "22%", "& .MuiInputBase-root": { borderRadius: 4 } }}
             />
             <div className="close-icon-container">
-              <svg className="close-icon" viewBox="0 0 24 24" onClick={() => onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel)}>
+              <svg className="close-icon" viewBox="0 0 24 24" onClick={() => {onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel)} }>
                 <polyline points="20 6 9 17 4 12" fill="none" style={{ strokeWidth: '4' }} />
               </svg>
             </div>
+            
           </Box>
         </Box>
       </div>
