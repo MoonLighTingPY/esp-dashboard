@@ -1,3 +1,9 @@
+
+
+/* Some of theese styles are present in the index.html file. Can't distinguish which are used and which are not so didn't merge them yet. sorry */
+
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,6 +19,99 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+
+.alert-container {
+  width: 100%;
+  z-index: 1000; /* Ensure it appears above other elements */
+  box-sizing: border-box;
+  padding: 18px;
+}
+
+.speed-preview-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.speed-preview-chart {
+  width: 100%;
+  max-width: 1200px; /* Increase the maximum width as needed */
+  position: relative;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.close-icon-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.close-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #333;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  cursor: pointer;
+  transition: stroke 0.3s ease;
+}
+
+.close-icon:hover {
+  stroke: #00ff62; /* Change color on hover */
+}
+
+.chart-container {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;   /* Limit maximum width to 100% of the parent container */
+  max-height: 100vh; /* Limit maximum height to 100% of viewport height */
+  position: relative;
+}
+@media (max-width: 1024px ) {
+  #root {
+    padding: 10px;
+    scale: 0.5;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  button {
+    padding: 0.4em 0.8em;
+    font-size: 0.9em;
+  }
+
+  .chart-container {
+    margin-top: 50px;
+    height: 100%; /* Adjust height for smaller screens */
+    width: 100%;
+  }
+
+  .chart-container canvas {
+    width: auto !important; /* Ensure the canvas takes full width of its container */
+    height: auto !important; /* Allow the canvas to adjust height as needed */
+  }
+}
+
+
+
+/* Optional: Add styles for the chart canvas itself */
+.chart-container canvas {
+  width: 100% !important;  /* Ensure the canvas takes full width of its container */
+  height: auto !important; /* Allow the canvas to adjust height as needed */
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -22,13 +121,16 @@ a:hover {
   color: #535bf2;
 }
 
+/* Reset default body margin */
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100vh; /* Ensure full viewport height */
 }
+
 
 h1 {
   font-size: 3.2em;

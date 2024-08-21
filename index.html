@@ -1,13 +1,124 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Motor Tester</title>
+  <style>
+    /* There are a lot of styles that are present in the index.css file. Can't distinguish which are used and which are not so didn't merge them yet. sorry */
+
+    #root {
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff; /* White background for the main content */
+      padding: 20px;
+      border-radius: 12px; /* Rounded corners for the container */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+      max-width: 100%; /* Maximum width for the container */
+      width: 90%;
+      overflow: auto; /* Ensure overflow is handled */
+    }
+
+    .speed-preview-chart-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    .speed-preview-chart {
+      width: auto !important; /* Ensure the canvas takes full width of its container */
+      height: auto !important; /* Allow the canvas to adjust height as needed */
+      position: relative;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    
+
+    .section {
+      margin-bottom: 20px; /* Space between sections */
+      padding: 20px; /* Padding inside each section */
+      border-radius: 8px; /* Rounded corners for each section */
+      background-color: #f9f9f9; /* Light background for sections */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for sections */
+    }
+
+    .section:last-child {
+      margin-bottom: 0; /* Remove margin for the last section */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: #333; /* Darker text color for headings */
+    }
+
+    p, span, a {
+      color: #555; /* Slightly lighter text color for paragraphs and other texts */
+    }
+
+    a {
+      text-decoration: none; /* Remove underline from links */
+      color: #007bff; /* Set a nice color for links */
+    }
+
+    a:hover {
+      text-decoration: underline; /* Underline on hover for better visibility */
+    }
+
+    button {
+      background-color: #007bff; /* Blue background for buttons */
+      color: #fff; /* White text for buttons */
+      border: none;
+      border-radius: 4px; /* Rounded corners for buttons */
+      padding: 10px 20px; /* Padding for buttons */
+      cursor: pointer; /* Pointer cursor on hover */
+      font-size: 16px; /* Increase font size for better readability */
+      transition: background-color 0.3s; /* Smooth background color transition */
+      margin-right: 10px; /* Space between buttons */
+    }
+
+    button:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+
+    button:disabled {
+      background-color: #ccc; /* Grey background for disabled buttons */
+      cursor: not-allowed; /* Not-allowed cursor for disabled buttons */
+    }
+
+    .inputs, .statistics, .buttons {
+      display: flex;
+      flex-direction: column; 
+    }
+    .presets {
+      width: 50%;
+
+    }
+
+    .section-box {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 16px;
+      margin: 16px;
+      position: relative;
+    }
+
+    .section-box h2 {
+      margin-top: 0;
+      font-size: 1.2em;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="root">
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
 </html>
