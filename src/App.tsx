@@ -27,6 +27,7 @@ ChartJS.register(
   Legend
 );
 
+
 const addZero = (num: number) => (num < 10 ? `0${num}` : num);
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
     voltageMin: 0,
     currentMax: 0,
     currentMin: 0,
+
   });
   const [motorModel, setMotorModel] = useState("Not set.");
   const [propellerModel, setPropellerModel] = useState("Not set.");
