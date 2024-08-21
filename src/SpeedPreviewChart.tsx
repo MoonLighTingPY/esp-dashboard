@@ -10,11 +10,13 @@ interface SpeedPreviewChartProps {
   open: boolean;
   onClose: () => void;
   speedData: number[];
+  // Saves the inputs for the App.tsx to use
   onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string) => void;
   acceleration: number;
   setAcceleration: (acceleration: number) => void;
 }
 
+// Props are passed from App.tsx
 const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData: initialSpeedData, onSave, acceleration, setAcceleration}) => {
   const [startSpeed, setStartSpeed] = useState(1200);
   const [endSpeed, setEndSpeed] = useState(1400);
@@ -26,8 +28,11 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
 
   const [isAccelerationOn, setIsAccelOn] = useState(false);
 
+  // Tried to do adaptive design. Fucked up, didn't try again.
   const isSmallScreen = useMediaQuery('(max-width:600px)');
 
+  // Dynamically calculates the speed for the preview chart depending on start/end speed and duration
+  // Acceleration is used so the speed changes not lineary (optional)  
   useEffect(() => {
     if (!startSpeed || !endSpeed || !duration) return;
     const durationMs = duration * 1000;
@@ -45,6 +50,8 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
       data.push(currentSpeed);
     }
     setSpeedData(data);
+    // I am an idiot and I don't know how to get the data from here to the useEPS hook
+    // So it just sends that data to the local storage and later useESP hook parses it from there 
     localStorage.setItem('speedData', JSON.stringify(data));
   }, [startSpeed, endSpeed, duration, acceleration]);
 
@@ -54,7 +61,8 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
     const seconds = Math.floor(elapsedTime % 60).toString().padStart(2, '0');
     return `${minutes}:${seconds}`;
   });
-
+  
+  // ChartJS data and options
   const data = {
     labels,
     datasets: [
@@ -81,7 +89,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
     },
   };
 
-
+  // Toggles acceleration slider visibility on/off
   const handleToggleAcceleration = () => {
     setIsAccelOn(!isAccelerationOn);
     if (isAccelerationOn) {

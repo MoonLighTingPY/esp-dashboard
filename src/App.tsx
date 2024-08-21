@@ -29,8 +29,6 @@ ChartJS.register(
 
 const addZero = (num: number) => (num < 10 ? `0${num}` : num);
 
-
-
 const App = () => {
   const {} = useESP();
   const chartRef = useRef(null);
@@ -46,16 +44,14 @@ const App = () => {
   });
   const [motorModel, setMotorModel] = useState("Not set.");
   const [propellerModel, setPropellerModel] = useState("Not set.");
-  const [, setSpeedPreview] = useState<number[]>([]);
+  const [, setSpeedPreview] = useState<number[]>([]); 
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]); // Add state for saved speed data
+  const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]);  // Speed data saved from the SpeedPreviewChart component to use in the main chart
   const [acceleration, setAcceleration] = useState(1);
-  const [showSaveSucess, setShowSaveSucess] = useState(false); // Alert just like AlertDefaultInput, just to lazy to rename to "alertSaveSuccess"
   const [AlertDefaultInputs, setAlertDefaultInputs] = useState(true);
+  const [showSaveSucess, setShowSaveSucess] = useState(false); // Alert state just like AlertDefaultInput, just too much to rename to "alertSaveSuccess"
   
-  
-  
-
+  // useESP hook is used to send and receive the data from the ESP32 and handle the test start/stop logic 
   const {
     duration,
     socket,
@@ -73,7 +69,7 @@ const App = () => {
     data,
   } = useESP();
 
-  // Connect to the WebSocket server
+  // Connection to the WebSocket server on esp32
   useEffect(() => {
     const ws = new WebSocket("ws://esp32-motortester.local:80/ws");
     setSocket(ws);
@@ -96,8 +92,9 @@ const App = () => {
 
       const parsed = dataSchema.safeParse(newData);
 
+      // Added this to prevent the test from starting if the data is not in the correct format
       if (!parsed.success) {
-        return alert("Fetched data in wrong format");
+        return alert("Fetched data in wrong format!");
       }
       
 
@@ -117,6 +114,7 @@ const App = () => {
     };
   }, [socket]);
 
+  // Show the success alert after saving the inputs for n seconds
   useEffect(() => {
     if (showSaveSucess) {
       const timeoutId = setTimeout(() => {
@@ -127,16 +125,16 @@ const App = () => {
     }
   }, [showSaveSucess]);
 
-
+  // Show an alert if default inputs are used
   useEffect(() => {
     if (showSaveSucess) {
       setAlertDefaultInputs(false);
     }
   } , [savedSpeedData]);      
 
-  // Refresh the graph data every 100ms
+  // Refresh the graph data
   useEffect(() => {
-    const intervalId = setInterval(refreshGraphData, 100);
+    const intervalId = setInterval(refreshGraphData, 100); // (Set the refresh interval here in milliseconds)
 
     return () => clearInterval(intervalId);
   }, [startTime]);
@@ -147,6 +145,10 @@ const App = () => {
     const batchData = dataQueue.current;
     dataQueue.current = [];
   
+    // Displaying all the data points the moment they arrive is not practical
+    // as the page would lag + the graph would be unreadable
+    // Instead, it calculates the average of all the data points recieved
+    // during the set interval in a batch and only then displays it on the graph
     const averages = batchData.reduce((acc, curr) => {
       Object.keys(curr).forEach((key) => {
         if (!acc[key]) {
@@ -163,7 +165,7 @@ const App = () => {
   
     const currentTime = new Date().getTime();
 
-    // Format elapsed time in mm:ss
+    // Format elapsed time in mm:ss for a label
     const elapsedTime = (currentTime - (startTime || 0)) / 1000;
     const minutes = Math.floor(elapsedTime / 60).toString().padStart(2, '0');
     const seconds = Math.floor(elapsedTime % 60).toString().padStart(2, '0');
@@ -184,7 +186,7 @@ const App = () => {
   };
   
 
-   // Memoize the preview data
+   // Memoize the preview data that's displayed in the speed preview chart
    const previewData = useMemo(() => {
     if (!startSpeed || !endSpeed || !duration) return [];
     const durationMs = duration * 1000;
@@ -197,12 +199,15 @@ const App = () => {
     return data;
   }, [startSpeed, endSpeed, duration]);
 
+  // This function is called when the user clicks the preview speed(gear) button
   const handlePreviewSpeed = () => {
     setSpeedPreview(savedSpeedData.length > 0 ? savedSpeedData : previewData);
     setIsPreviewOpen(true);
   };
   
-
+  // Save the preview data(speedData) to the state
+  // It is called when the user clicks the save button in the SpeedPreviewChart component
+  // This function is passed as a prop to the SpeedPreviewChart component
   const handleSavePreviewData = (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string) => {
     setShowSaveSucess(true);
     setSavedSpeedData(speedData);
@@ -214,6 +219,7 @@ const App = () => {
     setIsPreviewOpen(false);
   };
 
+  // Self-explanatory. Clears the stats
   const handleClearStats = () => {
     setStats({
       thrustMax: 0,
@@ -227,6 +233,9 @@ const App = () => {
     });
   }
 
+  // Save the chart, min max values and Inputs as a PDF.
+  // Chart is saved as an image and added to the PDF (no lib for chart.js to PDF)
+  // This function is called when the user clicks the save as PDF button
   const handleSaveAsPDF = async () => {
     const chartElement = chartRef.current;
     if (!chartElement) return;
@@ -237,6 +246,8 @@ const App = () => {
     const imgProps = pdf.getImageProperties(imgData);
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    const accelerationState = acceleration === 1 ? "Off" : "On";
+
 
     // Add chart image to PDF
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
@@ -254,7 +265,6 @@ const App = () => {
 
     pdf.text(statsText, 120, pdfHeight);
 
-    const accelerationState = acceleration === 1 ? "Off" : "On";
     // Add input values to PDF
     const inputsText = `
       Inputs:
@@ -273,25 +283,32 @@ const App = () => {
     pdf.save("chart.pdf");
   };
 
+  // Redirect to the WiFi configuration page
   const handleConfigWifi = () => {
     window.location.href = "http://esp32-motortester.local/config";
   };
 
+  // Calculate the time remaining for the test
   const timeRemaining = Math.max(
     0,
     duration - Math.floor((Date.now() - startTime!) / 1000)
   );
 
+
   return (
+    // Main container. Lots of nested Box components. Sorry(
     <div className="App">
       <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
         <Box sx={{ display: "flex", flexDirection: "row", flexGrow: 1 }}>
           {/* Chart */}
           <Box sx={{ flex: 3 }}>
+            
             <div className="chart-container" ref={chartRef}>
               <div className="section-box">
                 <Line
                   data={data}
+                  // This is the options for the chart.
+                  // y1, y2, y3, y4 are defined so each dataset can have its own y-axis, so no need to normalize the data.
                   options={{
                     animation: false,
                     responsive: true,
@@ -372,6 +389,7 @@ const App = () => {
           {/* Right side content: Statistics, buttons, and controls */}
           <Box sx={{ flex: 1, ml: 2, display: "flex", flexDirection: "column" }}>
             {/* Statistics */}
+            {/* I suggest adding a table here for better readability. Tried to do it, but it was not working as expected */}
             <div className="section-box">
               <Box sx={{ mb: 2, overflowY: "auto" }}>
                 <Typography variant="body1">
@@ -431,6 +449,7 @@ const App = () => {
               </Box>
             </div>
             {/* Buttons */}
+            {/* Actually just pictures with onClick events lol */}
             <div className="section-box">
               <Box
                 sx={{
@@ -444,6 +463,8 @@ const App = () => {
                   src="/images/play.ico"
                   alt="Test"
                   onClick={() => {
+                    // useESP hook has a function to handle the start of the test
+                    // it also handles the test stop logic
                     handleStartReadings();
                     handleClearStats();
                   }}
@@ -467,6 +488,7 @@ const App = () => {
                   onClick={handlePreviewSpeed}
                   style={{ cursor: "pointer", width: "15%", height: "auto" }}
                 />
+                {/* Called speed preview chart, but it's actually the inputs + speedpreview. Takes too long to rename everything so left it as is */}
                 <SpeedPreviewChart
                   open={isPreviewOpen}
                   onClose={() => setIsPreviewOpen(false)}
@@ -491,6 +513,7 @@ const App = () => {
                   style={{ cursor: "pointer", width: "15%", height: "auto" }}
                 />
               </Box>
+              {/* Time remaining */}
               <Typography
                 variant="body1"
                 sx={{
@@ -505,6 +528,7 @@ const App = () => {
                 <span style={{ fontSize: "1vw" }}>{`Time remaining: ${Math.floor(timeRemaining / 60)}:${addZero(
                   timeRemaining % 60
                 )}`}</span>
+                {/* Progress bar */}
                 <LinearProgress
               variant="determinate"
               value={((duration - timeRemaining) / duration) * 100}
@@ -519,6 +543,7 @@ const App = () => {
             />
               </Typography>
             </div>
+            {/* Alerts (standart inputs and save success) */}
             {showSaveSucess && (
                 <div className="alert-container">
                   <Alert severity="success" onClose={() => setShowSaveSucess(false)} sx={{ fontSize: "1.3em", }}>

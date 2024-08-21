@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { z } from "zod";
 
+// Zod schema for the data received from the ESP32 so it can be validated before the test starts
 export const dataSchema = z.object({
   thrust: z.number(),
   torque: z.number(),
@@ -11,6 +12,7 @@ export const dataSchema = z.object({
 
 type DateSchema = number;
 
+// All of this is recieved from the ESP32
 const initData = {
   labels: [] as string[],
   datasets: [
@@ -49,7 +51,7 @@ const initData = {
     },
     {
       label: "Speed",
-      data: [] as DateSchema[], // Add speed dataset
+      data: [] as DateSchema[],
       borderColor: "rgba(255, 206, 86, 1)",
       backgroundColor: "rgba(255, 206, 86, 0.2)",
       borderWidth: 2,
@@ -66,10 +68,9 @@ export const useESP = () => {
   const [espStateData, updateESPData] = useState(initData);
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [speed, setSpeed] = useState(0); // Declare speed state
+  const [speed, setSpeed] = useState(0);
 
   const dataQueue = useRef<any[]>([]);
-  const speedBuffer = useRef<{ timestamp: number; speed: number }[]>([]);
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null); // Store interval ID
 
   const handleStartReadings = async () => {
@@ -77,13 +78,15 @@ export const useESP = () => {
   if (!socket || !startSpeed || !endSpeed || !duration) return;
 
   const durationMs = duration * 1000; // Duration in milliseconds
-  const startTime = new Date().getTime(); // Start time
+  const startTime = new Date().getTime(); // Test start time
+
+  // (I am an idiot and I don't know how to get the data from SpeedPreviewChart to the useEPS hook so I just parse it from the local storage)
   const y = localStorage.getItem('speedData');
     const savedSpeedData = JSON.parse(y || '[]');
-    const currentSpeed = savedSpeedData[0];
+    const currentSpeed = savedSpeedData[0]; // Get the initial speed
     setSpeed(currentSpeed);
 
-
+  // Send the start message to the esp32 so it flips the flag for the RTOS readings tasks + send duration of the test and speed
   const message = JSON.stringify({
     type: "start",
     duration: durationMs,
@@ -93,9 +96,7 @@ export const useESP = () => {
   setIsTestRunning(true);
   setStartTime(startTime);
 
-  // Clear any existing speed data
-  speedBuffer.current = [];
-  
+
   // Clear any existing interval
   if (intervalIdRef.current) {
     clearInterval(intervalIdRef.current);
@@ -105,10 +106,7 @@ export const useESP = () => {
     const now = new Date().getTime();
     const elapsed = now - startTime;
   
-    // Calculate the current speed based on elapsed time
-    const y = localStorage.getItem('speedData');
-    const savedSpeedData = JSON.parse(y || '[]'); // Move the declaration of savedSpeedData here
-  
+    // Send the final speed to the esp32 and stop the test if the duration has passed
     if (elapsed >= durationMs) {
       const finalMessage = JSON.stringify({
         type: "speedUpdate",
@@ -122,17 +120,21 @@ export const useESP = () => {
       }
       return;
     }
-  
+    
+    // Calculate and send the current speed to the esp32
     if (savedSpeedData.length > 0) {
       const currentSpeed = savedSpeedData[Math.floor((elapsed / durationMs) * (savedSpeedData.length - 1))];
       setSpeed(currentSpeed);
   
-      // Send the current speed to the server
       const speedMessage = JSON.stringify({
         type: "speedUpdate",
         speed: currentSpeed,
       });
       socket.send(speedMessage);
+      handleStopReadings();
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+      }
     }
   };
 
@@ -146,6 +148,7 @@ export const useESP = () => {
   const handleStopReadings = () => {
     if (!socket) return;
 
+    // Send the stop message to the esp32 so it stops the RTOS readings tasks
     const message = JSON.stringify({ type: "stop" });
     socket.send(message);
     setIsTestRunning(false);
@@ -158,7 +161,7 @@ export const useESP = () => {
     }
   };
 
-
+  // Self-explanatory. Clears the graph
   const handleClearGraph = () => {
     updateESPData({
       labels: [],
