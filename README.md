@@ -48,10 +48,10 @@ This readme will be updated later. Only some general info is here yet.
 You will recieve something like this:
     
 
->  dist/index.html.gz                        1.35 kB
-> 	dist/assets/favicon-CeFdrAAK.ico        239.68 kB
-> 	dist/assets/index-CALTx-N1.css            1.99 kB │ gzip:   0.81 kB
-> 	dist/assets/index-DpzU3tf1.js         1,142.46 kB │ gzip: 351.56 kB
+>      dist/index.html.gz                        1.35 kB
+>      dist/assets/favicon-CeFdrAAK.ico        239.68 kB
+>      dist/assets/index-CALTx-N1.css            1.99 kB │ gzip:   0.81 kB
+>      dist/assets/index-DpzU3tf1.js         1,142.46 kB │ gzip: 351.56 kB
 
 Move .gz of theese files to the /data folder in your ESP32 project folder.
 Ingore anything else, you only need the html, js and css.
@@ -71,11 +71,11 @@ Ingore anything else, you only need the html, js and css.
 
 ## Project Structure
 
-```
+
 -   **src/**: Contains the React application source code.
 -   **dist/**
 -   **images/**: Image assets.
-```
+
 
 ## ESP32 Configuration
 
