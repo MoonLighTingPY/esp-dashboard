@@ -314,16 +314,17 @@ const App = () => {
 
     pdf.text(escText, 10, pdfHeight + 95);
 
+    // Add links to the PDF
     if (motorSpecs?.link) {
-      pdf.setTextColor(0, 0, 255); // Set text color to blue
+      pdf.setTextColor(0, 0, 255);
       pdf.textWithLink('Motor Link (Database)', 130, pdfHeight + 100, { url: motorSpecs.link });
     }
     if (propellerSpecs?.link) {
-      pdf.setTextColor(0, 0, 255); // Set text color to blue
+      pdf.setTextColor(0, 0, 255);
       pdf.textWithLink('Propeller Link (Database)', 130, pdfHeight + 110, { url: propellerSpecs.link });
     }
     if (escSpecs?.link) {
-      pdf.setTextColor(0, 0, 255); // Set text color to blue
+      pdf.setTextColor(0, 0, 255); 
       pdf.textWithLink('ESC Link (Database)', 130, pdfHeight + 120, { url: escSpecs.link });
     }
 

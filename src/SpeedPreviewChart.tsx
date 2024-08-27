@@ -26,13 +26,14 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const [motorModel, setMotorModel] = useState("");
   const [propellerModel, setPropellerModel] = useState("");
   const [escModel, setEscModel] = useState("");
+  const [isAccelerationOn, setIsAccelOn] = useState(false);
 
+  // Autocomplete options from components_data.json(motors, propellers, escs)
   const [motorOptions, setMotorOptions] = useState(componentsData.motors);
   const [propellerOptions, setPropellerOptions] = useState(componentsData.propellers);
   const [escOptions, setEscOptions] = useState(componentsData.escs);
 
 
-  const [isAccelerationOn, setIsAccelOn] = useState(false);
 
   // Tried to do adaptive design. Fucked up, didn't try again.
   const isSmallScreen = useMediaQuery('(max-width:600px)');
