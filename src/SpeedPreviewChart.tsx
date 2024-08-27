@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import { Box, Modal, Typography, Button, TextField, Slider, useMediaQuery} from "@mui/material";
+import { Box, Modal, Typography, Button, TextField, Slider, useMediaQuery, Autocomplete} from "@mui/material";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import componentsData from './components_data.json';
 
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -11,7 +12,7 @@ interface SpeedPreviewChartProps {
   onClose: () => void;
   speedData: number[];
   // Saves the inputs for the App.tsx to use
-  onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string) => void;
+  onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string, escModel: string) => void;
   acceleration: number;
   setAcceleration: (acceleration: number) => void;
 }
@@ -24,6 +25,11 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const [speedData, setSpeedData] = useState<number[]>(initialSpeedData);
   const [motorModel, setMotorModel] = useState("");
   const [propellerModel, setPropellerModel] = useState("");
+  const [escModel, setEscModel] = useState("");
+
+  const [motorOptions, setMotorOptions] = useState(componentsData.motors);
+  const [propellerOptions, setPropellerOptions] = useState(componentsData.propellers);
+  const [escOptions, setEscOptions] = useState(componentsData.escs);
 
 
   const [isAccelerationOn, setIsAccelOn] = useState(false);
@@ -148,59 +154,108 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
               },
             }}
           >
-            Acceleration
+            ACCEL
           </Button>
             <TextField
-              label="Start Speed"
+              label="Start RPM"
               type="number"
               value={startSpeed}
               onChange={(e) => setStartSpeed(Number(e.target.value) === 0 ? 1 : Number(e.target.value))}
               fullWidth
               margin="normal"
               size="small"
-              sx={{ marginRight: 2, width: isSmallScreen ? "100%" : "12%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+              sx={{ marginRight: 2, width: "13%", "& .MuiInputBase-root": { borderRadius: 4 } }}
             />
             <TextField
-              label="End Speed"
+              label="End RPM"
               type="number"
               value={endSpeed}
               onChange={(e) => setEndSpeed(Number(e.target.value))}
               fullWidth
               margin="normal"
               size="small"
-              sx={{ marginRight: 2, width: isSmallScreen ? "100%" : "12%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+              sx={{ marginRight: 2, width: "13%", "& .MuiInputBase-root": { borderRadius: 4 } }}
             />
             <TextField
-              label="Duration (seconds)"
+              label="Duration (sec.)"
               type="number"
               value={duration}
               onChange={(e) => setDuration(Number(e.target.value))}
               fullWidth
               margin="normal"
               size="small"
-              sx={{ marginRight: 2, width: isSmallScreen ? "100%" : "12%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+              sx={{ marginRight: 2, width: "13%", "& .MuiInputBase-root": { borderRadius: 4 } }}
             />
-            <TextField
-              label="Motor Model"
-              type="text"
-              value={motorModel}
-              onChange={(e) => setMotorModel(e.target.value)}
-              margin="normal"
-              size="small"
-              sx={{ marginRight: 2, width: isSmallScreen ? "100%" : "22%", "& .MuiInputBase-root": { borderRadius: 4 } }}
-            />
-            <TextField
-              label="Propeller Model"
-              type="text"
-              value={propellerModel}
-              onChange={(e) => setPropellerModel(e.target.value)}
-              fullWidth
-              margin="normal"
-              size="small"
-              sx={{ width: isSmallScreen ? "100%" : "22%", "& .MuiInputBase-root": { borderRadius: 4 } }}
-            />
+            <Autocomplete
+            className = "model-input"
+            options={motorOptions.map(option => option.model)}
+            onInputChange={(event, newInputValue) => {
+              setMotorOptions(componentsData.motors.filter(motor => motor.model.toLowerCase().includes(newInputValue.toLowerCase())));
+            }}
+            onChange={(event, newValue) => {
+              setMotorModel(newValue as string);
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Motor Model"
+                type="text"
+                value={motorModel}
+                onChange={(e) => setMotorModel(e.target.value)}
+                margin="normal"
+                size="small"
+                sx={{ width: "100%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+              />
+            )}
+          />
+          <Autocomplete
+            className = "model-input"
+            options={propellerOptions.map(option => option.model)}
+            onInputChange={(event, newInputValue) => {
+              setPropellerOptions(componentsData.propellers.filter(propeller => propeller.model.toLowerCase().includes(newInputValue.toLowerCase())));
+            }}
+            onChange={(event, newValue) => {
+              setPropellerModel(newValue as string);
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Propeller Model"
+                type="text"
+                value={propellerModel}
+                onChange={(e) => setPropellerModel(e.target.value)}
+                fullWidth
+                margin="normal"
+                size="small"
+                sx={{ width: "100%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+              />
+            )}
+          />
+          <Autocomplete
+            className = "model-input"
+            options={escOptions.map(option => option.model)}
+            onInputChange={(event, newInputValue) => {
+              setEscOptions(componentsData.escs.filter(esc => esc.model.toLowerCase().includes(newInputValue.toLowerCase())));
+            }}
+            onChange={(event, newValue) => {
+              setEscModel(newValue as string);
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="ESC Model"
+                type="text"
+                value={escModel}
+                onChange={(e) => setEscModel(e.target.value)}
+                fullWidth
+                margin="normal"
+                size="small"
+                sx={{ width: "100%", "& .MuiInputBase-root": { borderRadius: 4 } }}
+              />
+            )}
+          />
             <div className="close-icon-container">
-              <svg className="close-icon" viewBox="0 0 24 24" onClick={() => {onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel)} }>
+              <svg className="close-icon" viewBox="0 0 24 24" onClick={() => {onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel, escModel)} }>
                 <polyline points="20 6 9 17 4 12" fill="none" style={{ strokeWidth: '4' }} />
               </svg>
             </div>

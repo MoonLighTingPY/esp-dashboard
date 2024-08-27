@@ -19,6 +19,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.model-input {
+  width: 22%; /* Set the width to 100% of the parent container */
+  max-width: 500px; /* Optionally, set a maximum width */
+  padding: 10px; /* Add some padding for better readability */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
 
 
 .alert-container {

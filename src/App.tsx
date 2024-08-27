@@ -16,6 +16,8 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { dataSchema, useESP } from "./useESP";
 import SpeedPreviewChart from "./SpeedPreviewChart";
+import componentsData from './components_data.json';
+
 
 ChartJS.register(
   CategoryScale,
@@ -46,6 +48,7 @@ const App = () => {
   });
   const [motorModel, setMotorModel] = useState("Not set.");
   const [propellerModel, setPropellerModel] = useState("Not set.");
+  const [escModel, setEscModel] = useState("Not set.");
   const [, setSpeedPreview] = useState<number[]>([]); 
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]);  // Speed data saved from the SpeedPreviewChart component to use in the main chart
@@ -210,7 +213,7 @@ const App = () => {
   // Save the preview data(speedData) to the state
   // It is called when the user clicks the save button in the SpeedPreviewChart component
   // This function is passed as a prop to the SpeedPreviewChart component
-  const handleSavePreviewData = (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string) => {
+  const handleSavePreviewData = (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string, escModel: string) => {
     setShowSaveSucess(true);
     setSavedSpeedData(speedData);
     setStartSpeed(startSpeed);
@@ -219,6 +222,7 @@ const App = () => {
     setMotorModel(motorModel);
     setPropellerModel(propellerModel);
     setIsPreviewOpen(false);
+    setEscModel(escModel);
   };
 
   // Self-explanatory. Clears the stats
@@ -254,35 +258,76 @@ const App = () => {
     // Add chart image to PDF
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
 
+    // Find motor, propeller, and ESC specifications
+    const motorSpecs = componentsData.motors.find(motor => motor.model === motorModel);
+    const propellerSpecs = componentsData.propellers.find(propeller => propeller.model === propellerModel);
+    const escSpecs = componentsData.escs.find(esc => esc.model === escModel);
+
     // Add stats to PDF
     const statsText = `
-    Stats:
+      Max/Min Values:
+      Thrust: ${stats.thrustMax}/${stats.thrustMin}
+      Torque: ${stats.torqueMax}/${stats.torqueMin}
+      Voltage: ${stats.voltageMax}/${stats.voltageMin}
+      Current: ${stats.currentMax}/${stats.currentMin}
 
-    Thrust Max: ${stats.thrustMax} Min: ${stats.thrustMin}
-    Torque Max: ${stats.torqueMax} Min: ${stats.torqueMin}
-    Voltage Max: ${stats.voltageMax} Min: ${stats.voltageMin}
-    Current Max: ${stats.currentMax} Min: ${stats.currentMin}
-
-    `;
+      Propeller Specifications:
+      Model: ${propellerSpecs?.model || 'N/A'}
+      Brand: ${propellerSpecs?.brand || 'N/A'}
+      Diameter: ${propellerSpecs?.diameter || 'N/A'}
+      Pitch: ${propellerSpecs?.pitch || 'N/A'}
+      Weight: ${propellerSpecs?.weight || 'N/A'}
+      `;
 
     pdf.text(statsText, 120, pdfHeight);
 
     // Add input values to PDF
     const inputsText = `
       Inputs:
-
       Duration: ${Math.floor(duration / 60)} minutes ${addZero(
         duration % 60
       )} seconds
-      Start Speed: ${startSpeed || 'Not set'}
-      End Speed: ${endSpeed || 'Not set'}
+      Start RPM: ${startSpeed || 'Not set'}
+      End RPM: ${endSpeed || 'Not set'}
       Acceleration: ${accelerationState} (Factor: ${acceleration})
-      Motor Model: ${motorModel || 'Not set'}
-      Propeller Model: ${propellerModel || 'Not set'}`;
+
+      Motor Specifications:
+      Model: ${motorSpecs?.model || 'N/A'}
+      Brand: ${motorSpecs?.brand || 'N/A'}     
+      Shaft Diameter: ${motorSpecs?.shaft_diameter || 'N/A'}
+      Magnetic Poles: ${motorSpecs?.mag_poles || 'N/A'}
+      KV Value: ${motorSpecs?.kv_value || 'N/A'}
+      Weight: ${motorSpecs?.weight || 'N/A'}
+
+      `;
 
     pdf.text(inputsText, 10, pdfHeight);
+    
+    const escText = `
+      ESC Specifications:
+      Model: ${escSpecs?.model || 'N/A'}
+      Brand: ${escSpecs?.brand || 'N/A'}
+      Max Current: ${escSpecs?.max_current || 'N/A'}
+      BEC Current: ${escSpecs?.bec_current || 'N/A'}
+      Weight: ${escSpecs?.weight || 'N/A'}
+    `;
 
-    pdf.save("chart.pdf");
+    pdf.text(escText, 10, pdfHeight + 95);
+
+    if (motorSpecs?.link) {
+      pdf.setTextColor(0, 0, 255); // Set text color to blue
+      pdf.textWithLink('Motor Link (Database)', 130, pdfHeight + 100, { url: motorSpecs.link });
+    }
+    if (propellerSpecs?.link) {
+      pdf.setTextColor(0, 0, 255); // Set text color to blue
+      pdf.textWithLink('Propeller Link (Database)', 130, pdfHeight + 110, { url: propellerSpecs.link });
+    }
+    if (escSpecs?.link) {
+      pdf.setTextColor(0, 0, 255); // Set text color to blue
+      pdf.textWithLink('ESC Link (Database)', 130, pdfHeight + 120, { url: escSpecs.link });
+    }
+
+    pdf.save(`report [${motorModel}, ${propellerModel}, ${escModel}] ${new Date().toLocaleString()}.pdf`);
   };
 
   // Redirect to the WiFi configuration page
@@ -420,13 +465,13 @@ const App = () => {
                 </Typography>
                 <Typography variant="body1">
                   <span style={{ fontWeight: "bold", fontSize: "0.8vw" }}>
-                    Start Speed:
+                    Start RPM:
                   </span>{" "}
                   <span style={{ fontSize: "0.8vw" }}>{startSpeed}</span>
                 </Typography>
                 <Typography variant="body1">
                   <span style={{ fontWeight: "bold", fontSize: "0.8vw" }}>
-                    End Speed:
+                    End RPM:
                   </span>{" "}
                   <span style={{ fontSize: "0.8vw" }}>{endSpeed}</span>
                 </Typography>
@@ -447,6 +492,12 @@ const App = () => {
                     Propeller Model:
                   </span>{" "}
                   <span style={{ fontSize: "0.8vw" }}>{propellerModel}</span>
+                </Typography>
+                <Typography variant="body1">
+                  <span style={{ fontWeight: "bold", fontSize: "0.8vw" }}>
+                    ESC Model:
+                  </span>{" "}
+                  <span style={{ fontSize: "0.8vw" }}>{escModel}</span>
                 </Typography>
               </Box>
             </div>

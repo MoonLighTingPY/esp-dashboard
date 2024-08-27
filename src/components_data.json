@@ -1,0 +1,2282 @@
+{
+  "motors": [
+    {
+      "model": "M2306L 2200kv Brushless Outrunner Motor CCW",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/motors/e95/gemfan-m2306l-2200kv-brushless-outrunner-motor-ccw",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2200,
+      "weight": 30
+    },
+    {
+      "model": "RT2206-2000KV Quad Racing Motor CW",
+      "brand": "QAV",
+      "link": "https://database.tytorobotics.com/motors/xw6/qav-rt2206-2000kv-quad-racing-motor-cw",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2000,
+      "weight": 29.1
+    },
+    {
+      "model": "BR2306S 2400kv",
+      "brand": "Racerstar",
+      "link": "https://database.tytorobotics.com/motors/7dy/racerstar-br2306s-2400kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2400,
+      "weight": 33.43
+    },
+    {
+      "model": "Samguk Shu 2306 2500kv",
+      "brand": "DYS",
+      "link": "https://database.tytorobotics.com/motors/3ke/dys-samguk-shu-2306-2500kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2500,
+      "weight": 33.59
+    },
+    {
+      "model": "RSII 2207 2300Kv",
+      "brand": "EMAX",
+      "link": "https://database.tytorobotics.com/motors/kge/emax-rsii-2207-2300kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2300,
+      "weight": 32.37
+    },
+    {
+      "model": "ZIP 2207 1750kv POPO",
+      "brand": "Lumenier",
+      "link": "https://database.tytorobotics.com/motors/m45/lumenier-zip-2207-1750kv-popo",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 1750,
+      "weight": 34.79
+    },
+    {
+      "model": "2306-2750KV",
+      "brand": "EMAX",
+      "link": "https://database.tytorobotics.com/motors/pjr/emax-2306-2750kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2750,
+      "weight": 33.84
+    },
+    {
+      "model": "Blaster 2207 2450Kv",
+      "brand": "Hypetrain",
+      "link": "https://database.tytorobotics.com/motors/9xz/hypetrain-blaster-2207-2450kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2450,
+      "weight": 36.96
+    },
+    {
+      "model": "ZIP 2407 2550kv",
+      "brand": "Lumenier",
+      "link": "https://database.tytorobotics.com/motors/xr6/lumenier-zip-2407-2550kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2550,
+      "weight": 39.15
+    },
+    {
+      "model": "D2836 Aerodrive 1100kv",
+      "brand": "Turnigy",
+      "link": "https://database.tytorobotics.com/motors/gyn/turnigy-d2836-aerodrive-1100kv",
+      "shaft_diameter": 4,
+      "mag_poles": 14,
+      "kv_value": 1100,
+      "weight": 70
+    },
+    {
+      "model": "PropDrive 3530 1400Kv",
+      "brand": "MFO",
+      "link": "https://database.tytorobotics.com/motors/qmg/mfo-propdrive-3530-1400kv",
+      "shaft_diameter": 5,
+      "mag_poles": 10,
+      "kv_value": 1400,
+      "weight": 90.31
+    },
+    {
+      "model": "D3536 Aerodrive 1000kv",
+      "brand": "Turnigy",
+      "link": "https://database.tytorobotics.com/motors/dze/turnigy-d3536-aerodrive-1000kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 1000,
+      "weight": 102.75
+    },
+    {
+      "model": "Fire FPV Race Edition 2600KV Brushless Outrunner Motor",
+      "brand": "DYS",
+      "link": "https://database.tytorobotics.com/motors/5mw/dys-fire-fpv-race-edition-2600kv-brushless-outrunner-motor",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2600,
+      "weight": null
+    },
+    {
+      "model": "F40 PRO II Motor POPO - 2400kv",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/yx5/t-motor-f40-pro-ii-motor-popo-2400kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2400,
+      "weight": 32.83
+    },
+    {
+      "model": "2836 Brushless Outrunner 1000kv",
+      "brand": "Turnigy",
+      "link": "https://database.tytorobotics.com/motors/qxg/turnigy-2836-brushless-outrunner-1000kv",
+      "shaft_diameter": 4,
+      "mag_poles": 14,
+      "kv_value": 1000,
+      "weight": 80
+    },
+    {
+      "model": "Elite 2306 2150KV CCW",
+      "brand": "MultiStar",
+      "link": "https://database.tytorobotics.com/motors/pn4/multistar-elite-2306-2150kv-ccw",
+      "shaft_diameter": 4,
+      "mag_poles": 14,
+      "kv_value": 2150,
+      "weight": 37.5
+    },
+    {
+      "model": "BR2205 - 2600kv",
+      "brand": "Racerstar",
+      "link": "https://database.tytorobotics.com/motors/ry5/racerstar-br2205-2600kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2600,
+      "weight": 28.4
+    },
+    {
+      "model": "Box Cutters - 2207 - 2450kv",
+      "brand": "Drone Drop",
+      "link": "https://database.tytorobotics.com/motors/g4n/drone-drop-box-cutters-2207-2450kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2450,
+      "weight": 35.1
+    },
+    {
+      "model": "RS1407 - 4100kv",
+      "brand": "RCX",
+      "link": "https://database.tytorobotics.com/motors/xd6/rcx-rs1407-4100kv",
+      "shaft_diameter": 5,
+      "mag_poles": 12,
+      "kv_value": 4100,
+      "weight": 18.1
+    },
+    {
+      "model": "Samguk Wei 2207 2600kv",
+      "brand": "DYS",
+      "link": "https://database.tytorobotics.com/motors/e65/dys-samguk-wei-2207-2600kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2600,
+      "weight": 34.09
+    },
+    {
+      "model": "Samguk Wu 2206 2400kv",
+      "brand": "DYS",
+      "link": "https://database.tytorobotics.com/motors/4dq/dys-samguk-wu-2206-2400kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2400,
+      "weight": 31.73
+    },
+    {
+      "model": "Xing Nano X1103 8000kv",
+      "brand": "iFlight",
+      "link": "https://database.tytorobotics.com/motors/zx4/iflight-xing-nano-x1103-8000kv",
+      "shaft_diameter": 1.5,
+      "mag_poles": 12,
+      "kv_value": 8000,
+      "weight": 3.95
+    },
+    {
+      "model": "FL4004-350KV",
+      "brand": "Mechtex",
+      "link": "https://database.tytorobotics.com/motors/996/mechtex-fl4004-350kv",
+      "shaft_diameter": 4,
+      "mag_poles": 24,
+      "kv_value": 350,
+      "weight": null
+    },
+    {
+      "model": "Engine Dia 28 KV 1155",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/motors/nnx/engine-dia-28-kv-1155",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "NIN 1404 V2 2750kv",
+      "brand": "Flywoo",
+      "link": "https://database.tytorobotics.com/motors/447/flywoo-nin-1404-v2-2750kv",
+      "shaft_diameter": 1.5,
+      "mag_poles": 12,
+      "kv_value": 2750,
+      "weight": 10.4
+    },
+    {
+      "model": "KDE4012XF-400",
+      "brand": "KDE Direct",
+      "link": "https://database.tytorobotics.com/motors/wrx/kde-direct-kde4012xf-400",
+      "shaft_diameter": 4,
+      "mag_poles": 24,
+      "kv_value": 400,
+      "weight": 145
+    },
+    {
+      "model": "Unknown dia 27",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/motors/5g5/unknown-dia-27",
+      "shaft_diameter": null,
+      "mag_poles": 14,
+      "kv_value": 1155,
+      "weight": 48
+    },
+    {
+      "model": "F40 Pro II 1750kv",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/qq6/t-motor-f40-pro-ii-1750kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "KDE4014XF-380",
+      "brand": "KDE Direct",
+      "link": "https://database.tytorobotics.com/motors/q5r/kde-direct-kde4014xf-380",
+      "shaft_diameter": 4,
+      "mag_poles": 24,
+      "kv_value": 380,
+      "weight": 160
+    },
+    {
+      "model": "KDE4014XF-300",
+      "brand": "KDE Direct",
+      "link": "https://database.tytorobotics.com/motors/4m7/kde-direct-kde4014xf-300",
+      "shaft_diameter": 4,
+      "mag_poles": 24,
+      "kv_value": 300,
+      "weight": 160
+    },
+    {
+      "model": "MN501S KV240",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/qnr/t-motor-mn501s-kv240",
+      "shaft_diameter": 6,
+      "mag_poles": 28,
+      "kv_value": 240,
+      "weight": 170
+    },
+    {
+      "model": "SR2306",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/motors/6x4/sr2306",
+      "shaft_diameter": null,
+      "mag_poles": 12,
+      "kv_value": 870,
+      "weight": null
+    },
+    {
+      "model": "Air-A 2508 1200kv",
+      "brand": "Racerstar",
+      "link": "https://database.tytorobotics.com/motors/g6q/racerstar-air-a-2508-1200kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "HF1407 3600kv - Flame",
+      "brand": "HGLRC",
+      "link": "https://database.tytorobotics.com/motors/kme/hglrc-hf1407-3600kv-flame",
+      "shaft_diameter": 5,
+      "mag_poles": 12,
+      "kv_value": 3600,
+      "weight": null
+    },
+    {
+      "model": "Antigravity MN5008 KV170",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/wzx/t-motor-antigravity-mn5008-kv170",
+      "shaft_diameter": 4,
+      "mag_poles": 28,
+      "kv_value": 170,
+      "weight": 128
+    },
+    {
+      "model": "U15  V1",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/56w/t-motor-u15-v1",
+      "shaft_diameter": null,
+      "mag_poles": 42,
+      "kv_value": 100,
+      "weight": null
+    },
+    {
+      "model": "4014-11 KV330",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/edd/t-motor-4014-11-kv330",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "TA110-20 KV80",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/motors/3gn/xoar-ta110-20-kv80",
+      "shaft_diameter": null,
+      "mag_poles": 40,
+      "kv_value": 80,
+      "weight": 1093
+    },
+    {
+      "model": "U5 KV400",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/7ez/t-motor-u5-kv400",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "TA130-25 KV80",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/motors/3x6/xoar-ta130-25-kv80",
+      "shaft_diameter": 8,
+      "mag_poles": null,
+      "kv_value": 80,
+      "weight": null
+    },
+    {
+      "model": "Antigravity MN7005 KV230",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/zg4/t-motor-antigravity-mn7005-kv230",
+      "shaft_diameter": 4,
+      "mag_poles": 28,
+      "kv_value": 230,
+      "weight": 188
+    },
+    {
+      "model": "U15 V2",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/697/t-motor-u15-v2",
+      "shaft_diameter": null,
+      "mag_poles": 42,
+      "kv_value": 80,
+      "weight": 1780
+    },
+    {
+      "model": "LF40 2305",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/gen/t-motor-lf40-2305",
+      "shaft_diameter": 3,
+      "mag_poles": 14,
+      "kv_value": 2450,
+      "weight": 26
+    },
+    {
+      "model": "U7",
+      "brand": "T Motor",
+      "link": "https://database.tytorobotics.com/motors/56y/t-motor-u7",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "DJI3515",
+      "brand": "DJI",
+      "link": "https://database.tytorobotics.com/motors/w4x/dji-dji3515",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "2407 2300kv",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/motors/q7r/xoar-2407-2300kv",
+      "shaft_diameter": 5,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": 36
+    },
+    {
+      "model": "Antigravity MN6007II KV160",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/gqy/t-motor-antigravity-mn6007ii-kv160",
+      "shaft_diameter": null,
+      "mag_poles": 28,
+      "kv_value": 160,
+      "weight": 159
+    },
+    {
+      "model": "2407 2300kv",
+      "brand": "RCbenchmark x Xoar",
+      "link": "https://database.tytorobotics.com/motors/de6/rcbenchmark-x-xoar-2407-2300kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2300,
+      "weight": 36
+    },
+    {
+      "model": "Antigravity MN6007 KV320",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/956/t-motor-antigravity-mn6007-kv320",
+      "shaft_diameter": null,
+      "mag_poles": 28,
+      "kv_value": 320,
+      "weight": 180
+    },
+    {
+      "model": "2407 1500kv",
+      "brand": "RCbenchmark x Xoar",
+      "link": "https://database.tytorobotics.com/motors/enz/rcbenchmark-x-xoar-2407-1500kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 1500,
+      "weight": 36
+    },
+    {
+      "model": "SunnySky X2820-7 KV 800",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/motors/5k5/sunnysky-x2820-7-kv-800",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "U15XXL Kv29",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/knk/t-motor-u15xxl-kv29",
+      "shaft_diameter": 151.5,
+      "mag_poles": null,
+      "kv_value": 29,
+      "weight": 5130
+    },
+    {
+      "model": "Antigravity MN4004 300kV",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/j9q/t-motor-antigravity-mn4004-300kv",
+      "shaft_diameter": 4,
+      "mag_poles": 24,
+      "kv_value": 300,
+      "weight": 53
+    },
+    {
+      "model": "BetaFPV 2004 1700kv",
+      "brand": "BetaFPV",
+      "link": "https://database.tytorobotics.com/motors/5ny/betafpv-betafpv-2004-1700kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "Emax 1104 5250KV Babyhawk",
+      "brand": "EMAX",
+      "link": "https://database.tytorobotics.com/motors/wnx/emax-emax-1104-5250kv-babyhawk",
+      "shaft_diameter": 1.5,
+      "mag_poles": 12,
+      "kv_value": 5250,
+      "weight": 5.5
+    },
+    {
+      "model": "2207 2675kv",
+      "brand": "Apex",
+      "link": "https://database.tytorobotics.com/motors/nz9/apex-2207-2675kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "Headsup 2207 1980kv",
+      "brand": "Five33",
+      "link": "https://database.tytorobotics.com/motors/5ey/five33-headsup-2207-1980kv",
+      "shaft_diameter": 5,
+      "mag_poles": 12,
+      "kv_value": 1980,
+      "weight": 28.4
+    },
+    {
+      "model": "V4006 320KV",
+      "brand": "SunnySky",
+      "link": "https://database.tytorobotics.com/motors/jnd/sunnysky-v4006-320kv",
+      "shaft_diameter": null,
+      "mag_poles": 24,
+      "kv_value": 320,
+      "weight": 66
+    },
+    {
+      "model": "KDE3510XF-475",
+      "brand": "KDE Direct",
+      "link": "https://database.tytorobotics.com/motors/ndx/kde-direct-kde3510xf-475",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "AT2317 1250KV",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/5j5/t-motor-at2317-1250kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "BE1806 2300KV",
+      "brand": "FlashHobby",
+      "link": "https://database.tytorobotics.com/motors/wj4/flashhobby-be1806-2300kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "Iris 880KV",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/motors/dm5/iris-880kv",
+      "shaft_diameter": 4,
+      "mag_poles": 12,
+      "kv_value": 880,
+      "weight": 39
+    },
+    {
+      "model": "MN3510 360Kv",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/7zz/t-motor-mn3510-360kv",
+      "shaft_diameter": 4,
+      "mag_poles": 12,
+      "kv_value": 360,
+      "weight": 97
+    },
+    {
+      "model": "3819",
+      "brand": "NeuMotor",
+      "link": "https://database.tytorobotics.com/motors/4w5/neumotor-3819",
+      "shaft_diameter": 4,
+      "mag_poles": null,
+      "kv_value": 400,
+      "weight": 164
+    },
+    {
+      "model": "MN4014",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/mng/t-motor-mn4014",
+      "shaft_diameter": 4,
+      "mag_poles": null,
+      "kv_value": 400,
+      "weight": 171
+    },
+    {
+      "model": "MN4006",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/zyx/t-motor-mn4006",
+      "shaft_diameter": 4,
+      "mag_poles": 24,
+      "kv_value": 380,
+      "weight": 68
+    },
+    {
+      "model": "MN2806",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/6j4/t-motor-mn2806",
+      "shaft_diameter": 4,
+      "mag_poles": 14,
+      "kv_value": 650,
+      "weight": 46
+    },
+    {
+      "model": "MN 501S KV 300",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/rzn/t-motor-mn-501s-kv-300",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "MN3510 630KV",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/gxq/t-motor-mn3510-630kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": 630,
+      "weight": 118
+    },
+    {
+      "model": "U3 700KV",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/kyy/t-motor-u3-700kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "MN4012",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/yky/t-motor-mn4012",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": 480,
+      "weight": null
+    },
+    {
+      "model": "RCTimer 5010-530KV",
+      "brand": "RCTimer",
+      "link": "https://database.tytorobotics.com/motors/9y6/rctimer-rctimer-5010-530kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "5010-530KV",
+      "brand": "RCTimer",
+      "link": "https://database.tytorobotics.com/motors/nwx/rctimer-5010-530kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "U7 280kV",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/5x5/t-motor-u7-280kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "U7 490kV",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/dg5/t-motor-u7-490kv",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": 490,
+      "weight": null
+    },
+    {
+      "model": "AT2814 900KV",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/z4x/t-motor-at2814-900kv",
+      "shaft_diameter": 5,
+      "mag_poles": 12,
+      "kv_value": 900,
+      "weight": 107
+    },
+    {
+      "model": "Hobbywing XRotor X6 Plus Motor",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/motors/qx4z/hobbywing-xrotor-x6-plus-motor",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "A30-14L V4  800KV",
+      "brand": "Hacker",
+      "link": "https://database.tytorobotics.com/motors/w7e/hacker-a30-14l-v4-800kv",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 800,
+      "weight": 143
+    },
+    {
+      "model": "A-5025-220kv",
+      "brand": "Scorpion Power System LTD",
+      "link": "https://database.tytorobotics.com/motors/myz/scorpion-power-system-ltd-a-5025-220kv",
+      "shaft_diameter": 8,
+      "mag_poles": 14,
+      "kv_value": 220,
+      "weight": 523
+    },
+    {
+      "model": "UFO3505 650KV",
+      "brand": "LDPower",
+      "link": "https://database.tytorobotics.com/motors/dgk/ldpower-ufo3505-650kv",
+      "shaft_diameter": 6,
+      "mag_poles": 14,
+      "kv_value": 650,
+      "weight": 61
+    },
+    {
+      "model": "UFO4110 700KV",
+      "brand": "LDPower",
+      "link": "https://database.tytorobotics.com/motors/r67/ldpower-ufo4110-700kv",
+      "shaft_diameter": 6,
+      "mag_poles": 14,
+      "kv_value": 700,
+      "weight": 115
+    },
+    {
+      "model": "IM-8012-115kv",
+      "brand": "Scorpion Power System LTD",
+      "link": "https://database.tytorobotics.com/motors/nmn/scorpion-power-system-ltd-im-8012-115kv",
+      "shaft_diameter": 8,
+      "mag_poles": 40,
+      "kv_value": 115,
+      "weight": 377
+    },
+    {
+      "model": "F22035-KV2850",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/rex7/t-motor-f22035-kv2850",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "x2208",
+      "brand": "SunnySky",
+      "link": "https://database.tytorobotics.com/motors/7jxw/sunnysky-x2208",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "Ethix Mr Steele 2306 2345kv Silk V2",
+      "brand": "TBS",
+      "link": "https://database.tytorobotics.com/motors/j7r/tbs-ethix-mr-steele-2306-2345kv-silk-v2",
+      "shaft_diameter": 5,
+      "mag_poles": 14,
+      "kv_value": 2345,
+      "weight": 29.79
+    },
+    {
+      "model": "AS2814 KV900",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/4je4/t-motor-as2814-kv900",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "AS2820 KV880",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/n4gn/t-motor-as2820-kv880",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "AS2820 KV1050",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/motors/5mrj/t-motor-as2820-kv1050",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    },
+    {
+      "model": "ECOII-2807-1300KV",
+      "brand": "EMAX",
+      "link": "https://database.tytorobotics.com/motors/dyrk/emax-ecoii-2807-1300kv",
+      "shaft_diameter": 4,
+      "mag_poles": 14,
+      "kv_value": 1300,
+      "weight": 47.6
+    },
+    {
+      "model": "x2212",
+      "brand": "SunnySky",
+      "link": "https://database.tytorobotics.com/motors/ree7/sunnysky-x2212",
+      "shaft_diameter": null,
+      "mag_poles": null,
+      "kv_value": null,
+      "weight": null
+    }
+  ],
+  "propellers": [
+    {
+      "model": "Self Tightening Propeller 6032 Red CW",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/pqg/self-tightening-propeller-6032-red-cw",
+      "diameter": 6,
+      "pitch": 3.2,
+      "weight": 5.4
+    },
+    {
+      "model": "6030 Thick hub",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/p5w/gemfan-6030-thick-hub",
+      "diameter": 6,
+      "pitch": 3,
+      "weight": 5.23
+    },
+    {
+      "model": "5050 - Cyclone",
+      "brand": "DALPROP",
+      "link": "https://database.tytorobotics.com/propellers/py5/dalprop-5050-cyclone",
+      "diameter": 5,
+      "pitch": 5,
+      "weight": 5.8
+    },
+    {
+      "model": "PJP-T-L 47u0022x10u0022",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/propellers/3e5/xoar-pjp-t-l-47x10",
+      "diameter": 47,
+      "pitch": 10,
+      "weight": 435
+    },
+    {
+      "model": "SportProp 8040L Pusher",
+      "brand": "Graupner",
+      "link": "https://database.tytorobotics.com/propellers/5ww/graupner-sportprop-8040l-pusher",
+      "diameter": 8,
+      "pitch": 4.5,
+      "weight": 10.15
+    },
+    {
+      "model": "PJP-T-L 40u0022x10u0022",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/propellers/p7y/xoar-pjp-t-l-40x10",
+      "diameter": 40,
+      "pitch": 10,
+      "weight": 366
+    },
+    {
+      "model": "6030 R",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/pde/gemfan-6030-r",
+      "diameter": 6,
+      "pitch": 3,
+      "weight": 5.22
+    },
+    {
+      "model": "5030 R",
+      "brand": "Diatone",
+      "link": "https://database.tytorobotics.com/propellers/3r5/diatone-5030-r",
+      "diameter": 5,
+      "pitch": 3,
+      "weight": 3
+    },
+    {
+      "model": "6045 R",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/p67/hq-prop-6045-r",
+      "diameter": 6,
+      "pitch": 4.5,
+      "weight": 4
+    },
+    {
+      "model": "5040 R",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/3zq/gemfan-5040-r",
+      "diameter": 5,
+      "pitch": 4,
+      "weight": 3
+    },
+    {
+      "model": "6040",
+      "brand": "DALPROP",
+      "link": "https://database.tytorobotics.com/propellers/wwm/dalprop-6040",
+      "diameter": 6,
+      "pitch": 4,
+      "weight": 4.32
+    },
+    {
+      "model": "5050",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/wdm/hq-prop-5050",
+      "diameter": 5,
+      "pitch": 5,
+      "weight": 4.4
+    },
+    {
+      "model": "E-Prop 11x5L Pusher",
+      "brand": "Graupner",
+      "link": "https://database.tytorobotics.com/propellers/qeg/graupner-e-prop-11x5l-pusher",
+      "diameter": 11,
+      "pitch": 5,
+      "weight": 16
+    },
+    {
+      "model": "5050 3-Blades BN",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/94z/gemfan-5050-3-blades-bn",
+      "diameter": 5,
+      "pitch": 5,
+      "weight": 5
+    },
+    {
+      "model": "5048",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/qgg/hq-prop-5048",
+      "diameter": 5,
+      "pitch": 4.8,
+      "weight": 4.5
+    },
+    {
+      "model": "DP 703530 V1S PC Propeller",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/d7e/hq-prop-dp-703530-v1s-pc-propeller",
+      "diameter": 7,
+      "pitch": 3.5,
+      "weight": 7.81
+    },
+    {
+      "model": "1147 Plastic blade for Slowflyer",
+      "brand": "HY",
+      "link": "https://database.tytorobotics.com/propellers/zrq/hy-1147-plastic-blade-for-slowflyer",
+      "diameter": 11,
+      "pitch": 4.7,
+      "weight": null
+    },
+    {
+      "model": "Hurricane 51499",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/zkq/gemfan-hurricane-51499",
+      "diameter": 5.1,
+      "pitch": 49.9,
+      "weight": 5.2
+    },
+    {
+      "model": "Carbon Fiber 8x6",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/re5/carbon-fiber-8x6",
+      "diameter": 8,
+      "pitch": 6,
+      "weight": 6
+    },
+    {
+      "model": "5045",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/dde/hq-prop-5045",
+      "diameter": 5,
+      "pitch": 4.5,
+      "weight": 4.3
+    },
+    {
+      "model": "Self Tightening Polycarbonate Bull Nose 6045",
+      "brand": "Diatone",
+      "link": "https://database.tytorobotics.com/propellers/7jy/diatone-self-tightening-polycarbonate-bull-nose-6045",
+      "diameter": 6,
+      "pitch": 4.5,
+      "weight": 6.53
+    },
+    {
+      "model": "3x4x3 V2",
+      "brand": "Lumenier",
+      "link": "https://database.tytorobotics.com/propellers/667/lumenier-3x4x3-v2",
+      "diameter": 3,
+      "pitch": 4,
+      "weight": 2.08
+    },
+    {
+      "model": "NONE",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/wmm/none",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "Carbon Fiber Propeller 6045 Self-Locking",
+      "brand": "Quanum",
+      "link": "https://database.tytorobotics.com/propellers/k7e/quanum-carbon-fiber-propeller-6045-self-locking",
+      "diameter": 6,
+      "pitch": 4.5,
+      "weight": 6.78
+    },
+    {
+      "model": "6030 Carbon Nylon",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/yz5/6030-carbon-nylon",
+      "diameter": 6,
+      "pitch": 3,
+      "weight": 2.22
+    },
+    {
+      "model": "5045R Plastic",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/4jq/5045r-plastic",
+      "diameter": 6,
+      "pitch": 4.5,
+      "weight": 5.64
+    },
+    {
+      "model": "5043",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/zdq/hq-prop-5043",
+      "diameter": 5,
+      "pitch": 4.3,
+      "weight": 4
+    },
+    {
+      "model": "5150",
+      "brand": "Azure Power",
+      "link": "https://database.tytorobotics.com/propellers/6r7/azure-power-5150",
+      "diameter": 5.1,
+      "pitch": 5,
+      "weight": 5.2
+    },
+    {
+      "model": "GF Series 11x6",
+      "brand": "Master Airscrew",
+      "link": "https://database.tytorobotics.com/propellers/me5/master-airscrew-gf-series-11x6",
+      "diameter": 11,
+      "pitch": 6,
+      "weight": 21.37
+    },
+    {
+      "model": "6040",
+      "brand": "KingKong",
+      "link": "https://database.tytorobotics.com/propellers/jdr/kingkong-6040",
+      "diameter": 6,
+      "pitch": 4,
+      "weight": 3.38
+    },
+    {
+      "model": "5143 Ultra-Light",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/r45/t-motor-5143-ultra-light",
+      "diameter": 5.1,
+      "pitch": 4.3,
+      "weight": 3.7
+    },
+    {
+      "model": "6045 plastic",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/96z/6045-plastic",
+      "diameter": 6,
+      "pitch": 4.5,
+      "weight": 6
+    },
+    {
+      "model": "5040",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/6w7/hq-prop-5040",
+      "diameter": 5,
+      "pitch": 4,
+      "weight": 3.7
+    },
+    {
+      "model": "Carbon Fiber 5030",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/ne4/carbon-fiber-5030",
+      "diameter": 5,
+      "pitch": 3,
+      "weight": 2.18
+    },
+    {
+      "model": "1047 Plastic blade for Slowflyer",
+      "brand": "HY",
+      "link": "https://database.tytorobotics.com/propellers/6q7/hy-1047-plastic-blade-for-slowflyer",
+      "diameter": 10,
+      "pitch": 4.7,
+      "weight": 7.8
+    },
+    {
+      "model": "5051 - Cyclone Ultralight",
+      "brand": "DALPROP",
+      "link": "https://database.tytorobotics.com/propellers/7qy/dalprop-5051-cyclone-ultralight",
+      "diameter": 5,
+      "pitch": 5.1,
+      "weight": 3.6
+    },
+    {
+      "model": "5055 - Hulkie",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/grn/gemfan-5055-hulkie",
+      "diameter": 5,
+      "pitch": 5.5,
+      "weight": 4.9
+    },
+    {
+      "model": "5043 - Windancer",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/xz6/gemfan-5043-windancer",
+      "diameter": 5,
+      "pitch": 4.3,
+      "weight": 5
+    },
+    {
+      "model": "5031 - Ethix",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/ez5/hq-prop-5031-ethix",
+      "diameter": 5,
+      "pitch": 3.1,
+      "weight": 4.1
+    },
+    {
+      "model": "5047 - Cyclone",
+      "brand": "DALPROP",
+      "link": "https://database.tytorobotics.com/propellers/kze/dalprop-5047-cyclone",
+      "diameter": 5,
+      "pitch": 4.7,
+      "weight": 5.6
+    },
+    {
+      "model": "5046 - Cyclone",
+      "brand": "DALPROP",
+      "link": "https://database.tytorobotics.com/propellers/ye5/dalprop-5046-cyclone",
+      "diameter": 5,
+      "pitch": 4.6,
+      "weight": 5.7
+    },
+    {
+      "model": "5045 - Cyclone",
+      "brand": "DALPROP",
+      "link": "https://database.tytorobotics.com/propellers/4zq/dalprop-5045-cyclone",
+      "diameter": 5,
+      "pitch": 4.5,
+      "weight": 5.9
+    },
+    {
+      "model": "5040 - Cyclone",
+      "brand": "DALPROP",
+      "link": "https://database.tytorobotics.com/propellers/mr5/dalprop-5040-cyclone",
+      "diameter": 5,
+      "pitch": 4,
+      "weight": 4.4
+    },
+    {
+      "model": "5151",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/jzr/hq-prop-5151",
+      "diameter": 5.1,
+      "pitch": 5.1,
+      "weight": 5.6
+    },
+    {
+      "model": "5146",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/9ez/hq-prop-5146",
+      "diameter": 5.1,
+      "pitch": 4.6,
+      "weight": 5.2
+    },
+    {
+      "model": "5141",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/nj4/hq-prop-5141",
+      "diameter": 5.1,
+      "pitch": 4.1,
+      "weight": 5.2
+    },
+    {
+      "model": "5131",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/55w/hq-prop-5131",
+      "diameter": 5.1,
+      "pitch": 3.1,
+      "weight": 4.5
+    },
+    {
+      "model": "PJP-T-L 34u0022x14u0022",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/propellers/n74/xoar-pjp-t-l-34x14",
+      "diameter": 36,
+      "pitch": 14,
+      "weight": 262
+    },
+    {
+      "model": "Hurricane 4024x2",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/m6d/gemfan-hurricane-4024x2",
+      "diameter": 4,
+      "pitch": 2.4,
+      "weight": 1.6
+    },
+    {
+      "model": "PJP-T 36x12 prop",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/propellers/9wz/xoar-pjp-t-36x12-prop",
+      "diameter": 36,
+      "pitch": 12,
+      "weight": 265
+    },
+    {
+      "model": "MF2211",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/dj6/t-motor-mf2211",
+      "diameter": 22,
+      "pitch": 11,
+      "weight": 71
+    },
+    {
+      "model": "P57x22",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/9kq/t-motor-p57x22",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "T5150",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/9wq/t-motor-t5150",
+      "diameter": 5.1,
+      "pitch": 5,
+      "weight": 5.2
+    },
+    {
+      "model": "Durable T1o9x3x3",
+      "brand": "HP Prop",
+      "link": "https://database.tytorobotics.com/propellers/6gz/hp-prop-durable-t1o9x3x3",
+      "diameter": 1.9,
+      "pitch": 3,
+      "weight": 1.09
+    },
+    {
+      "model": "T6535B",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/n79/t-motor-t6535b",
+      "diameter": 6.5,
+      "pitch": 3.5,
+      "weight": 3
+    },
+    {
+      "model": "8x8",
+      "brand": "RCbenchmark x Xoar",
+      "link": "https://database.tytorobotics.com/propellers/z64/rcbenchmark-x-xoar-8x8",
+      "diameter": 8,
+      "pitch": 8,
+      "weight": null
+    },
+    {
+      "model": "Hulkie 1940x3",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/gny/gemfan-hulkie-1940x3",
+      "diameter": 1.9,
+      "pitch": 4,
+      "weight": 0.8
+    },
+    {
+      "model": "8x6",
+      "brand": "RCbenchmark x Xoar",
+      "link": "https://database.tytorobotics.com/propellers/rmx/rcbenchmark-x-xoar-8x6",
+      "diameter": 8,
+      "pitch": 6,
+      "weight": null
+    },
+    {
+      "model": "P15x5",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/dx6/t-motor-p15x5",
+      "diameter": 15,
+      "pitch": 5,
+      "weight": 21
+    },
+    {
+      "model": "8x4",
+      "brand": "RCbenchmark x Xoar",
+      "link": "https://database.tytorobotics.com/propellers/gwy/rcbenchmark-x-xoar-8x4",
+      "diameter": 8,
+      "pitch": 4,
+      "weight": null
+    },
+    {
+      "model": "2023x3",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/x9r/gemfan-2023x3",
+      "diameter": 2,
+      "pitch": 2.3,
+      "weight": 0.9
+    },
+    {
+      "model": "7x4",
+      "brand": "RCbenchmark x Xoar",
+      "link": "https://database.tytorobotics.com/propellers/xjr/rcbenchmark-x-xoar-7x4",
+      "diameter": 7,
+      "pitch": 4,
+      "weight": null
+    },
+    {
+      "model": "9x4",
+      "brand": "RCbenchmark x Xoar",
+      "link": "https://database.tytorobotics.com/propellers/7wk/rcbenchmark-x-xoar-9x4",
+      "diameter": 9,
+      "pitch": 4,
+      "weight": null
+    },
+    {
+      "model": "AVAN Blur 2inch 3blade",
+      "brand": "EMAX",
+      "link": "https://database.tytorobotics.com/propellers/eyz/emax-avan-blur-2inch-3blade",
+      "diameter": 2,
+      "pitch": 1.9,
+      "weight": 1.15
+    },
+    {
+      "model": "62u0022x24u0022 CF",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/yww/t-motor-62x24-cf",
+      "diameter": 62,
+      "pitch": 24,
+      "weight": 526
+    },
+    {
+      "model": "P17x58",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/g9y/t-motor-p17x58",
+      "diameter": 17,
+      "pitch": 5.8,
+      "weight": 28
+    },
+    {
+      "model": "IRC T7",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/nq9/irc-t7",
+      "diameter": 7,
+      "pitch": 3.5,
+      "weight": null
+    },
+    {
+      "model": "Hulkie 2040x3",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/74k/gemfan-hulkie-2040x3",
+      "diameter": 2,
+      "pitch": 4,
+      "weight": 0.85
+    },
+    {
+      "model": "AVAN Babyhawk 2dot3inch 3Blade",
+      "brand": "EMAX",
+      "link": "https://database.tytorobotics.com/propellers/q6r/emax-avan-babyhawk-2dot3inch-3blade",
+      "diameter": 2.374,
+      "pitch": 4,
+      "weight": 1.3
+    },
+    {
+      "model": "VanoverProp",
+      "brand": "Azure Power",
+      "link": "https://database.tytorobotics.com/propellers/w6x/azure-power-vanoverprop",
+      "diameter": 5.1,
+      "pitch": null,
+      "weight": 3.8
+    },
+    {
+      "model": "P16x54",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/z54/t-motor-p16x54",
+      "diameter": 16,
+      "pitch": 5.4,
+      "weight": 25
+    },
+    {
+      "model": "3052 - Flash",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/7ky/gemfan-3052-flash",
+      "diameter": 3,
+      "pitch": 5.2,
+      "weight": 1.6
+    },
+    {
+      "model": "AVAN Micro 2x2o4x4",
+      "brand": "EMAX",
+      "link": "https://database.tytorobotics.com/propellers/kdk/emax-avan-micro-2x2o4x4",
+      "diameter": 2,
+      "pitch": 2.4,
+      "weight": 0.88
+    },
+    {
+      "model": "3040",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/yd5/hq-prop-3040",
+      "diameter": 3,
+      "pitch": 4,
+      "weight": 2
+    },
+    {
+      "model": "3028 - WinDancer",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/4nq/gemfan-3028-windancer",
+      "diameter": 3,
+      "pitch": 2.8,
+      "weight": 1.4
+    },
+    {
+      "model": "NS20x62",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/75k/t-motor-ns20x62",
+      "diameter": 20,
+      "pitch": 6.2,
+      "weight": 23
+    },
+    {
+      "model": "Hulkie 2036x4",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/ynw/gemfan-hulkie-2036x4",
+      "diameter": 2,
+      "pitch": 3.6,
+      "weight": 0.84
+    },
+    {
+      "model": "6030 B",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/mm5/gemfan-6030-b",
+      "diameter": 6,
+      "pitch": 3,
+      "weight": 2.21
+    },
+    {
+      "model": "KDE-CF155-DP",
+      "brand": "KDE Direct",
+      "link": "https://database.tytorobotics.com/propellers/64z/kde-direct-kde-cf155-dp",
+      "diameter": 15.5,
+      "pitch": 5.3,
+      "weight": 50
+    },
+    {
+      "model": "P18x61",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/x6r/t-motor-p18x61",
+      "diameter": 18,
+      "pitch": 6.1,
+      "weight": 32
+    },
+    {
+      "model": "FA162x53",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/rnx/t-motor-fa162x53",
+      "diameter": 16.2,
+      "pitch": 5.3,
+      "weight": 37
+    },
+    {
+      "model": "P20x6",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/ejz/t-motor-p20x6",
+      "diameter": 20,
+      "pitch": 6,
+      "weight": 47
+    },
+    {
+      "model": "NS22x66",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/yrw/t-motor-ns22x66",
+      "diameter": 22,
+      "pitch": 6.6,
+      "weight": 34
+    },
+    {
+      "model": "G18x59",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/kqk/t-motor-g18x59",
+      "diameter": 18,
+      "pitch": 5.9,
+      "weight": 34
+    },
+    {
+      "model": "NS24x72",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/mzd/t-motor-ns24x72",
+      "diameter": 24,
+      "pitch": 7.2,
+      "weight": 37
+    },
+    {
+      "model": "14x55MR",
+      "brand": "APC",
+      "link": "https://database.tytorobotics.com/propellers/9qq/apc-14x55mr",
+      "diameter": 14,
+      "pitch": 5.5,
+      "weight": 30
+    },
+    {
+      "model": "16x55MRP",
+      "brand": "APC",
+      "link": "https://database.tytorobotics.com/propellers/n69/apc-16x55mrp",
+      "diameter": 16,
+      "pitch": 5.5,
+      "weight": 45
+    },
+    {
+      "model": "NS26x85",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/59y/t-motor-ns26x85",
+      "diameter": 26,
+      "pitch": 8.5,
+      "weight": 48
+    },
+    {
+      "model": "NS28x92",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/d46/t-motor-ns28x92",
+      "diameter": 28,
+      "pitch": 9.2,
+      "weight": 59
+    },
+    {
+      "model": "MF1503",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/rqx/t-motor-mf1503",
+      "diameter": 15,
+      "pitch": 5.4,
+      "weight": 24
+    },
+    {
+      "model": "PJP-T-L 26u0022x45u0022",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/propellers/n9x/xoar-pjp-t-l-26x45",
+      "diameter": 26,
+      "pitch": 4.5,
+      "weight": 63
+    },
+    {
+      "model": "8x4",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/wx4/8x4",
+      "diameter": 8,
+      "pitch": 4,
+      "weight": null
+    },
+    {
+      "model": "R38",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/dq5/hq-prop-r38",
+      "diameter": 5,
+      "pitch": 3.8,
+      "weight": null
+    },
+    {
+      "model": "7037-3",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/xem/gemfan-7037-3",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "7045x2",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/rdn/hq-prop-7045x2",
+      "diameter": 7,
+      "pitch": 4.5,
+      "weight": null
+    },
+    {
+      "model": "Stock folding 1060",
+      "brand": "Volantex",
+      "link": "https://database.tytorobotics.com/propellers/key/volantex-stock-folding-1060",
+      "diameter": 10,
+      "pitch": 6,
+      "weight": null
+    },
+    {
+      "model": "NS15x5",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/y7y/t-motor-ns15x5",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "CAM Carbon folding 15x8",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/mqg/aeronaut-cam-carbon-folding-15x8",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "CAM Folding Prop 11x6 28x15",
+      "brand": "Graupner",
+      "link": "https://database.tytorobotics.com/propellers/6qqq/graupner-cam-folding-prop-11x6-28x15",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "EOLO 15x5",
+      "brand": "SunnySky",
+      "link": "https://database.tytorobotics.com/propellers/9r6/sunnysky-eolo-15x5",
+      "diameter": 15,
+      "pitch": 5,
+      "weight": null
+    },
+    {
+      "model": "Bullnose 6040",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/qr6/gemfan-bullnose-6040",
+      "diameter": 6,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "Holybro 10x45",
+      "brand": "Holybro",
+      "link": "https://database.tytorobotics.com/propellers/zwx/holybro-holybro-10x45",
+      "diameter": 10,
+      "pitch": 4.5,
+      "weight": null
+    },
+    {
+      "model": "MR 10x45",
+      "brand": "Master Airscrew",
+      "link": "https://database.tytorobotics.com/propellers/6d4/master-airscrew-mr-10x45",
+      "diameter": 10,
+      "pitch": 4.5,
+      "weight": null
+    },
+    {
+      "model": "EFLP105084BL",
+      "brand": "E Flite",
+      "link": "https://database.tytorobotics.com/propellers/rgn/e-flite-eflp105084bl",
+      "diameter": 10.5,
+      "pitch": 8,
+      "weight": null
+    },
+    {
+      "model": "MAS1070TP",
+      "brand": "Master Airscrew",
+      "link": "https://database.tytorobotics.com/propellers/gmq/master-airscrew-mas1070tp",
+      "diameter": 10,
+      "pitch": 7,
+      "weight": null
+    },
+    {
+      "model": "8x4",
+      "brand": "APC",
+      "link": "https://database.tytorobotics.com/propellers/xnm/apc-8x4",
+      "diameter": 8,
+      "pitch": 4,
+      "weight": null
+    },
+    {
+      "model": "Cropped EFLP105084BL",
+      "brand": "E Flite",
+      "link": "https://database.tytorobotics.com/propellers/emd/e-flite-cropped-eflp105084bl",
+      "diameter": 10,
+      "pitch": 8,
+      "weight": null
+    },
+    {
+      "model": "MF1302",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/k5y/t-motor-mf1302",
+      "diameter": 13.4,
+      "pitch": 4.8,
+      "weight": 17
+    },
+    {
+      "model": "12x6e",
+      "brand": "APC",
+      "link": "https://database.tytorobotics.com/propellers/jkd/apc-12x6e",
+      "diameter": 12,
+      "pitch": 6,
+      "weight": 27
+    },
+    {
+      "model": "12x45MR",
+      "brand": "APC",
+      "link": "https://database.tytorobotics.com/propellers/n5x/apc-12x45mr",
+      "diameter": 12,
+      "pitch": 4.5,
+      "weight": 22
+    },
+    {
+      "model": "1045",
+      "brand": "DJI",
+      "link": "https://database.tytorobotics.com/propellers/5d5/dji-1045",
+      "diameter": 10,
+      "pitch": 4.5,
+      "weight": null
+    },
+    {
+      "model": "12x45",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/we4/gemfan-12x45",
+      "diameter": 12,
+      "pitch": 4.5,
+      "weight": null
+    },
+    {
+      "model": "10x38SFP",
+      "brand": "APC",
+      "link": "https://database.tytorobotics.com/propellers/qj6/apc-10x38sfp",
+      "diameter": 10,
+      "pitch": 3.8,
+      "weight": 11.9
+    },
+    {
+      "model": "P 15x8",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/d65/t-motor-p-15x8",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "Generic 10x45",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/x7m/generic-10x45",
+      "diameter": 10,
+      "pitch": 4.5,
+      "weight": null
+    },
+    {
+      "model": "CAM Folding Prop 10X6 25X15",
+      "brand": "Graupner",
+      "link": "https://database.tytorobotics.com/propellers/6e4/graupner-cam-folding-prop-10x6-25x15",
+      "diameter": 10,
+      "pitch": 6,
+      "weight": null
+    },
+    {
+      "model": "12x4 Carbon",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/76z/t-motor-12x4-carbon",
+      "diameter": 12,
+      "pitch": 4,
+      "weight": null
+    },
+    {
+      "model": "CAM Carbon Z 9x5 23x125",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/rjn/aeronaut-cam-carbon-z-9x5-23x125",
+      "diameter": 9,
+      "pitch": 5,
+      "weight": null
+    },
+    {
+      "model": "12x12E",
+      "brand": "APC",
+      "link": "https://database.tytorobotics.com/propellers/4q5/apc-12x12e",
+      "diameter": 12,
+      "pitch": 12,
+      "weight": null
+    },
+    {
+      "model": "MF1806",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/propellers/qz6/t-motor-mf1806",
+      "diameter": 18.4,
+      "pitch": 6.6,
+      "weight": null
+    },
+    {
+      "model": "CAM Carbon Z 9x7 23x18",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/g7q/aeronaut-cam-carbon-z-9x7-23x18",
+      "diameter": 9,
+      "pitch": 7,
+      "weight": null
+    },
+    {
+      "model": "CAM Carbon Z 95x6 24x15",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/9ym/aeronaut-cam-carbon-z-95x6-24x15",
+      "diameter": 9.5,
+      "pitch": 6,
+      "weight": null
+    },
+    {
+      "model": "CAM Carbon Z 10x6 255x15",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/nwn/aeronaut-cam-carbon-z-10x6-255x15",
+      "diameter": 10,
+      "pitch": 6,
+      "weight": null
+    },
+    {
+      "model": "CAM Carbon Z 10x8 255x20",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/5xj/aeronaut-cam-carbon-z-10x8-255x20",
+      "diameter": 10,
+      "pitch": 8,
+      "weight": null
+    },
+    {
+      "model": "CAM Carbon 95x7 24x18",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/qzz/aeronaut-cam-carbon-95x7-24x18",
+      "diameter": 9.5,
+      "pitch": 7,
+      "weight": null
+    },
+    {
+      "model": "PJN - 21 x 8",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/propellers/jr6/xoar-pjn-21-x-8",
+      "diameter": 21,
+      "pitch": 8,
+      "weight": 69
+    },
+    {
+      "model": "CAM Carbon 10x12 255x30",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/zzj/aeronaut-cam-carbon-10x12-255x30",
+      "diameter": 10,
+      "pitch": 12,
+      "weight": null
+    },
+    {
+      "model": "CAM Carbon 11x6 28x15",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/6zq/aeronaut-cam-carbon-11x6-28x15",
+      "diameter": 11,
+      "pitch": 6,
+      "weight": null
+    },
+    {
+      "model": "7X4X3",
+      "brand": "HQ Prop",
+      "link": "https://database.tytorobotics.com/propellers/zrrj/hq-prop-7x4x3",
+      "diameter": 7,
+      "pitch": 4,
+      "weight": 9.7
+    },
+    {
+      "model": "PF 28",
+      "brand": "Scorpion Power System LTD",
+      "link": "https://database.tytorobotics.com/propellers/5qj/scorpion-power-system-ltd-pf-28",
+      "diameter": 28,
+      "pitch": 9.5,
+      "weight": 157.8
+    },
+    {
+      "model": "Cam-Carbon Z 10X5 25X12",
+      "brand": "Graupner",
+      "link": "https://database.tytorobotics.com/propellers/qdz/graupner-cam-carbon-z-10x5-25x12",
+      "diameter": 10,
+      "pitch": 5,
+      "weight": null
+    },
+    {
+      "model": "CamCarbon Z 10X6-3 25X16",
+      "brand": "Graupner",
+      "link": "https://database.tytorobotics.com/propellers/dkk/graupner-camcarbon-z-10x6-3-25x16",
+      "diameter": 10,
+      "pitch": 6.3,
+      "weight": null
+    },
+    {
+      "model": "Cam-Carbon Z 9X5 23X12",
+      "brand": "Graupner",
+      "link": "https://database.tytorobotics.com/propellers/zrjj/graupner-cam-carbon-z-9x5-23x12",
+      "diameter": 9,
+      "pitch": 5,
+      "weight": null
+    },
+    {
+      "model": "Cam-Carbon Z 10X8 25X20",
+      "brand": "Graupner",
+      "link": "https://database.tytorobotics.com/propellers/6qmq/graupner-cam-carbon-z-10x8-25x20",
+      "diameter": 10,
+      "pitch": 8,
+      "weight": null
+    },
+    {
+      "model": "6x4EP",
+      "brand": "APC",
+      "link": "https://database.tytorobotics.com/propellers/gyjr/apc-6x4ep",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "LM 6x4",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/propellers/e97e/lm-6x4",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "CAM Folding Prop 10X5 25X12",
+      "brand": "Graupner",
+      "link": "https://database.tytorobotics.com/propellers/k764/graupner-cam-folding-prop-10x5-25x12",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "CAM Folding Prop 10X6-3 25X16",
+      "brand": "Graupner",
+      "link": "https://database.tytorobotics.com/propellers/yzjg/graupner-cam-folding-prop-10x6-3-25x16",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "CamFold 25x15 10x6",
+      "brand": "Super",
+      "link": "https://database.tytorobotics.com/propellers/megz/super-camfold-25x15-10x6",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "CAM Carbon 95x6 24x15",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/jde6/aeronaut-cam-carbon-95x6-24x15",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "CAM Carbon Z 10x8 25x20",
+      "brand": "Aeronaut",
+      "link": "https://database.tytorobotics.com/propellers/94zm/aeronaut-cam-carbon-z-10x8-25x20",
+      "diameter": null,
+      "pitch": null,
+      "weight": null
+    },
+    {
+      "model": "JMRRC 30 Inch Propeller 3010 Carbon Fiber Propeller",
+      "brand": "JMRRC",
+      "link": "https://database.tytorobotics.com/propellers/wq5e/jmrrc-jmrrc-30-inch-propeller-3010-carbon-fiber-propeller",
+      "diameter": 30,
+      "pitch": 10,
+      "weight": 22
+    },
+    {
+      "model": "Gemfan 7040",
+      "brand": "Gemfan",
+      "link": "https://database.tytorobotics.com/propellers/dy7k/gemfan-gemfan-7040",
+      "diameter": 7,
+      "pitch": 4,
+      "weight": null
+    }
+  ],
+  "escs": [
+    {
+      "model": "Race Spec Mini ESC with BEC 20A",
+      "brand": "Afro",
+      "link": "https://database.tytorobotics.com/escs/3wm/afro-race-spec-mini-esc-with-bec-20a",
+      "max_current": 20,
+      "bec_current": 0.5,
+      "weight": 11.3
+    },
+    {
+      "model": "60A Electric Speed Controller Pre-Soldered",
+      "brand": "RCElectricParts",
+      "link": "https://database.tytorobotics.com/escs/p4q/rcelectricparts-60a-electric-speed-controller-pre-soldered",
+      "max_current": 60,
+      "bec_current": 4,
+      "weight": 67.7
+    },
+    {
+      "model": "F-22S-350A-A",
+      "brand": "Flier",
+      "link": "https://database.tytorobotics.com/escs/pm5/flier-f-22s-350a-a",
+      "max_current": 350,
+      "bec_current": null,
+      "weight": 540
+    },
+    {
+      "model": "Plush 30amp Speed Controller",
+      "brand": "Turnigy",
+      "link": "https://database.tytorobotics.com/escs/n44/turnigy-plush-30amp-speed-controller",
+      "max_current": 30,
+      "bec_current": 2,
+      "weight": 25
+    },
+    {
+      "model": "30A ESC 3A UBEC",
+      "brand": "HobbyKing",
+      "link": "https://database.tytorobotics.com/escs/wqm/hobbyking-30a-esc-3a-ubec",
+      "max_current": 30,
+      "bec_current": 3,
+      "weight": 32
+    },
+    {
+      "model": "BLHeli 80A UBEC 5A 5V",
+      "brand": "EMAX",
+      "link": "https://database.tytorobotics.com/escs/dye/emax-blheli-80a-ubec-5a-5v",
+      "max_current": 80,
+      "bec_current": 5,
+      "weight": 81
+    },
+    {
+      "model": "51A BLHeli32 32bit 2x6S with Telemetry",
+      "brand": "Lumenier",
+      "link": "https://database.tytorobotics.com/escs/r75/lumenier-51a-blheli32-32bit-2x6s-with-telemetry",
+      "max_current": 51,
+      "bec_current": null,
+      "weight": 17.7
+    },
+    {
+      "model": "Aria 70A 3 6S Blheli32",
+      "brand": "DYS",
+      "link": "https://database.tytorobotics.com/escs/ggn/dys-aria-70a-3-6s-blheli32",
+      "max_current": 70,
+      "bec_current": null,
+      "weight": 18.78
+    },
+    {
+      "model": "36A BLHeli32 32bit 2x6S with Telemetry",
+      "brand": "Lumenier",
+      "link": "https://database.tytorobotics.com/escs/nx4/lumenier-36a-blheli32-32bit-2x6s-with-telemetry",
+      "max_current": 36,
+      "bec_current": null,
+      "weight": 13.39
+    },
+    {
+      "model": "XCross Blheli32 50A ESC",
+      "brand": "Flycolor",
+      "link": "https://database.tytorobotics.com/escs/5zw/flycolor-xcross-blheli32-50a-esc",
+      "max_current": 50,
+      "bec_current": null,
+      "weight": 10
+    },
+    {
+      "model": "Pulse A200",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/escs/zeq/xoar-pulse-a200",
+      "max_current": 200,
+      "bec_current": null,
+      "weight": null
+    },
+    {
+      "model": "Pulse A120",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/escs/eg5/xoar-pulse-a120",
+      "max_current": null,
+      "bec_current": null,
+      "weight": null
+    },
+    {
+      "model": "ES30 HV 30A 2to6S BLHeliS",
+      "brand": "Spedix",
+      "link": "https://database.tytorobotics.com/escs/rwx/spedix-es30-hv-30a-2to6s-blhelis",
+      "max_current": 30,
+      "bec_current": null,
+      "weight": 5.5
+    },
+    {
+      "model": "KISS ESC32A",
+      "brand": "Flyduino",
+      "link": "https://database.tytorobotics.com/escs/jqq/flyduino-kiss-esc32a",
+      "max_current": 32,
+      "bec_current": null,
+      "weight": 3.3
+    },
+    {
+      "model": "FLAME 280A 24S",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/escs/nr9/t-motor-flame-280a-24s",
+      "max_current": null,
+      "bec_current": null,
+      "weight": null
+    },
+    {
+      "model": "KDEXF-UAS35",
+      "brand": "KDE Direct",
+      "link": "https://database.tytorobotics.com/escs/54y/kde-direct-kdexf-uas35",
+      "max_current": 35,
+      "bec_current": null,
+      "weight": 24
+    },
+    {
+      "model": "KDEXF-UAS55",
+      "brand": "KDE Direct",
+      "link": "https://database.tytorobotics.com/escs/jwq/kde-direct-kdexf-uas55",
+      "max_current": 55,
+      "bec_current": null,
+      "weight": 32
+    },
+    {
+      "model": "FLAME 70A 6S",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/escs/q9r/t-motor-flame-70a-6s",
+      "max_current": 70,
+      "bec_current": null,
+      "weight": 28
+    },
+    {
+      "model": "FLAME 60A 12S",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/escs/6nz/t-motor-flame-60a-12s",
+      "max_current": 60,
+      "bec_current": null,
+      "weight": 74
+    },
+    {
+      "model": "BLHeli 30A BEC 2A 5V",
+      "brand": "EMAX",
+      "link": "https://database.tytorobotics.com/escs/jmr/emax-blheli-30a-bec-2a-5v",
+      "max_current": 30,
+      "bec_current": 2,
+      "weight": 28
+    },
+    {
+      "model": "Airplane 350A",
+      "brand": "Flier",
+      "link": "https://database.tytorobotics.com/escs/w4m/flier-airplane-350a",
+      "max_current": 350,
+      "bec_current": null,
+      "weight": 598
+    },
+    {
+      "model": "flame 180A HV",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/escs/q7g/t-motor-flame-180a-hv",
+      "max_current": 180,
+      "bec_current": null,
+      "weight": 415
+    },
+    {
+      "model": "titan esc",
+      "brand": "Xoar",
+      "link": "https://database.tytorobotics.com/escs/dee/xoar-titan-esc",
+      "max_current": null,
+      "bec_current": null,
+      "weight": 736
+    },
+    {
+      "model": "F35A",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/escs/r95/t-motor-f35a",
+      "max_current": 35,
+      "bec_current": 45,
+      "weight": 7.9
+    },
+    {
+      "model": "F50",
+      "brand": "RCbenchmark x Xoar",
+      "link": "https://database.tytorobotics.com/escs/69z/rcbenchmark-x-xoar-f50",
+      "max_current": 50,
+      "bec_current": null,
+      "weight": 4
+    },
+    {
+      "model": "FLAME 280A HV",
+      "brand": "T Motor",
+      "link": "https://database.tytorobotics.com/escs/497/t-motor-flame-280a-hv",
+      "max_current": 280,
+      "bec_current": null,
+      "weight": 900
+    },
+    {
+      "model": "HOBBYKING 60A SBEC",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/escs/mwd/hobbyking-60a-sbec",
+      "max_current": null,
+      "bec_current": null,
+      "weight": null
+    },
+    {
+      "model": "F45A",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/escs/9dq/t-motor-f45a",
+      "max_current": 55,
+      "bec_current": null,
+      "weight": 10
+    },
+    {
+      "model": "ALPHA 40A 6S",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/escs/wg4/t-motor-alpha-40a-6s",
+      "max_current": 40,
+      "bec_current": null,
+      "weight": 55
+    },
+    {
+      "model": "mamba f50 pro",
+      "brand": "Diatone",
+      "link": "https://database.tytorobotics.com/escs/z9x/diatone-mamba-f50-pro",
+      "max_current": 50,
+      "bec_current": null,
+      "weight": null
+    },
+    {
+      "model": "Myxa A2",
+      "brand": "Zubax",
+      "link": "https://database.tytorobotics.com/escs/4r5/zubax-myxa-a2",
+      "max_current": null,
+      "bec_current": null,
+      "weight": 55
+    },
+    {
+      "model": "XRotor 40A",
+      "brand": "HobbyWing",
+      "link": "https://database.tytorobotics.com/escs/y5y/hobbywing-xrotor-40a",
+      "max_current": 40,
+      "bec_current": null,
+      "weight": 48
+    },
+    {
+      "model": "DMR3040",
+      "brand": "Castle Creations",
+      "link": "https://database.tytorobotics.com/escs/9g6/castle-creations-dmr3040",
+      "max_current": 40,
+      "bec_current": null,
+      "weight": 17.1
+    },
+    {
+      "model": "Air 20A",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/escs/erd/t-motor-air-20a",
+      "max_current": 20,
+      "bec_current": null,
+      "weight": null
+    },
+    {
+      "model": "AT 55A 6S",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/escs/m5g/t-motor-at-55a-6s",
+      "max_current": 55,
+      "bec_current": 5,
+      "weight": null
+    },
+    {
+      "model": "GOKU GH356S",
+      "brand": "Flywoo",
+      "link": "https://database.tytorobotics.com/escs/j4d/flywoo-goku-gh356s",
+      "max_current": null,
+      "bec_current": null,
+      "weight": null
+    },
+    {
+      "model": "Air 40A",
+      "brand": "T-Motor",
+      "link": "https://database.tytorobotics.com/escs/w74/t-motor-air-40a",
+      "max_current": null,
+      "bec_current": null,
+      "weight": null
+    },
+    {
+      "model": "Tribunus II 12-80A SBEC",
+      "brand": "Scorpion Power System LTD",
+      "link": "https://database.tytorobotics.com/escs/97m/scorpion-power-system-ltd-tribunus-ii-12-80a-sbec",
+      "max_current": 120,
+      "bec_current": 10,
+      "weight": 144
+    },
+    {
+      "model": "Legatus 12-60A FOC",
+      "brand": "Scorpion Power System LTD",
+      "link": "https://database.tytorobotics.com/escs/w9e/scorpion-power-system-ltd-legatus-12-60a-foc",
+      "max_current": 100,
+      "bec_current": null,
+      "weight": 70
+    },
+    {
+      "model": "Cyclone 35A",
+      "brand": null,
+      "link": "https://database.tytorobotics.com/escs/xwqd/cyclone-35a",
+      "max_current": null,
+      "bec_current": null,
+      "weight": null
+    }
+  ]
+}

@@ -105,6 +105,8 @@ export const useESP = () => {
   const updateSpeed = () => {
     const now = new Date().getTime();
     const elapsed = now - startTime;
+
+    
   
     // Send the final speed to the esp32 and stop the test if the duration has passed
     if (elapsed >= durationMs) {
@@ -131,10 +133,7 @@ export const useESP = () => {
         speed: currentSpeed,
       });
       socket.send(speedMessage);
-      handleStopReadings();
-      if (intervalIdRef.current) {
-        clearInterval(intervalIdRef.current);
-      }
+
     }
   };
 
