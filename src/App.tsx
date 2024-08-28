@@ -55,7 +55,7 @@ const App = () => {
   const [acceleration, setAcceleration] = useState(1);
   const [AlertDefaultInputs, setAlertDefaultInputs] = useState(true);
   const [showSaveSucess, setShowSaveSucess] = useState(false); // Alert state just like AlertDefaultInput, just too much to rename to "alertSaveSuccess"
-  
+  const [showWarning, setWarning] = useState(false);
   // useESP hook is used to send and receive the data from the ESP32 and handle the test start/stop logic 
   const {
     duration,
@@ -142,6 +142,16 @@ const App = () => {
     const intervalId = setInterval(refreshGraphData, 100); // (Set the refresh interval here in milliseconds)
 
     return () => clearInterval(intervalId);
+  }, [startTime]);
+
+  //Show a warning when the test is running about not changing the active tab (some readings may be lost)
+  useEffect(() => {
+    if (startTime) {
+      setWarning(true);
+      setShowSaveSucess(false);
+    } else {
+      setWarning(false);
+    }
   }, [startTime]);
 
   const refreshGraphData = () => {
@@ -607,12 +617,20 @@ const App = () => {
                 )}
             {AlertDefaultInputs && (
             <div className="alert-container">
-              <Alert severity="info" onClose={() => setAlertDefaultInputs(false)} sx={{ fontSize: "1.3em",  }}>
+              <Alert severity="warning" onClose={() => setAlertDefaultInputs(false)} sx={{ fontSize: "1.3em",  }}>
                 Using default inputs.<br />
                 Click the gear icon to change them.
               </Alert>
             </div>
             )}
+            {showWarning && (
+              <div className="alert-container">
+                <Alert severity="info" sx={{ fontSize: "1.3em", }}>
+                Please avoid switching browser tabs during the test, as some readings may be lost.
+                </Alert>
+              </div>
+            )}
+            
           </Box>
         </Box>
       </Box>

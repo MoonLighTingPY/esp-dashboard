@@ -34,9 +34,11 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const [escOptions, setEscOptions] = useState(componentsData.escs);
 
 
-
   // Tried to do adaptive design. Fucked up, didn't try again.
   const isSmallScreen = useMediaQuery('(max-width:600px)');
+
+
+
 
   // Dynamically calculates the speed for the preview chart depending on start/end speed and duration
   // Acceleration is used so the speed changes not lineary (optional)  
@@ -190,10 +192,10 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             <Autocomplete
             className = "model-input"
             options={motorOptions.map(option => option.model)}
-            onInputChange={(event, newInputValue) => {
+            onInputChange={(_, newInputValue) => {
               setMotorOptions(componentsData.motors.filter(motor => motor.model.toLowerCase().includes(newInputValue.toLowerCase())));
             }}
-            onChange={(event, newValue) => {
+            onChange={(_, newValue) => {
               setMotorModel(newValue as string);
             }}
             renderInput={(params) => (
@@ -212,10 +214,10 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
           <Autocomplete
             className = "model-input"
             options={propellerOptions.map(option => option.model)}
-            onInputChange={(event, newInputValue) => {
+            onInputChange={(_, newInputValue) => {
               setPropellerOptions(componentsData.propellers.filter(propeller => propeller.model.toLowerCase().includes(newInputValue.toLowerCase())));
             }}
-            onChange={(event, newValue) => {
+            onChange={(_, newValue) => {
               setPropellerModel(newValue as string);
             }}
             renderInput={(params) => (
@@ -235,10 +237,10 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
           <Autocomplete
             className = "model-input"
             options={escOptions.map(option => option.model)}
-            onInputChange={(event, newInputValue) => {
+            onInputChange={(_, newInputValue) => {
               setEscOptions(componentsData.escs.filter(esc => esc.model.toLowerCase().includes(newInputValue.toLowerCase())));
             }}
-            onChange={(event, newValue) => {
+            onChange={(_,  newValue) => {
               setEscModel(newValue as string);
             }}
             renderInput={(params) => (
