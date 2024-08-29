@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Box, Modal, Typography, Button, TextField, Slider, useMediaQuery, Autocomplete} from "@mui/material";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
-import componentsData from './components_data.json';
-
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -12,13 +10,14 @@ interface SpeedPreviewChartProps {
   onClose: () => void;
   speedData: number[];
   // Saves the inputs for the App.tsx to use
-  onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string, escModel: string) => void;
+  onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string, escModel: string, componentsData: { motors: any[], propellers: any[], escs: any[] }) => void
   acceleration: number;
   setAcceleration: (acceleration: number) => void;
+  socket: WebSocket | null;
 }
 
 // Props are passed from App.tsx
-const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData: initialSpeedData, onSave, acceleration, setAcceleration}) => {
+const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, speedData: initialSpeedData, onSave, acceleration, setAcceleration, socket}) => {
   const [startSpeed, setStartSpeed] = useState(1200);
   const [endSpeed, setEndSpeed] = useState(1400);
   const [duration, setDuration] = useState(5);
@@ -27,16 +26,30 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const [propellerModel, setPropellerModel] = useState("");
   const [escModel, setEscModel] = useState("");
   const [isAccelerationOn, setIsAccelOn] = useState(false);
+  const [componentsData, setComponentsData] = useState<{ motors: any[], propellers: any[], escs: any[] }>({ motors: [], propellers: [], escs: [] });
 
   // Autocomplete options from components_data.json(motors, propellers, escs)
-  const [motorOptions, setMotorOptions] = useState(componentsData.motors);
-  const [propellerOptions, setPropellerOptions] = useState(componentsData.propellers);
-  const [escOptions, setEscOptions] = useState(componentsData.escs);
+  const [motorOptions, setMotorOptions] = useState(componentsData.motors || []);
+  const [propellerOptions, setPropellerOptions] = useState(componentsData.propellers || []);
+  const [escOptions, setEscOptions] = useState(componentsData.escs || []);
 
 
   // Tried to do adaptive design. Fucked up, didn't try again.
   const isSmallScreen = useMediaQuery('(max-width:600px)');
 
+  useEffect(() => {
+    fetch('http://esp32-motortester.local/assets/components_data.json')
+      .then(response => response.json())
+      .then(data => {
+        setComponentsData(data);
+        console.log(data);
+        setMotorOptions(data.motors);
+        setMotorModel
+        setPropellerOptions(data.propellers);
+        setEscOptions(data.escs);
+      })
+      .catch(error => console.error('Error fetching components data:', error));
+  }, []);
 
 
 
@@ -104,6 +117,34 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
     if (isAccelerationOn) {
       setAcceleration(1);
     }
+  };
+
+  const handleSave = () => {
+    const newModels: any = {};
+
+    if (motorModel && !componentsData.motors.some(motor => motor.model === motorModel)) {
+      newModels.motors = motorModel;
+    }
+
+    if (propellerModel && !componentsData.propellers.some(propeller => propeller.model === propellerModel)) {
+      newModels.propellers = propellerModel;
+    }
+
+    if (escModel && !componentsData.escs.some(esc => esc.model === escModel)) {
+      newModels.escs = escModel;
+    }
+
+    if (Object.keys(newModels).length > 0 && socket) {
+      socket.send(JSON.stringify({
+        type: "updateUsedModels",
+        motors: newModels.motors,
+        propellers: newModels.propellers,
+        escs: newModels.escs,
+  
+      }));
+    }
+
+    onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel, escModel, componentsData);
   };
 
   return (
@@ -192,11 +233,13 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             <Autocomplete
             className = "model-input"
             options={motorOptions.map(option => option.model)}
+            freeSolo
             onInputChange={(_, newInputValue) => {
               setMotorOptions(componentsData.motors.filter(motor => motor.model.toLowerCase().includes(newInputValue.toLowerCase())));
             }}
             onChange={(_, newValue) => {
               setMotorModel(newValue as string);
+              
             }}
             renderInput={(params) => (
               <TextField
@@ -214,6 +257,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
           <Autocomplete
             className = "model-input"
             options={propellerOptions.map(option => option.model)}
+            freeSolo
             onInputChange={(_, newInputValue) => {
               setPropellerOptions(componentsData.propellers.filter(propeller => propeller.model.toLowerCase().includes(newInputValue.toLowerCase())));
             }}
@@ -237,6 +281,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
           <Autocomplete
             className = "model-input"
             options={escOptions.map(option => option.model)}
+            freeSolo
             onInputChange={(_, newInputValue) => {
               setEscOptions(componentsData.escs.filter(esc => esc.model.toLowerCase().includes(newInputValue.toLowerCase())));
             }}
@@ -258,7 +303,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             )}
           />
             <div className="close-icon-container">
-              <svg className="close-icon" viewBox="0 0 24 24" onClick={() => {onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel, escModel)} }>
+              <svg className="close-icon" viewBox="0 0 24 24" onClick={handleSave}>
                 <polyline points="20 6 9 17 4 12" fill="none" style={{ strokeWidth: '4' }} />
               </svg>
             </div>

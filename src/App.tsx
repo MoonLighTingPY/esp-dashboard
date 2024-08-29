@@ -16,7 +16,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { dataSchema, useESP } from "./useESP";
 import SpeedPreviewChart from "./SpeedPreviewChart";
-import componentsData from './components_data.json';
+
 
 
 ChartJS.register(
@@ -56,6 +56,7 @@ const App = () => {
   const [AlertDefaultInputs, setAlertDefaultInputs] = useState(true);
   const [showSaveSucess, setShowSaveSucess] = useState(false); // Alert state just like AlertDefaultInput, just too much to rename to "alertSaveSuccess"
   const [showWarning, setWarning] = useState(false);
+  const [componentsData, setComponentsData] = useState<{ motors: any[], propellers: any[], escs: any[] }>({ motors: [], propellers: [], escs: [] });
   // useESP hook is used to send and receive the data from the ESP32 and handle the test start/stop logic 
   const {
     duration,
@@ -223,7 +224,7 @@ const App = () => {
   // Save the preview data(speedData) to the state
   // It is called when the user clicks the save button in the SpeedPreviewChart component
   // This function is passed as a prop to the SpeedPreviewChart component
-  const handleSavePreviewData = (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string, escModel: string) => {
+  const handleSavePreviewData = (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string, escModel: string, componentsData: { motors: any[], propellers: any[], escs: any[] }) => {
     setShowSaveSucess(true);
     setSavedSpeedData(speedData);
     setStartSpeed(startSpeed);
@@ -233,6 +234,7 @@ const App = () => {
     setPropellerModel(propellerModel);
     setIsPreviewOpen(false);
     setEscModel(escModel);
+    setComponentsData(componentsData);
   };
 
   // Self-explanatory. Clears the stats
@@ -562,6 +564,7 @@ const App = () => {
                     savedSpeedData.length > 0 ? savedSpeedData : previewData
                   }
                   onSave={handleSavePreviewData}
+                  socket={socket}
                 />
                 
                 <img
