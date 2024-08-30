@@ -54,8 +54,8 @@ const App = () => {
   const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]);  // Speed data saved from the SpeedPreviewChart component to use in the main chart
   const [acceleration, setAcceleration] = useState(1);
   const [AlertDefaultInputs, setAlertDefaultInputs] = useState(true);
-  const [showSaveSucess, setShowSaveSucess] = useState(false); // Alert state just like AlertDefaultInput, just too much to rename to "alertSaveSuccess"
-  const [showWarning, setWarning] = useState(false);
+  const [AlertSaveSucess, setAlertSaveSucess] = useState(false);
+  const [AlertTabsWarning, setAlertTabsWarning] = useState(false);
   const [componentsData, setComponentsData] = useState<{ motors: any[], propellers: any[], escs: any[] }>({ motors: [], propellers: [], escs: [] });
   // useESP hook is used to send and receive the data from the ESP32 and handle the test start/stop logic 
   const {
@@ -122,18 +122,18 @@ const App = () => {
 
   // Show the success alert after saving the inputs for n seconds
   useEffect(() => {
-    if (showSaveSucess) {
+    if (AlertSaveSucess) {
       const timeoutId = setTimeout(() => {
-        setShowSaveSucess(false);
+        setAlertSaveSucess(false);
       }, 15000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [showSaveSucess]);
+  }, [AlertSaveSucess]);
 
   // Show an alert if default inputs are used
   useEffect(() => {
-    if (showSaveSucess) {
+    if (AlertSaveSucess) {
       setAlertDefaultInputs(false);
     }
   } , [savedSpeedData]);      
@@ -148,12 +148,14 @@ const App = () => {
   //Show a warning when the test is running about not changing the active tab (some readings may be lost)
   useEffect(() => {
     if (startTime) {
-      setWarning(true);
-      setShowSaveSucess(false);
+      setAlertTabsWarning(true);
+      setAlertSaveSucess(false);
     } else {
-      setWarning(false);
+      setAlertTabsWarning(false);
     }
   }, [startTime]);
+
+
 
   const refreshGraphData = () => {
     if (dataQueue.current.length <= 0) return;
@@ -225,7 +227,7 @@ const App = () => {
   // It is called when the user clicks the save button in the SpeedPreviewChart component
   // This function is passed as a prop to the SpeedPreviewChart component
   const handleSavePreviewData = (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string, escModel: string, componentsData: { motors: any[], propellers: any[], escs: any[] }) => {
-    setShowSaveSucess(true);
+    setAlertSaveSucess(true);
     setSavedSpeedData(speedData);
     setStartSpeed(startSpeed);
     setEndSpeed(endSpeed);
@@ -611,9 +613,9 @@ const App = () => {
               </Typography>
             </div>
             {/* Alerts (standart inputs and save success) */}
-            {showSaveSucess && (
+            {AlertSaveSucess && (
                 <div className="alert-container">
-                  <Alert severity="success" onClose={() => setShowSaveSucess(false)} sx={{ fontSize: "1.3em", }}>
+                  <Alert severity="success" onClose={() => setAlertSaveSucess(false)} sx={{ fontSize: "1.3em", }}>
                     Inputs saved successfully!
                   </Alert>
                 </div>
@@ -626,7 +628,7 @@ const App = () => {
               </Alert>
             </div>
             )}
-            {showWarning && (
+            {AlertTabsWarning && (
               <div className="alert-container">
                 <Alert severity="info" sx={{ fontSize: "1.3em", }}>
                 Please avoid switching browser tabs during the test, as some readings may be lost.

@@ -38,19 +38,45 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
-    fetch('http://esp32-motortester.local/assets/components_data.json')
-      .then(response => response.json())
-      .then(data => {
-        setComponentsData(data);
-        console.log(data);
-        setMotorOptions(data.motors);
-        setMotorModel
-        setPropellerOptions(data.propellers);
-        setEscOptions(data.escs);
-      })
-      .catch(error => console.error('Error fetching components data:', error));
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://esp32-motortester.local/assets/components_data.json');
+        if (!response.ok) {
+          throw new Error('Failed to fetch components data');
+        }
+        const data = await response.json();
+  
+        // Remove duplicates
+        const uniqueMotors = Array.from(new Set(data.motors.map((motor: any) => motor.model)))
+          .map(model => data.motors.find((motor: any) => motor.model === model));
+  
+        const uniquePropellers = Array.from(new Set(data.propellers.map((propeller: any) => propeller.model)))
+          .map(model => data.propellers.find((propeller: any) => propeller.model === model));
+  
+        const uniqueEscs = Array.from(new Set(data.escs.map((esc: any) => esc.model)))
+          .map(model => data.escs.find((esc: any) => esc.model === model));
+  
+        const uniqueComponentsData = {
+          motors: uniqueMotors,
+          propellers: uniquePropellers,
+          escs: uniqueEscs,
+        };
+  
+        setComponentsData(uniqueComponentsData);
+        console.log("Models DB fetched!");
+        setMotorOptions(uniqueComponentsData.motors);
+        setMotorModel('');
+        setPropellerOptions(uniqueComponentsData.propellers);
+        setEscOptions(uniqueComponentsData.escs);
+      } catch (error) {
+        console.error('Error fetching components data:', error);
+        // Retry fetching after 5 seconds
+        setTimeout(fetchData, 5000);
+      }
+    };
+  
+    fetchData();
   }, []);
-
 
 
   // Dynamically calculates the speed for the preview chart depending on start/end speed and duration
@@ -107,8 +133,36 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
       y: {
         beginAtZero: true,
       },
-      maintainaspectratio: false,
     },
+  };
+
+  const fetchModels = () => {
+    fetch('http://esp32-motortester.local/used_models.json')
+      .then(response => response.json())
+      .then(data => {
+        const newMotors = data.motors.filter((model: string) => 
+          !componentsData.motors.some(existingModel => existingModel.model === model)
+        ).map((model: string) => ({ model }));
+
+        const newPropellers = data.propellers.filter((model: string) => 
+          !componentsData.propellers.some(existingModel => existingModel.model === model)
+        ).map((model: string) => ({ model }));
+
+        const newEscs = data.escs.filter((model: string) => 
+          !componentsData.escs.some(existingModel => existingModel.model === model)
+        ).map((model: string) => ({ model }));
+
+        setComponentsData(prevData => ({
+          motors: [...prevData.motors, ...newMotors],
+          propellers: [...prevData.propellers, ...newPropellers],
+          escs: [...prevData.escs, ...newEscs],
+        }));
+      })
+      .catch(error => {
+        console.error('Error fetching models:', error);
+        // Retry after 1 second
+        setTimeout(fetchModels, 1000);
+      });
   };
 
   // Toggles acceleration slider visibility on/off
@@ -118,6 +172,8 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
       setAcceleration(1);
     }
   };
+
+  
 
   const handleSave = () => {
     const newModels: any = {};
@@ -137,14 +193,15 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
     if (Object.keys(newModels).length > 0 && socket) {
       socket.send(JSON.stringify({
         type: "updateUsedModels",
-        motors: newModels.motors,
+        motors: newModels.motors, 
         propellers: newModels.propellers,
         escs: newModels.escs,
-  
+        
       }));
     }
 
     onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel, escModel, componentsData);
+    setTimeout(fetchModels, 100);
   };
 
   return (
@@ -236,6 +293,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             freeSolo
             onInputChange={(_, newInputValue) => {
               setMotorOptions(componentsData.motors.filter(motor => motor.model.toLowerCase().includes(newInputValue.toLowerCase())));
+              fetchModels();
             }}
             onChange={(_, newValue) => {
               setMotorModel(newValue as string);
@@ -260,6 +318,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             freeSolo
             onInputChange={(_, newInputValue) => {
               setPropellerOptions(componentsData.propellers.filter(propeller => propeller.model.toLowerCase().includes(newInputValue.toLowerCase())));
+              fetchModels();
             }}
             onChange={(_, newValue) => {
               setPropellerModel(newValue as string);
@@ -284,6 +343,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             freeSolo
             onInputChange={(_, newInputValue) => {
               setEscOptions(componentsData.escs.filter(esc => esc.model.toLowerCase().includes(newInputValue.toLowerCase())));
+              fetchModels();
             }}
             onChange={(_,  newValue) => {
               setEscModel(newValue as string);
