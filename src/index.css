@@ -1,70 +1,206 @@
-
-
-/* Some of theese styles are present in the index.html file. Can't distinguish which are used and which are not so didn't merge them yet. sorry */
-
-
-
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --line-height: 1.5;
+  --font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --background-color-light: #fff;
+  --background-color-dark: #242424;
+  --text-color-light: #000;
+  --text-color-dark: #fff;
 
+  --button-bg-color: #007bff;
+  --button-bg-hover: #0056b3;
+  --link-color: #646cff;
+  --link-hover-color: #535bf2;
+
+  --padding-small: 0.6em 1.2em;
+  --padding-medium: 1rem;
+  --padding-large: 20px;
+  --margin-medium: 16px;
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.model-input {
-  width: 22%; /* Set the width to 100% of the parent container */
-  max-width: 500px; /* Optionally, set a maximum width */
-  padding: 10px; /* Add some padding for better readability */
-  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
+  line-height: var(--line-height);
+  transition: background-color 0.3s, color 0.3s;
 }
 
-
-.alert-container {
-  width: 100%;
-  z-index: 1000; /* Ensure it appears above other elements */
-  box-sizing: border-box;
-  padding: 18px;
+body.dark-mode {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-large);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+  width: 90%;
+  overflow: auto;
+}
+
 
 .speed-preview-chart-container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100vh; /* Full viewport height */
-  padding: 1rem;
+  height: 100vh;
+  padding: var(--padding-medium);
   box-sizing: border-box;
 }
 
 .speed-preview-chart {
   width: 100%;
-  max-width: 1200px; /* Increase the maximum width as needed */
+  max-width: 1200px;
   position: relative;
-  background-color: white;
+  background-color: var(--background-color-light);
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
+  padding: var(--padding-medium);
   box-sizing: border-box;
+}
+
+body.dark-mode .speed-preview-chart {
+  background-color: var(--background-color-dark);
+}
+
+.chart-container {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100vh;
+  position: relative;
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: auto !important;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section {
+  margin-bottom: var(--padding-large);
+  padding: var(--padding-large);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--link-hover-color);
+}
+
+button {
+  background-color: var(--button-bg-color);
+  border: none;
+  border-radius: 8px;
+  padding: var(--padding-small);
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.25s;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: var(--button-bg-hover);
+  border-color: var(--link-color);
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.inputs, .statistics, .buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.presets {
+  width: 50%;
+}
+
+.section-box,
+.section-box0 {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: var(--margin-medium);
+  position: relative;
+}
+
+.section-box0 {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  max-height: 88vh;
+}
+
+.section-box h2 {
+  margin-top: 0;
+  font-size: 1.2em;
+}
+
+.model-input {
+  width: 22%;
+  max-width: 500px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.alert-container {
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+  padding: 18px;
 }
 
 .close-icon-container {
   display: flex;
   justify-content: flex-end;
-  padding: 1rem;
+  padding: var(--padding-medium);
 }
 
 .close-icon {
   width: 24px;
   height: 24px;
-  stroke: #333;
+  stroke: #597467;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -73,20 +209,13 @@
 }
 
 .close-icon:hover {
-  stroke: #00ff62; /* Change color on hover */
+  stroke: #2b4736;
 }
 
-.chart-container {
-  height: 100%;
-  width: 100%;
-  max-width: 100%;   /* Limit maximum width to 100% of the parent container */
-  max-height: 100vh; /* Limit maximum height to 100% of viewport height */
-  position: relative;
-}
-@media (max-width: 1024px ) {
+@media (max-width: 1024px) {
   #root {
     padding: 10px;
-    scale: 0.5;
+    transform: scale(0.5);
     width: 100%;
   }
 
@@ -101,76 +230,17 @@
 
   .chart-container {
     margin-top: 50px;
-    height: 100%; /* Adjust height for smaller screens */
+    height: 100%;
     width: 100%;
   }
 
   .chart-container canvas {
-    width: auto !important; /* Ensure the canvas takes full width of its container */
-    height: auto !important; /* Allow the canvas to adjust height as needed */
+    width: auto !important;
+    height: auto !important;
   }
 }
-
-
-
-/* Optional: Add styles for the chart canvas itself */
-.chart-container canvas {
-  width: 100% !important;  /* Ensure the canvas takes full width of its container */
-  height: auto !important; /* Allow the canvas to adjust height as needed */
-}
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-/* Reset default body margin */
-body {
-  margin: 0;
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  min-width: 320px;
-  min-height: 100vh; /* Ensure full viewport height */
-}
-
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }

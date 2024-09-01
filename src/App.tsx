@@ -17,8 +17,6 @@ import html2canvas from "html2canvas";
 import { dataSchema, useESP } from "./useESP";
 import SpeedPreviewChart from "./SpeedPreviewChart";
 
-
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -28,7 +26,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
 
 const addZero = (num: number) => (num < 10 ? `0${num}` : num);
 
@@ -49,7 +46,6 @@ const App = () => {
   const [motorModel, setMotorModel] = useState("Not set.");
   const [propellerModel, setPropellerModel] = useState("Not set.");
   const [escModel, setEscModel] = useState("Not set.");
-  const [, setSpeedPreview] = useState<number[]>([]); 
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [savedSpeedData, setSavedSpeedData] = useState<number[]>([]);  // Speed data saved from the SpeedPreviewChart component to use in the main chart
   const [acceleration, setAcceleration] = useState(1);
@@ -57,6 +53,7 @@ const App = () => {
   const [AlertSaveSucess, setAlertSaveSucess] = useState(false);
   const [AlertTabsWarning, setAlertTabsWarning] = useState(false);
   const [componentsData, setComponentsData] = useState<{ motors: any[], propellers: any[], escs: any[] }>({ motors: [], propellers: [], escs: [] });
+  const [pdfComment, setPdfComment] = useState("");
   // useESP hook is used to send and receive the data from the ESP32 and handle the test start/stop logic 
   const {
     duration,
@@ -74,6 +71,7 @@ const App = () => {
     handleStopReadings,
     data,
   } = useESP();
+
 
   // Connection to the WebSocket server on esp32
   useEffect(() => {
@@ -156,7 +154,7 @@ const App = () => {
   }, [startTime]);
 
 
-
+  // Refreshes the graph data (called every 100ms)
   const refreshGraphData = () => {
     if (dataQueue.current.length <= 0) return;
   
@@ -203,7 +201,6 @@ const App = () => {
     }));
   };
   
-
    // Memoize the preview data that's displayed in the speed preview chart
    const previewData = useMemo(() => {
     if (!startSpeed || !endSpeed || !duration) return [];
@@ -219,14 +216,24 @@ const App = () => {
 
   // This function is called when the user clicks the preview speed(gear) button
   const handlePreviewSpeed = () => {
-    setSpeedPreview(savedSpeedData.length > 0 ? savedSpeedData : previewData);
+    
     setIsPreviewOpen(true);
   };
   
   // Save the preview data(speedData) to the state
   // It is called when the user clicks the save button in the SpeedPreviewChart component
   // This function is passed as a prop to the SpeedPreviewChart component
-  const handleSavePreviewData = (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string, escModel: string, componentsData: { motors: any[], propellers: any[], escs: any[] }) => {
+  const handleSavePreviewData = (
+    speedData: number[],
+    startSpeed: number,
+    endSpeed: number,
+    duration: number,
+    motorModel: string,
+    propellerModel: string,
+    escModel: string,
+    componentsData: { motors: any[], propellers: any[], escs: any[] },
+    pdfComment: string
+  ) => {
     setAlertSaveSucess(true);
     setSavedSpeedData(speedData);
     setStartSpeed(startSpeed);
@@ -237,6 +244,7 @@ const App = () => {
     setIsPreviewOpen(false);
     setEscModel(escModel);
     setComponentsData(componentsData);
+    setPdfComment(pdfComment); // Assuming you have a state for pdfComment
   };
 
   // Self-explanatory. Clears the stats
@@ -259,76 +267,88 @@ const App = () => {
   const handleSaveAsPDF = async () => {
     const chartElement = chartRef.current;
     if (!chartElement) return;
-
+  
     const canvas = await html2canvas(chartElement);
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF();
     const imgProps = pdf.getImageProperties(imgData);
     const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    const pdfHeight = ((imgProps.height * pdfWidth) / imgProps.width)* 0.88;
     const accelerationState = acceleration === 1 ? "Off" : "On";
-
-
+  
     // Add chart image to PDF
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-
+  
     // Find motor, propeller, and ESC specifications
     const motorSpecs = componentsData.motors.find(motor => motor.model === motorModel);
     const propellerSpecs = componentsData.propellers.find(propeller => propeller.model === propellerModel);
     const escSpecs = componentsData.escs.find(esc => esc.model === escModel);
+  
 
-    // Add stats to PDF
-    const statsText = `
-      Max/Min Values:
+    pdf.setFontSize(12);
+    pdf.setTextColor(0, 0, 0);
+    pdf.text("Max/Min Values:", 120, pdfHeight + 10);
+    pdf.setFontSize(10);
+    pdf.text(`
       Thrust: ${stats.thrustMax}/${stats.thrustMin}
       Torque: ${stats.torqueMax}/${stats.torqueMin}
       Voltage: ${stats.voltageMax}/${stats.voltageMin}
       Current: ${stats.currentMax}/${stats.currentMin}
+    `, 120, pdfHeight + 20);
+  
 
-      Propeller Specifications:
+    pdf.setFontSize(12);
+    pdf.setTextColor(0, 0, 0);
+    pdf.text("Propeller Specifications:", 120, pdfHeight + 50);
+    pdf.setFontSize(10);
+    pdf.text(`
       Model: ${propellerSpecs?.model || 'N/A'}
       Brand: ${propellerSpecs?.brand || 'N/A'}
       Diameter: ${propellerSpecs?.diameter || 'N/A'}
       Pitch: ${propellerSpecs?.pitch || 'N/A'}
       Weight: ${propellerSpecs?.weight || 'N/A'}
-      `;
+    `, 120, pdfHeight + 60);
+  
 
-    pdf.text(statsText, 120, pdfHeight);
-
-    // Add input values to PDF
-    const inputsText = `
-      Inputs:
-      Duration: ${Math.floor(duration / 60)} minutes ${addZero(
-        duration % 60
-      )} seconds
+    pdf.setFontSize(12);
+    pdf.setTextColor(0, 0, 0);
+    pdf.text("Inputs:", 10, pdfHeight + 10);
+    pdf.setFontSize(10);
+    pdf.text(`
+      Duration: ${Math.floor(duration / 60)} minutes ${addZero(duration % 60)} seconds
       Start RPM: ${startSpeed || 'Not set'}
       End RPM: ${endSpeed || 'Not set'}
       Acceleration: ${accelerationState} (Factor: ${acceleration})
+    `, 10, pdfHeight + 20);
+  
 
-      Motor Specifications:
+    pdf.setFontSize(12);
+    pdf.setTextColor(0, 0, 0);
+    pdf.text("Motor Specifications:", 10, pdfHeight + 50);
+    pdf.setFontSize(10);
+    pdf.text(`
       Model: ${motorSpecs?.model || 'N/A'}
-      Brand: ${motorSpecs?.brand || 'N/A'}     
+      Brand: ${motorSpecs?.brand || 'N/A'}
       Shaft Diameter: ${motorSpecs?.shaft_diameter || 'N/A'}
       Magnetic Poles: ${motorSpecs?.mag_poles || 'N/A'}
       KV Value: ${motorSpecs?.kv_value || 'N/A'}
       Weight: ${motorSpecs?.weight || 'N/A'}
+    `, 10, pdfHeight + 60);
+  
 
-      `;
-
-    pdf.text(inputsText, 10, pdfHeight);
-    
-    const escText = `
-      ESC Specifications:
+    pdf.setFontSize(12);
+    pdf.setTextColor(0, 0, 0);
+    pdf.text("ESC Specifications:", 10, pdfHeight + 95);
+    pdf.setFontSize(10);
+    pdf.text(`
       Model: ${escSpecs?.model || 'N/A'}
       Brand: ${escSpecs?.brand || 'N/A'}
       Max Current: ${escSpecs?.max_current || 'N/A'}
       BEC Current: ${escSpecs?.bec_current || 'N/A'}
       Weight: ${escSpecs?.weight || 'N/A'}
-    `;
-
-    pdf.text(escText, 10, pdfHeight + 95);
-
-    // Add links to the PDF
+    `, 10, pdfHeight + 105);
+  
+    // Clickable links to the database for each component if it's available
     if (motorSpecs?.link) {
       pdf.setTextColor(0, 0, 255);
       pdf.textWithLink('Motor Link (Database)', 130, pdfHeight + 100, { url: motorSpecs.link });
@@ -341,10 +361,39 @@ const App = () => {
       pdf.setTextColor(0, 0, 255); 
       pdf.textWithLink('ESC Link (Database)', 130, pdfHeight + 120, { url: escSpecs.link });
     }
-
+    
+    // Splits the text into lines to fit the PDF
+    const splitText = (text: string, maxLength: number) => {
+      const lines = [];
+      let currentLine = '';
+      for (const word of text.split(' ')) {
+        if ((currentLine + word).length > maxLength) {
+          lines.push(currentLine.trim());
+          currentLine = word + ' ';
+        } else {
+          currentLine += word + ' ';
+        }
+      }
+      lines.push(currentLine.trim());
+      return lines;
+    };
+    
+    /*...*/
+    
+    // Comments may be too long to fit in the PDF, so split them into lines
+    pdf.setTextColor(0, 0, 0); 
+    pdf.setFontSize(11);
+    pdf.text("Comments:", 10, pdfHeight + 135);
+    
+    const comments = pdfComment || 'None.';
+    const commentLines = splitText(comments, 110);
+    commentLines.forEach((line, index) => {
+      pdf.text(line, 10, pdfHeight + 143 + (index * 5));
+    });
+  
+    
     pdf.save(`report [${motorModel}, ${propellerModel}, ${escModel}] ${new Date().toLocaleString()}.pdf`);
   };
-
   // Redirect to the WiFi configuration page
   const handleConfigWifi = () => {
     window.location.href = "http://esp32-motortester.local/config";
@@ -366,7 +415,7 @@ const App = () => {
           <Box sx={{ flex: 3 }}>
             
             <div className="chart-container" ref={chartRef}>
-              <div className="section-box">
+              <div className="section-box0">
                 <Line
                   data={data}
                   // This is the options for the chart.
@@ -590,7 +639,6 @@ const App = () => {
                   ml: 2,
                   fontWeight: "bold",
                   fontSize: "1.2em",
-                  color: "#333",
                   textAlign: "center",
                 }}
               >

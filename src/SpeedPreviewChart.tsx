@@ -10,7 +10,7 @@ interface SpeedPreviewChartProps {
   onClose: () => void;
   speedData: number[];
   // Saves the inputs for the App.tsx to use
-  onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string, escModel: string, componentsData: { motors: any[], propellers: any[], escs: any[] }) => void
+  onSave: (speedData: number[], startSpeed: number, endSpeed: number, duration: number, motorModel: string, propellerModel: string, escModel: string, componentsData: { motors: any[], propellers: any[], escs: any[] }, pdfComment: string) => void
   acceleration: number;
   setAcceleration: (acceleration: number) => void;
   socket: WebSocket | null;
@@ -25,6 +25,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
   const [motorModel, setMotorModel] = useState("");
   const [propellerModel, setPropellerModel] = useState("");
   const [escModel, setEscModel] = useState("");
+  const [pdfComment, setPdfComent] = useState("");
   const [isAccelerationOn, setIsAccelOn] = useState(false);
   const [componentsData, setComponentsData] = useState<{ motors: any[], propellers: any[], escs: any[] }>({ motors: [], propellers: [], escs: [] });
 
@@ -61,9 +62,8 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
           propellers: uniquePropellers,
           escs: uniqueEscs,
         };
-  
         setComponentsData(uniqueComponentsData);
-        console.log("Models DB fetched!");
+        console.log("Models DB fetched:", uniqueComponentsData);
         setMotorOptions(uniqueComponentsData.motors);
         setMotorModel('');
         setPropellerOptions(uniqueComponentsData.propellers);
@@ -200,7 +200,8 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
       }));
     }
 
-    onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel, escModel, componentsData);
+
+    onSave(speedData, startSpeed, endSpeed, duration, motorModel, propellerModel, escModel, componentsData, pdfComment);
     setTimeout(fetchModels, 100);
   };
 
@@ -362,6 +363,17 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
               />
             )}
           />
+              <TextField
+                label="Report Comment"
+                type="text"
+                value={pdfComment}
+                onChange={(e) => setPdfComent(e.target.value)}
+
+                margin="normal"
+                size="small"
+                sx={{"& .MuiInputBase-root": { borderRadius: 4 } }}
+              />
+
             <div className="close-icon-container">
               <svg className="close-icon" viewBox="0 0 24 24" onClick={handleSave}>
                 <polyline points="20 6 9 17 4 12" fill="none" style={{ strokeWidth: '4' }} />
