@@ -16,6 +16,9 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { dataSchema, useESP } from "./useESP";
 import SpeedPreviewChart from "./SpeedPreviewChart";
+import { savePDF } from './utils/indexedDB';
+import FileManager from './FileManager';
+
 
 ChartJS.register(
   CategoryScale,
@@ -392,7 +395,17 @@ const App = () => {
     });
   
     
-    pdf.save(`report [${motorModel}, ${propellerModel}, ${escModel}] ${new Date().toLocaleString()}.pdf`);
+    const pdfBlob = pdf.output('blob');
+    const fileName = `report [${motorModel}, ${propellerModel}, ${escModel}] ${new Date().toLocaleString()}.pdf`;
+    await savePDF(pdfBlob, fileName);
+
+    // Trigger download
+    const url = URL.createObjectURL(pdfBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(url);
   };
   // Redirect to the WiFi configuration page
   const handleConfigWifi = () => {
@@ -631,6 +644,7 @@ const App = () => {
                   style={{ cursor: "pointer", width: "15%", height: "auto" }}
                 />
               </Box>
+              <FileManager />
               {/* Time remaining */}
               <Typography
                 variant="body1"

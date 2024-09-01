@@ -51,7 +51,7 @@ body.dark-mode {
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   max-width: 100%;
-  width: 90%;
+  width: 97%;
   overflow: auto;
 }
 
@@ -212,33 +212,7 @@ button:focus-visible {
   stroke: #2b4736;
 }
 
-@media (max-width: 1024px) {
-  #root {
-    padding: 10px;
-    transform: scale(0.5);
-    width: 100%;
-  }
 
-  h1 {
-    font-size: 1.5em;
-  }
-
-  button {
-    padding: 0.4em 0.8em;
-    font-size: 0.9em;
-  }
-
-  .chart-container {
-    margin-top: 50px;
-    height: 100%;
-    width: 100%;
-  }
-
-  .chart-container canvas {
-    width: auto !important;
-    height: auto !important;
-  }
-}
 
 h1 {
   font-size: 3.2em;
