@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getPDFs, deletePDF, renamePDF } from './utils/indexedDB';
+import { TextField } from '@mui/material';
 import './index.css';
 
 interface FileManagerProps {
@@ -11,6 +12,7 @@ const FileManager: React.FC<FileManagerProps> = ({ onClose }) => {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [newFileName, setNewFileName] = useState<string>('');
   const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchPDFs = async () => {
@@ -42,22 +44,37 @@ const FileManager: React.FC<FileManagerProps> = ({ onClose }) => {
     setNewFileName('');
   };
 
+  const filteredPdfs = pdfs.filter(pdf => pdf.fileName.toLowerCase().includes(searchTerm.toLowerCase()));
+
   if (!isVisible) return null;
 
   return (
     <div className="file-manager-modal">
       <div className="file-manager-content">
-        <div className="close-icon-container" onClick={() => { setIsVisible(false); onClose(); }}>
-          <svg className="close-icon" viewBox="0 0 24 24">
-            <line x1="4" y1="4" x2="20" y2="20" />
-            <line x1="4" y1="20" x2="20" y2="4" />
-          </svg>
-        </div>
-        <h2>Saved PDFs</h2>
+      <div className="file-manager-header">
+      <h2>Saved Reports (PDFs)</h2>
+      <div className="close-icon-container" onClick={() => { setIsVisible(false); onClose(); }}>
+        <svg className="close-icon" viewBox="0 0 24 24">
+          <line x1="4" y1="4" x2="20" y2="20" />
+          <line x1="4" y1="20" x2="20" y2="4" />
+        </svg>
+      </div>
+      
+    </div>
+
+        <TextField
+          label="Search reports"
+          variant="outlined"
+          fullWidth
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ marginBottom: '1rem' }}
+        />
         <div className="file-manager-list">
           <ul>
-            {pdfs.map(pdf => (
+            {filteredPdfs.map(pdf => (
               <li key={pdf.id}>
+                
                 {editingId === pdf.id ? (
                   <>
                     <input

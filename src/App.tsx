@@ -1,6 +1,6 @@
 import "./index.css";
 import { useEffect, useRef, useState, useMemo } from "react";
-import { Box, Typography, Button, LinearProgress, Alert, Modal} from "@mui/material";
+import { Box, Typography, LinearProgress, Alert, Modal} from "@mui/material";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -18,6 +18,7 @@ import { dataSchema, useESP } from "./useESP";
 import SpeedPreviewChart from "./SpeedPreviewChart";
 import { savePDF } from './utils/indexedDB';
 import FileManager from './FileManager';
+import { set } from "zod";
 
 
 
@@ -411,6 +412,9 @@ const App = () => {
     URL.revokeObjectURL(url);
   };
 
+  const handleToggleFileManager = () => {
+    setIsFileManagerOpen(!isFileManagerOpen);
+  };
 
   // Redirect to the WiFi configuration page
   const handleConfigWifi = () => {
@@ -594,35 +598,41 @@ const App = () => {
                   gap: 3,
                 }}
               >
-                <img
-                  src="/images/play.ico"
-                  alt="Test"
-                  onClick={() => {
-                    // useESP hook has a function to handle the start of the test
-                    // it also handles the test stop logic
-                    handleStartReadings();
-                    handleClearStats();
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    width: "15%",
-                    height: "auto",
-                    marginLeft: "5",
-                  }}
-                />
+                
+                {startTime === null && (
+                  <img
+                    src="/images/play.ico"
+                    alt="Test"
+                    onClick={() => {
+                      handleStartReadings();
+                      handleClearStats();
+                    }}
+                    style={{
+                      cursor: "pointer",
+                      width: "15%",
+                      height: "auto",
+                      marginLeft: "5",
+                    }}
+                  />
+                  
+                )}
 
-                <img
-                  src="/images/stop.ico"
-                  alt="Stop"
-                  onClick={handleStopReadings}
-                  style={{ cursor: "pointer", width: "15%", height: "auto" }}
-                />
+                {startTime && startTime > 0 && (
+                  <img
+                    src="/images/stop.ico"
+                    alt="Stop"
+                    onClick={handleStopReadings}
+                    style={{ cursor: "pointer", width: "15%", height: "auto" }}
+                  />
+                )}
+
                 <img
                   src="/images/gear.ico"
                   alt="Inputs"
                   onClick={handlePreviewSpeed}
                   style={{ cursor: "pointer", width: "15%", height: "auto" }}
                 />
+                          
                 {/* Called speed preview chart, but it's actually the inputs + speedpreview. Takes too long to rename everything so left it as is */}
                 <SpeedPreviewChart
                   open={isPreviewOpen}
@@ -643,16 +653,22 @@ const App = () => {
                   style={{ cursor: "pointer", width: "16%", height: "auto" }}
                 />
                 <img
+                  src="/images/folder.ico"
+                  alt="File Manager"
+                  onClick={handleToggleFileManager}
+                  style={{ cursor: "pointer", width: "15%", height: "auto" }}
+                />
+              <Modal open={isFileManagerOpen} onClose={() => setIsFileManagerOpen(false)}>
+                <FileManager onClose={() => setIsFileManagerOpen(false)} />
+              </Modal>
+                <img
                   src="/images/wifi.ico"
                   alt="Configure WiFi"
                   onClick={handleConfigWifi}
                   style={{ cursor: "pointer", width: "15%", height: "auto" }}
                 />
               </Box>
-              <Button onClick={() => setIsFileManagerOpen(true)}>Open File Manager</Button>
-              <Modal open={isFileManagerOpen} onClose={() => setIsFileManagerOpen(false)}>
-                <FileManager onClose={() => setIsFileManagerOpen(false)} />
-              </Modal>
+              
               {/* Time remaining */}
               <Typography
                 variant="body1"

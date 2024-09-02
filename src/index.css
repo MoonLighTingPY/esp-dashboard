@@ -295,3 +295,19 @@ h1 {
 .file-manager-list .cancel-button {
   background-color: #f44336; /* Red */
 }
+
+.file-manager-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.close-icon-container {
+  cursor: pointer;
+}
+
+.close-icon {
+  width: 24px;
+  height: 24px;
+}
