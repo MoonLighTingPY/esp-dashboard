@@ -1,6 +1,6 @@
 import "./index.css";
 import { useEffect, useRef, useState, useMemo } from "react";
-import { Box, Typography, LinearProgress, Alert} from "@mui/material";
+import { Box, Typography, Button, LinearProgress, Alert, Modal} from "@mui/material";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -18,6 +18,7 @@ import { dataSchema, useESP } from "./useESP";
 import SpeedPreviewChart from "./SpeedPreviewChart";
 import { savePDF } from './utils/indexedDB';
 import FileManager from './FileManager';
+
 
 
 ChartJS.register(
@@ -57,6 +58,8 @@ const App = () => {
   const [AlertTabsWarning, setAlertTabsWarning] = useState(false);
   const [componentsData, setComponentsData] = useState<{ motors: any[], propellers: any[], escs: any[] }>({ motors: [], propellers: [], escs: [] });
   const [pdfComment, setPdfComment] = useState("");
+  const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
+
   // useESP hook is used to send and receive the data from the ESP32 and handle the test start/stop logic 
   const {
     duration,
@@ -407,6 +410,8 @@ const App = () => {
     a.click();
     URL.revokeObjectURL(url);
   };
+
+
   // Redirect to the WiFi configuration page
   const handleConfigWifi = () => {
     window.location.href = "http://esp32-motortester.local/config";
@@ -644,7 +649,10 @@ const App = () => {
                   style={{ cursor: "pointer", width: "15%", height: "auto" }}
                 />
               </Box>
-              <FileManager />
+              <Button onClick={() => setIsFileManagerOpen(true)}>Open File Manager</Button>
+              <Modal open={isFileManagerOpen} onClose={() => setIsFileManagerOpen(false)}>
+                <FileManager onClose={() => setIsFileManagerOpen(false)} />
+              </Modal>
               {/* Time remaining */}
               <Typography
                 variant="body1"

@@ -30,6 +30,29 @@ export const savePDF = async (pdfData: Blob, fileName: string) => {
     store.add({ fileName, pdfData });
   };
 
+  export const deletePDF = async (id: number) => {
+    const db = await openDB();
+    const transaction = db.transaction(STORE_NAME, 'readwrite');
+    const store = transaction.objectStore(STORE_NAME);
+    store.delete(id);
+  };
+  export const renamePDF = async (id: number, newFileName: string) => {
+    const db = await openDB();
+    const transaction = db.transaction(STORE_NAME, 'readwrite');
+    const store = transaction.objectStore(STORE_NAME);
+    const request = store.get(id);
+  
+    request.onsuccess = () => {
+      const pdf = request.result;
+      pdf.fileName = newFileName;
+      store.put(pdf);
+    };
+  
+    request.onerror = () => {
+      console.error('Failed to rename PDF');
+    };
+  };
+
 export const getPDFs = async (): Promise<{ id: number, fileName: string, pdfData: Blob }[]> => {
   const db = await openDB();
   const transaction = db.transaction(STORE_NAME, 'readonly');

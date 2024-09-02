@@ -213,8 +213,85 @@ button:focus-visible {
 }
 
 
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+/* src/index.css */
+.file-manager-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.file-manager-content {
+  background-color: #fff;
+  width: 80%;
+  height: 80%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.file-manager-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-top: 20px;
+}
+
+.file-manager-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.file-manager-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.file-manager-list .button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.file-manager-list button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.file-manager-list .download-button {
+  background-color: #4CAF50; /* Green */
+}
+
+.file-manager-list .delete-button {
+  background-color: #f44336; /* Red */
+}
+
+.file-manager-list .rename-button {
+  background-color: #2196F3; /* Blue */
+}
+
+.file-manager-list .save-button {
+  background-color: #4CAF50; /* Green */
+}
+
+.file-manager-list .cancel-button {
+  background-color: #f44336; /* Red */
 }
