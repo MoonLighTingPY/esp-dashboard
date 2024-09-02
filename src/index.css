@@ -64,11 +64,13 @@ body.dark-mode {
   height: 100vh;
   padding: var(--padding-medium);
   box-sizing: border-box;
+  position: relative;
 }
 
 .speed-preview-chart {
-  width: 100%;
   max-width: 1200px;
+  width: 100% !important;
+  height: auto !important;
   position: relative;
   background-color: var(--background-color-light);
   border-radius: 8px;
@@ -256,10 +258,20 @@ h1 {
 
 .file-manager-list li {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  text-align: left; /* Ensure text is aligned to the left */
+}
+
+.file-manager-list li .file-name {
+  flex-grow: 1; /* Take up remaining space */
+  margin-left: 10px; /* Add some space between checkbox and file name */
+}
+
+.file-manager-list li .button-group {
+  display: flex;
+  gap: 10px;
 }
 
 .file-manager-list .button-group {
@@ -298,9 +310,16 @@ h1 {
 
 .file-manager-header {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 1rem;
+}
+
+.file-manager-description {
+  font-size: 0.875rem; /* Small text size */
+  color: gray; /* Gray color */
+  margin-top: -1.30rem; /* Space between the header and description */
 }
 
 .close-icon-container {
@@ -310,4 +329,39 @@ h1 {
 .close-icon {
   width: 24px;
   height: 24px;
+}
+
+.file-manager-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.bulk-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.bulk-actions .delete-selected-button {
+  background-color: #f44336; /* Red */
+}
+
+.bulk-actions .download-selected-button {
+  background-color: #4CAF50; /* Green */
+}
+
+.bulk-actions .download-zip-button {
+  background-color: #4CAF50; /* Orange */
+}
+
+.bulk-actions .select-deselect-button {
+  background-color: #2196F3; /* Blue */
+}
+
+.bulk-actions button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
 }

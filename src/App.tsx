@@ -308,7 +308,7 @@ const App = () => {
     pdf.text("Propeller Specifications:", 120, pdfHeight + 50);
     pdf.setFontSize(10);
     pdf.text(`
-      Model: ${propellerSpecs?.model || 'N/A'}
+      Model: ${propellerModel|| 'N/A'}
       Brand: ${propellerSpecs?.brand || 'N/A'}
       Diameter: ${propellerSpecs?.diameter || 'N/A'}
       Pitch: ${propellerSpecs?.pitch || 'N/A'}
@@ -333,7 +333,7 @@ const App = () => {
     pdf.text("Motor Specifications:", 10, pdfHeight + 50);
     pdf.setFontSize(10);
     pdf.text(`
-      Model: ${motorSpecs?.model || 'N/A'}
+      Model: ${motorModel|| 'N/A'}
       Brand: ${motorSpecs?.brand || 'N/A'}
       Shaft Diameter: ${motorSpecs?.shaft_diameter || 'N/A'}
       Magnetic Poles: ${motorSpecs?.mag_poles || 'N/A'}
@@ -347,7 +347,7 @@ const App = () => {
     pdf.text("ESC Specifications:", 10, pdfHeight + 95);
     pdf.setFontSize(10);
     pdf.text(`
-      Model: ${escSpecs?.model || 'N/A'}
+      Model: ${escModel || 'N/A'}
       Brand: ${escSpecs?.brand || 'N/A'}
       Max Current: ${escSpecs?.max_current || 'N/A'}
       BEC Current: ${escSpecs?.bec_current || 'N/A'}
