@@ -292,6 +292,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             className = "model-input"
             options={motorOptions.map(option => option.model)}
             freeSolo
+            value={motorModel}
             onInputChange={(_, newInputValue) => {
               setMotorOptions(componentsData.motors.filter(motor => motor.model.toLowerCase().includes(newInputValue.toLowerCase())));
               fetchModels();
@@ -317,6 +318,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             className = "model-input"
             options={propellerOptions.map(option => option.model)}
             freeSolo
+            value={propellerModel}
             onInputChange={(_, newInputValue) => {
               setPropellerOptions(componentsData.propellers.filter(propeller => propeller.model.toLowerCase().includes(newInputValue.toLowerCase())));
               fetchModels();
@@ -342,6 +344,7 @@ const SpeedPreviewChart: React.FC<SpeedPreviewChartProps> = ({ open, onClose, sp
             className = "model-input"
             options={escOptions.map(option => option.model)}
             freeSolo
+            value={escModel}
             onInputChange={(_, newInputValue) => {
               setEscOptions(componentsData.escs.filter(esc => esc.model.toLowerCase().includes(newInputValue.toLowerCase())));
               fetchModels();
